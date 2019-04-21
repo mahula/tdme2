@@ -25,11 +25,6 @@ PostProcessing::PostProcessing() {
 		programs["ssao"] = program;
 
 	}
-	{
-		auto program = new PostProcessingProgram();
-		program->addPostProcessingStep("depth_fog", PostProcessingProgram::FRAMEBUFFERSOURCE_SCREEN, PostProcessingProgram::FRAMEBUFFERTARGET_SCREEN);
-		programs["depth_fog"] = program;
-	}
 }
 
 PostProcessingProgram* PostProcessing::getPostProcessingProgram(const string& programId) {

@@ -91,7 +91,6 @@ void LODTest::dispose()
 void LODTest::initialize()
 {
 	engine->initialize();
-	engine->addPostProcessingProgram("depth_fog");
 	Object3D* entity;
 	auto cam = engine->getCamera();
 	cam->setZNear(0.1f);

@@ -49,7 +49,6 @@
         - shadow mapping
         - post processing
           - depth blur
-          - depth fog
           - SSAO 
         - particle system which
           - is object based
