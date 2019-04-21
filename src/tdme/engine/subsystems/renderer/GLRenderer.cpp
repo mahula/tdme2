@@ -56,6 +56,7 @@ void GLRenderer::init()
 }
 
 void GLRenderer::initializeFrame() {
+	frame++;
 }
 
 Matrix4x4& GLRenderer::getProjectionMatrix()

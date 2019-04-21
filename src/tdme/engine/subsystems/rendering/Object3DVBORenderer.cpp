@@ -954,8 +954,10 @@ void Object3DVBORenderer::render(const vector<PointsParticleSystemEntity*>& visi
 	Matrix4x4 modelViewMatrix;
 	modelViewMatrix.set(renderer->getModelViewMatrix());
 	//
+	auto depthBuffer = false;
 	// set up GL state
 	renderer->enableBlending();
+	renderer->disableDepthBufferWriting();
 	// 	model view matrix
 	renderer->getModelViewMatrix().identity();
 	renderer->onUpdateModelViewMatrix();
@@ -997,12 +999,19 @@ void Object3DVBORenderer::render(const vector<PointsParticleSystemEntity*>& visi
 		renderer->setEffectColorAdd(currentPse->getEffectColorAdd().getArray());
 		renderer->setEffectColorMul(currentPse->getEffectColorMul().getArray());
 		renderer->onUpdateEffect();
+		depthBuffer = currentPse->isPickable();
+		if (depthBuffer) {
+			renderer->enableDepthBufferWriting();
+		} else {
+			renderer->disableDepthBufferWriting();
+		}
 		// render, clear
 		psePointBatchVBORenderer->render();
 		psePointBatchVBORenderer->clear();
 		pseTransparentRenderPointsPool->reset();
 	}
 	renderer->disableBlending();
+	if (depthBuffer == false) renderer->enableDepthBufferWriting();
 	// restore gl state
 	renderer->unbindBufferObjects();
 	renderer->getModelViewMatrix().set(modelViewMatrix);

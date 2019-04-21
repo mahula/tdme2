@@ -43,10 +43,9 @@ void ShadowMappingShaderPre::initialize()
 	}
 }
 
-void ShadowMappingShaderPre::useProgram(Engine* engine)
+void ShadowMappingShaderPre::useProgram()
 {
 	running = true;
-	this->engine = engine;
 }
 
 void ShadowMappingShaderPre::unUseProgram()
@@ -56,7 +55,6 @@ void ShadowMappingShaderPre::unUseProgram()
 		implementation->unUseProgram();;
 	}
 	implementation = nullptr;
-	engine = nullptr;
 }
 
 void ShadowMappingShaderPre::updateMatrices(const Matrix4x4& mvpMatrix)
@@ -93,6 +91,6 @@ void ShadowMappingShaderPre::setShader(const string& id) {
 
 	if (currentImplementation != implementation) {
 		if (currentImplementation != nullptr) currentImplementation->unUseProgram();
-		implementation->useProgram(engine);
+		implementation->useProgram();
 	}
 }

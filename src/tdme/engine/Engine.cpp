@@ -798,7 +798,7 @@ void Engine::display()
 
 	// use lighting shader
 	if (lightingShader != nullptr) {
-		lightingShader->useProgram(this);
+		lightingShader->useProgram();
 	}
 
 	// render objects

@@ -106,7 +106,7 @@ void ShadowMapping::createShadowMaps()
 				shadowMaps[i] = shadowMap;
 			}
 			// render
-			Engine::getShadowMappingShaderPre()->useProgram(engine);
+			Engine::getShadowMappingShaderPre()->useProgram();
 			shadowMaps[i]->render(light);
 			Engine::getShadowMappingShaderPre()->unUseProgram();
 		} else {
@@ -136,7 +136,7 @@ void ShadowMapping::renderShadowMaps(const vector<Object3D*>& visibleObjects)
 	//	only process nearest fragments
 	renderer->setDepthFunction(renderer->DEPTHFUNCTION_LESSEQUAL);
 	// user shader program
-	shader->useProgram(engine);
+	shader->useProgram();
 	// render each shadow map
 	for (auto i = 0; i < shadowMaps.size(); i++) {
 		// skip on unused shadow mapping

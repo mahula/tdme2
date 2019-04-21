@@ -2,12 +2,10 @@
 #pragma once
 
 #include <tdme/tdme.h>
-#include <tdme/engine/fwd-tdme.h>
 #include <tdme/engine/subsystems/renderer/fwd-tdme.h>
 #include <tdme/engine/subsystems/shadowmapping/fwd-tdme.h>
 #include <tdme/math/fwd-tdme.h>
 
-using tdme::engine::Engine;
 using tdme::engine::subsystems::renderer::GLRenderer;
 using tdme::math::Matrix4x4;
 
@@ -35,9 +33,8 @@ struct tdme::engine::subsystems::shadowmapping::ShadowMappingShaderPreImplementa
 
 	/** 
 	 * Use pre render shadow mapping program
-	 * @param engine engine
 	 */
-	virtual void useProgram(Engine* engine) = 0;
+	virtual void useProgram() = 0;
 
 	/** 
 	 * Un use pre render shadow mapping program

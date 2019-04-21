@@ -42,10 +42,9 @@ void LightingShader::initialize()
 	}
 }
 
-void LightingShader::useProgram(Engine* engine)
+void LightingShader::useProgram()
 {
 	running = true;
-	this->engine = engine;
 }
 
 void LightingShader::unUseProgram()
@@ -55,7 +54,6 @@ void LightingShader::unUseProgram()
 		implementation->unUseProgram();;
 	}
 	implementation = nullptr;
-	engine = nullptr;
 }
 
 void LightingShader::updateEffect(GLRenderer* renderer)
@@ -99,7 +97,7 @@ void LightingShader::setShader(const string& id) {
 
 	if (currentImplementation != implementation) {
 		if (currentImplementation != nullptr) currentImplementation->unUseProgram();
-		implementation->useProgram(engine);
+		implementation->useProgram();
 	}
 }
 

@@ -3,7 +3,6 @@
 #include <array>
 
 #include <tdme/tdme.h>
-#include <tdme/engine/fwd-tdme.h>
 #include <tdme/engine/subsystems/lighting/fwd-tdme.h>
 #include <tdme/engine/subsystems/lighting/LightingShaderConstants.h>
 #include <tdme/engine/subsystems/lighting/LightingShaderImplementation.h>
@@ -11,9 +10,9 @@
 #include <tdme/math/fwd-tdme.h>
 #include <tdme/math/Matrix4x4.h>
 
+
 using std::array;
 
-using tdme::engine::Engine;
 using tdme::engine::subsystems::lighting::LightingShaderConstants;
 using tdme::engine::subsystems::lighting::LightingShaderImplementation;
 using tdme::engine::subsystems::renderer::GLRenderer;
@@ -80,7 +79,7 @@ public:
 	// overriden methods
 	virtual bool isInitialized() override;
 	virtual void initialize() override;
-	virtual void useProgram(Engine* engine) override;
+	virtual void useProgram() override;
 	virtual void unUseProgram() override;
 	virtual void updateEffect(GLRenderer* renderer) override;
 	virtual void updateMaterial(GLRenderer* renderer) override;
