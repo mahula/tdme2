@@ -34,7 +34,7 @@ using tdme::tools::shared::views::PopUps;
 using tdme::utils::MutableString;
 
 /** 
- * Entity sounds sub screen controller
+ * Entity bounding volume sub screen controller
  * @author Andreas Drewke
  * @version $Id$
  */

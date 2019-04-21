@@ -32,7 +32,7 @@ using tdme::tools::shared::views::PopUps;
 using tdme::utils::MutableString;
 
 /** 
- * Entity physics sub screen controller
+ * Entity bounding volume sub screen controller
  * @author Andreas Drewke
  * @version $Id$
  */

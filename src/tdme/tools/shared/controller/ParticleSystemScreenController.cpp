@@ -954,6 +954,19 @@ void ParticleSystemScreenController::onActionPerformed(GUIActionListener_Type* t
 					"",
 					new OnLoadTextureFile(this)
 				);
+			} else {
+				Console::println(
+					string(
+						"ModelEditorScreenController::onActionPerformed()::unknown, type='" +
+						type->getName() +
+						"', id = '" +
+						node->getId() +
+						"'" +
+						", name = '" +
+						node->getName() +
+						"'"
+					)
+				);
 			}
 		}
 	}

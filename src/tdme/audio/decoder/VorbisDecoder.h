@@ -63,7 +63,6 @@ public:
 	VorbisDecoder();
 
 private:
-	OGGFileData* oggFileData { nullptr };
 	string pathName;
 	string fileName;
 	OggVorbis_File vf;

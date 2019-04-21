@@ -1055,6 +1055,8 @@ void LevelEditorScreenController::onActionPerformed(GUIActionListener_Type* type
 		} else
 		if (node->getId().compare("button_light3_apply") == 0) {
 			onLight3Apply();
+		} else {
+			Console::println(string("LevelEditorScreenController::onActionPerformed: " + node->getId()));
 		}
 	}
 }

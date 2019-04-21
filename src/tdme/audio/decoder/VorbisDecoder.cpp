@@ -64,6 +64,7 @@ static int oggfiledata_seek(VorbisDecoder::OGGFileData* oggFileData, ogg_int64_t
 }
 
 static int oggfiledata_close(VorbisDecoder::OGGFileData* oggFileData) {
+	delete oggFileData;
 	return 0;
 }
 
@@ -77,11 +78,8 @@ VorbisDecoder::VorbisDecoder() : AudioDecoder()
 
 void VorbisDecoder::openFile(const string& pathName, const string& fileName) throw (FileSystemException, AudioDecoderException) {
 	// read from file system
-	oggFileData = new OGGFileData();
+	auto oggFileData = new OGGFileData();
 	FileSystem::getInstance()->getContent(pathName, fileName, oggFileData->data);
-	if (oggFileData->data.size() == 0) {
-		throw AudioDecoderException("No input");
-	}
 
 	// set up ogg file callbacks
 	static ov_callbacks oggFileCallbacks = {
@@ -149,7 +147,5 @@ int32_t VorbisDecoder::readFromStream(ByteBuffer* data) throw (FileSystemExcepti
  * Closes the audio file
  */
 void VorbisDecoder::close() throw (FileSystemException, AudioDecoderException) {
-	if (oggFileData->data.size() > 0) ov_clear(&vf);
-	delete oggFileData;
-	oggFileData = nullptr;
+	ov_clear(&vf);
 }
