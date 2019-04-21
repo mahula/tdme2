@@ -48,57 +48,77 @@ public:
 	/**
 	 * @return window X position
 	 */
-	int32_t getWindowXPosition() const;
+	inline int32_t getWindowXPosition() const {
+		return windowXPosition;
+	}
 
 	/**
 	 * Set window X position when initializing
 	 * @param windowXPosition window X position
 	 */
-	void setWindowXPosition(int32_t windowXPosition);
+	inline void setWindowXPosition(int32_t windowXPosition) {
+		this->windowXPosition = windowXPosition;
+	}
 
 	/**
 	 * @return window Y position
 	 */
-	int32_t getWindowYPosition() const;
+	inline int32_t getWindowYPosition() const {
+		return windowYPosition;
+	}
 
 	/**
 	 * Set window Y position when initializing
 	 * @param windowYPosition window Y position
 	 */
-	void setWindowYPosition(int32_t windowYPosition);
+	inline void setWindowYPosition(int32_t windowYPosition) {
+		this->windowYPosition = windowYPosition;
+	}
 
 	/**
 	 * @return window width
 	 */
-	int32_t getWindowWidth() const;
+	inline int32_t getWindowWidth() const {
+		return windowWidth;
+	}
 
 	/**
 	 * Set window width when initializing
 	 * @param windowWidth window width
 	 */
-	void setWindowWidth(int32_t windowWidth);
+	inline void setWindowWidth(int32_t windowWidth) {
+		this->windowWidth = windowWidth;
+	}
 
 	/**
 	 * @return window height
 	 */
-	int32_t getWindowHeight() const;
+	inline int32_t getWindowHeight() const {
+		return windowHeight;
+	}
 
 	/**
 	 * Set window height when initializing
 	 * @param windowHeight window height
 	 */
-	void setWindowHeight(int32_t windowHeight);
+	inline void setWindowHeight(int32_t windowHeight) {
+		this->windowHeight = windowHeight;
+	}
 
 	/**
 	 * @return is full screen
 	 */
-	bool isFullScreen() const;
+	inline bool isFullScreen() const {
+		return fullScreen;
+	}
 
 	/**
 	 * Set full screen mode when initializing
 	 * @param fullScreen full screen
 	 */
-	void setFullScreen(bool fullScreen);
+	inline void setFullScreen(bool fullScreen) {
+		this->fullScreen = fullScreen;
+	}
 
 	/**
 	 * Windows only: Install exception handler that will print a stack trace if crashing
