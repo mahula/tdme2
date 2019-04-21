@@ -4,14 +4,12 @@
 #include <tdme/tdme.h>
 #include <tdme/engine/fwd-tdme.h>
 #include <tdme/engine/Transformations.h>
-#include <tdme/engine/primitives/BoundingBox.h>
 #include <tdme/tools/shared/views/fwd-tdme.h>
 #include <tdme/gui/events/GUIInputEventHandler.h>
 
 using tdme::gui::events::GUIInputEventHandler;
 using tdme::engine::Engine;
 using tdme::engine::Transformations;
-using tdme::engine::primitives::BoundingBox;
 
 /** 
  * Camera Rotation View
@@ -39,7 +37,6 @@ private:
 	Transformations lookFromRotations {  };
 	float scale {  };
 	bool resetRequested {  };
-	BoundingBox boundingBoxTransformed;
 
 public:
 

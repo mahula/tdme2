@@ -236,7 +236,6 @@ void SharedModelEditorView::display()
 		initModel();
 		initModelRequested = false;
 		initModelRequestedReset = false;
-		cameraRotationInputHandler->reset();
 	}
 	entityDisplayView->display(entity);
 	engine->getGUI()->handleEvents();
