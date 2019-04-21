@@ -1,5 +1,8 @@
 #version 330
 
+#define SHADOWMAP_LOOKUPS_NEAR		4
+#define SHADOWMAP_LOOKUPS_FAR		8
+
 // uniforms
 uniform sampler2D colorBufferTextureUnit;
 uniform sampler2D depthBufferTextureUnit;
