@@ -36,10 +36,10 @@ Material::Material(const string& id)
 }
 
 Material::~Material() {
-	if (diffuseTexture != nullptr) diffuseTexture->releaseReference();
-	if (specularTexture != nullptr) specularTexture->releaseReference();
-	if (normalTexture != nullptr) normalTexture->releaseReference();
-	if (displacementTexture != nullptr) displacementTexture->releaseReference();
+	if (diffuseTexture != nullptr) delete diffuseTexture;
+	if (specularTexture != nullptr) delete specularTexture;
+	if (normalTexture != nullptr) delete normalTexture;
+	if (displacementTexture != nullptr) delete displacementTexture;
 }
 
 void Material::setDiffuseTexture(const string& pathName, const string& fileName, const string& transparencyPathName, const string& transparencyFileName)
@@ -91,11 +91,11 @@ void Material::setDiffuseTexture(const string& pathName, const string& fileName,
 						pixelByteBuffer->put((uint8_t)((transparencyTextureRed + transparencyTextureGreen + transparencyTextureBlue) * 0.33f));
 					}
 				}
-				diffuseTexture->releaseReference();
+				delete diffuseTexture;
 				diffuseTexture = diffuseTextureWithTransparency;
 				if (maskedTransparency == true) setDiffuseTextureMaskedTransparency(true);
 			}
-			transparencyTexture->releaseReference();
+			delete transparencyTexture;
 		}
 	}
 	checkDiffuseTextureTransparency();

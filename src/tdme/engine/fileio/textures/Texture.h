@@ -4,20 +4,18 @@
 
 #include <tdme/tdme.h>
 #include <tdme/utils/fwd-tdme.h>
-#include <tdme/utils/ReferenceCounter.h>
 #include <tdme/engine/fileio/textures/fwd-tdme.h>
 
 using std::string;
 
 using tdme::utils::ByteBuffer;
-using tdme::utils::ReferenceCounter;
 
 /** 
  * Texture
  * @version $Id$
  * @author Andreas Drewke
  */
-class tdme::engine::fileio::textures::Texture: public ReferenceCounter
+class tdme::engine::fileio::textures::Texture
 {
 public:
 
@@ -48,6 +46,11 @@ public:
 		useMipMap(true) {
 		//
 	}
+
+	/**
+	 * Destructor
+	 */
+	~Texture();
 
 	/** 
 	 * @return id
@@ -113,9 +116,6 @@ public:
 		this->useMipMap = useMipMap;
 	}
 
-	// overriden methods
-	inline virtual void onDelete() override;
-
 private:
 	string id;
 	int32_t depth;
@@ -125,9 +125,4 @@ private:
 	int32_t textureWidth;
 	ByteBuffer* textureData;
 	bool useMipMap;
-
-	/**
-	 * Destructor
-	 */
-	~Texture();
 };

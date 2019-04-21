@@ -27,12 +27,6 @@ public:
 	 * @brief releases a reference, thus decrementing the counter and delete it if reference counter is zero
 	 */
 	void releaseReference();
-
-	/**
-	 * Callback method to be overridden, will be called if object will be deleted
-	 */
-	virtual void onDelete();
-
 private:
 	unsigned int referenceCounter;
 };
