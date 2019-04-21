@@ -43,10 +43,9 @@
 #include <tdme/tools/shared/views/PopUps.h>
 #include <tdme/tools/shared/views/SharedParticleSystemView.h>
 #include <tdme/tools/modeleditor/TDMEModelEditor.h>
+#include <tdme/utils/MutableString.h>
 #include <tdme/utils/Console.h>
 #include <tdme/utils/Exception.h>
-#include <tdme/utils/Integer.h>
-#include <tdme/utils/MutableString.h>
 
 using std::vector;
 using std::string;
@@ -92,10 +91,9 @@ using tdme::tools::shared::tools::Tools;
 using tdme::tools::shared::views::PopUps;
 using tdme::tools::shared::views::SharedParticleSystemView;
 using tdme::tools::viewer::TDMEModelEditor;
-using tdme::utils::Console;
-using tdme::utils::Exception;
-using tdme::utils::Integer;
 using tdme::utils::MutableString;
+using tdme::utils::Exception;
+using tdme::utils::Console;
 
 string ParticleSystemScreenController::TYPE_NONE = "None";
 string ParticleSystemScreenController::TYPE_OBJECTPARTICLESYSTEM = "Object Particle System";
@@ -192,10 +190,8 @@ void ParticleSystemScreenController::initialize()
 		particleSystemSave = dynamic_cast< GUIElementNode* >(screenNode->getNodeById("button_entity_save"));
 		particleSystemTypes = dynamic_cast< GUIElementNode* >(screenNode->getNodeById("ps_types"));
 		particleSystemType = dynamic_cast< GUIElementNode* >(screenNode->getNodeById("ps_type"));
-		particleSystemTypeApply = dynamic_cast< GUIElementNode* >(screenNode->getNodeById("button_emitter_apply"));
 		particleSystemEmitters = dynamic_cast< GUIElementNode* >(screenNode->getNodeById("ps_emitters"));
 		particleSystemEmitter = dynamic_cast< GUIElementNode* >(screenNode->getNodeById("ps_emitter"));
-		particleSystemEmitterApply = dynamic_cast< GUIElementNode* >(screenNode->getNodeById("button_ps_type_apply"));;
 		opsScale = dynamic_cast< GUIElementNode* >(screenNode->getNodeById("ops_scale"));
 		opsMaxCount = dynamic_cast< GUIElementNode* >(screenNode->getNodeById("ops_maxcount"));
 		opsModel = dynamic_cast< GUIElementNode* >(screenNode->getNodeById("ops_model"));
@@ -268,9 +264,6 @@ void ParticleSystemScreenController::initialize()
 		speColorEnd = dynamic_cast< GUIElementNode* >(screenNode->getNodeById("spe_colorend"));
 		speCenter = dynamic_cast< GUIElementNode* >(screenNode->getNodeById("spe_center"));
 		speRadius = dynamic_cast< GUIElementNode* >(screenNode->getNodeById("spe_radius"));
-		particleSystemsListbox = dynamic_cast< GUIElementNode* >(screenNode->getNodeById("particlesystems_listbox"));
-		particleSystemAddButton = dynamic_cast< GUIElementNode* >(screenNode->getNodeById("button_particlesystem_add"));
-		particleSystemRemoveButton = dynamic_cast< GUIElementNode* >(screenNode->getNodeById("button_particlesystem_remove"));
 	} catch (Exception& exception) {
 		Console::print(string("ParticleSystemScreenController::initialize(): An error occurred: "));
 		Console::println(string(exception.what()));
@@ -385,17 +378,9 @@ void ParticleSystemScreenController::onQuit()
 	TDMEModelEditor::getInstance()->quit();
 }
 
-void ParticleSystemScreenController::unsetParticleSystemType()
-{
-	particleSystemTypes->getController()->setDisabled(true);
-	particleSystemTypeApply->getController()->setDisabled(true);
-}
-
 void ParticleSystemScreenController::setParticleSystemType()
 {
-	particleSystemTypes->getController()->setDisabled(false);
-	particleSystemTypeApply->getController()->setDisabled(false);
-	auto particleSystem = view->getEntity()->getParticleSystemAt(view->getParticleSystemIndex());
+	auto particleSystem = view->getEntity()->getParticleSystem();
 	particleSystemType->getActiveConditions().removeAll();
 	{
 		auto v = particleSystem->getType();
@@ -434,7 +419,7 @@ void ParticleSystemScreenController::setParticleSystemType()
 void ParticleSystemScreenController::onParticleSystemTypeDataApply()
 {
 	try {
-		auto particleSystem = view->getEntity()->getParticleSystemAt(view->getParticleSystemIndex());
+		auto particleSystem = view->getEntity()->getParticleSystem();
 		{
 			auto v = particleSystem->getType();
 			if (v == LevelEditorEntityParticleSystem_Type::NONE) {
@@ -475,13 +460,13 @@ void ParticleSystemScreenController::onParticleSystemTypeApply()
 	particleSystemType->getActiveConditions().removeAll();
 	particleSystemType->getActiveConditions().add(particleSystemTypeString);
 	if (particleSystemTypeString == TYPE_NONE) {
-		view->getEntity()->getParticleSystemAt(view->getParticleSystemIndex())->setType(LevelEditorEntityParticleSystem_Type::NONE);
+		view->getEntity()->getParticleSystem()->setType(LevelEditorEntityParticleSystem_Type::NONE);
 	} else
 	if (particleSystemTypeString == TYPE_OBJECTPARTICLESYSTEM) {
-		view->getEntity()->getParticleSystemAt(view->getParticleSystemIndex())->setType(LevelEditorEntityParticleSystem_Type::OBJECT_PARTICLE_SYSTEM);
+		view->getEntity()->getParticleSystem()->setType(LevelEditorEntityParticleSystem_Type::OBJECT_PARTICLE_SYSTEM);
 	} else
 	if (particleSystemTypeString == TYPE_POINTSPARTICLESYSTEM) {
-		view->getEntity()->getParticleSystemAt(view->getParticleSystemIndex())->setType(LevelEditorEntityParticleSystem_Type::POINT_PARTICLE_SYSTEM);
+		view->getEntity()->getParticleSystem()->setType(LevelEditorEntityParticleSystem_Type::POINT_PARTICLE_SYSTEM);
 	} else {
 		Console::println(
 			string(
@@ -497,7 +482,7 @@ void ParticleSystemScreenController::onParticleSystemTypeApply()
 
 void ParticleSystemScreenController::onParticleSystemEmitterApply()
 {
-	auto particleSystem = view->getEntity()->getParticleSystemAt(view->getParticleSystemIndex());
+	auto particleSystem = view->getEntity()->getParticleSystem();
 	auto particleSystemEmitterString = particleSystemEmitters->getController()->getValue().getString();
 	particleSystemEmitter->getActiveConditions().removeAll();
 	particleSystemEmitter->getActiveConditions().add(particleSystemEmitterString);
@@ -532,7 +517,7 @@ void ParticleSystemScreenController::onParticleSystemEmitterApply()
 void ParticleSystemScreenController::onParticleSystemEmitterDataApply()
 {
 	try {
-		auto particleSystem = view->getEntity()->getParticleSystemAt(view->getParticleSystemIndex());;
+		auto particleSystem = view->getEntity()->getParticleSystem();
 		{
 			auto v = particleSystem->getEmitter();
 			if (v == LevelEditorEntityParticleSystem_Emitter::NONE)
@@ -653,17 +638,10 @@ void ParticleSystemScreenController::onParticleSystemEmitterDataApply()
 	}
 }
 
-void ParticleSystemScreenController::unsetParticleSystemEmitter() {
-	particleSystemEmitters->getController()->setDisabled(true);
-	particleSystemEmitterApply->getController()->setDisabled(true);
-}
-
 void ParticleSystemScreenController::setParticleSystemEmitter()
 {
-	particleSystemEmitters->getController()->setDisabled(false);
-	particleSystemEmitterApply->getController()->setDisabled(false);
 	particleSystemEmitter->getActiveConditions().removeAll();
-	auto particleSystem = view->getEntity()->getParticleSystemAt(view->getParticleSystemIndex());
+	auto particleSystem = view->getEntity()->getParticleSystem();
 	{
 		auto v = particleSystem->getEmitter();
 		if (v == LevelEditorEntityParticleSystem_Emitter::NONE) {
@@ -786,48 +764,6 @@ void ParticleSystemScreenController::setParticleSystemEmitter()
 	}
 }
 
-void ParticleSystemScreenController::unsetParticleSystemListBox() {
-	particleSystemsListbox->getController()->setDisabled(true);
-	particleSystemAddButton->getController()->setDisabled(false);
-	particleSystemRemoveButton->getController()->setDisabled(true);
-}
-
-void ParticleSystemScreenController::setParticleSystemListBox(int count, int selectionIdx) {
-	particleSystemsListbox->getController()->setDisabled(false);
-	particleSystemAddButton->getController()->setDisabled(false);
-	particleSystemRemoveButton->getController()->setDisabled(false);
-	auto particleSystemListBoxInnerNode = dynamic_cast< GUIParentNode* >((particleSystemsListbox->getScreenNode()->getNodeById(particleSystemsListbox->getId() + "_inner")));
-	auto idx = 0;
-	string particleSystemListBoxInnerNodeSubNodesXML = "";
-	particleSystemListBoxInnerNodeSubNodesXML =
-		particleSystemListBoxInnerNodeSubNodesXML +
-		"<scrollarea-vertical id=\"" +
-		particleSystemsListbox->getId() +
-		"_inner_scrollarea\" width=\"100%\" height=\"100%\">\n";
-	for (auto i = 0; i < count; i++) {
-		particleSystemListBoxInnerNodeSubNodesXML =
-			particleSystemListBoxInnerNodeSubNodesXML +
-			"<selectbox-option text=\"" +
-			GUIParser::escapeQuotes("Particle System " + to_string(i + 1)) +
-			"\" value=\"" +
-			GUIParser::escapeQuotes(to_string(i)) +
-			"\" " +
-			(idx == selectionIdx ? "selected=\"true\" " : "") +
-			" />\n";
-		idx++;
-	}
-	particleSystemListBoxInnerNodeSubNodesXML =
-		particleSystemListBoxInnerNodeSubNodesXML +
-		"</scrollarea-vertical>";
-	try {
-		particleSystemListBoxInnerNode->replaceSubNodes(particleSystemListBoxInnerNodeSubNodesXML, true);
-	} catch (Exception& exception) {
-		Console::print(string("ParticleSystemScreenController::setParticleSystemListBox: An error occurred: "));
-		Console::println(string(exception.what()));
-	}
-}
-
-
 void ParticleSystemScreenController::onParticleSystemLoad()
 {
 	class OnParticleSystemLoad: public virtual Action
@@ -927,12 +863,8 @@ void ParticleSystemScreenController::showErrorPopUp(const string& caption, const
 
 void ParticleSystemScreenController::onValueChanged(GUIElementNode* node)
 {
-	if (node->getId() == "particlesystems_listbox") {
-		view->setParticleSystemIndex(Integer::parseInt(particleSystemsListbox->getController()->getValue().getString()));
-	} else {
-		entityBaseSubScreenController->onValueChanged(node, view->getEntity());
-		entitySoundsSubScreenController->onValueChanged(node, view->getEntity());
-	}
+	entityBaseSubScreenController->onValueChanged(node, view->getEntity());
+	entitySoundsSubScreenController->onValueChanged(node, view->getEntity());
 }
 
 void ParticleSystemScreenController::onActionPerformed(GUIActionListener_Type* type, GUIElementNode* node)
@@ -956,17 +888,17 @@ void ParticleSystemScreenController::onActionPerformed(GUIActionListener_Type* t
 			if (node->getId().compare("button_ps_type_apply") == 0) {
 				view->reset();
 				onParticleSystemTypeApply();
-				view->updateParticleSystemRequest();
+				view->initParticleSystemRequest();
 			} else
 			if (node->getId().compare("button_ops_apply") == 0 || node->getId().compare("button_pps_type_apply") == 0) {
 				view->reset();
 				onParticleSystemTypeDataApply();
-				view->updateParticleSystemRequest();
+				view->initParticleSystemRequest();
 			} else
 			if (node->getId().compare("button_emitter_apply") == 0) {
 				view->reset();
 				onParticleSystemEmitterApply();
-				view->updateParticleSystemRequest();
+				view->initParticleSystemRequest();
 			} else
 			if (node->getId().compare("button_ppe_emitter_apply") == 0 ||
 				node->getId().compare("button_bbpe_emitter_apply") == 0 ||
@@ -975,7 +907,7 @@ void ParticleSystemScreenController::onActionPerformed(GUIActionListener_Type* t
 				node->getId().compare("button_spe_emitter_apply") == 0) {
 				view->reset();
 				onParticleSystemEmitterDataApply();
-				view->updateParticleSystemRequest();
+				view->initParticleSystemRequest();
 			} else
 			if (node->getId().compare("button_ops_model_file") == 0) {
 				class OnLoadModelFile: public virtual Action
@@ -1069,14 +1001,6 @@ void ParticleSystemScreenController::onActionPerformed(GUIActionListener_Type* t
 			} else
 			if (node->getId().compare("button_pps_transparency_texture_clear") == 0) {
 				ppsTransparencyTexture->getController()->setValue(MutableString());
-			} else
-			if (node->getId() == "button_particlesystem_add") {
-				view->getEntity()->addParticleSystem();
-				view->setParticleSystemIndex(view->getEntity()->getParticleSystemsCount() - 1);
-			} else
-			if (node->getId() == "button_particlesystem_remove") {
-				view->getEntity()->removeParticleSystemAt(view->getParticleSystemIndex());
-				view->setParticleSystemIndex(view->getParticleSystemIndex() - 1);
 			}
 		}
 	}

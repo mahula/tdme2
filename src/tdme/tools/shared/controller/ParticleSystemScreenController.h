@@ -62,11 +62,9 @@ private:
 	GUIElementNode* particleSystemReload {  };
 	GUIElementNode* particleSystemSave {  };
 	GUIElementNode* particleSystemTypes {  };
-	GUIElementNode* particleSystemTypeApply {  };
 	GUIElementNode* particleSystemType {  };
 	GUIElementNode* particleSystemEmitters {  };
 	GUIElementNode* particleSystemEmitter {  };
-	GUIElementNode* particleSystemEmitterApply {  };
 	GUIElementNode* opsScale {  };
 	GUIElementNode* opsMaxCount {  };
 	GUIElementNode* opsModel {  };
@@ -139,10 +137,6 @@ private:
 	GUIElementNode* speColorEnd {  };
 	GUIElementNode* speCenter {  };
 	GUIElementNode* speRadius {  };
-	GUIElementNode* particleSystemsListbox {  };
-	GUIElementNode* particleSystemAddButton {  };
-	GUIElementNode* particleSystemRemoveButton {  };
-
 	FileDialogPath* particleSystemPath {  };
 	FileDialogPath* modelPath {  };
 	FileDialogPath* audioPath {  };
@@ -229,11 +223,6 @@ public:
 	void onQuit();
 
 	/** 
-	 * Unset particle system type
-	 */
-	void unsetParticleSystemType();
-
-	/**
 	 * Set particle system type
 	 */
 	void setParticleSystemType();
@@ -259,11 +248,6 @@ public:
 	void onParticleSystemEmitterDataApply();
 
 	/** 
-	 * Unset particle system emitter
-	 */
-	void unsetParticleSystemEmitter();
-
-	/**
 	 * Set particle system emitter
 	 */
 	void setParticleSystemEmitter();
@@ -277,18 +261,6 @@ public:
 	 * On model save
 	 */
 	void onEntitySave();
-
-	/**
-	 * Unset particle system list box
-	 */
-	void unsetParticleSystemListBox();
-
-	/**
-	 * Set particle system list box
-	 * @param count count
-	 * @param selectionIdx selection index
-	 */
-	void setParticleSystemListBox(int count, int selectionIdx);
 
 	/** 
 	 * On particle system reload

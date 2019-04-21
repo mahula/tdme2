@@ -67,10 +67,9 @@ public:
 	}
 
 	inline bool isActive() override {
-		for (auto particleSystem: particleSystems) {
-			if (particleSystem->isActive() == true) return true;
-		}
-		return false;
+		auto active = true;
+		for (auto particleSystem: particleSystems) active&= particleSystem->isActive();
+		return active;
 	}
 
 	/** 

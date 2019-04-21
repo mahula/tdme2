@@ -10,17 +10,16 @@
     - rotate, zoom
     - setting up particle system properties
         - key, value map for what ever reason
-    - setting up a particle system group which consists of multiple particle systems, for each you can
-      - set up the type
-          - object particle system
-          - point particle system
-      - set up and edit the emitter
-          - point particle emitter
-          - bounding box particle emitter
-          - circle particle emitter
-          - circle particle emitter with velocity on circle plane
-          - sphere particle emitter
-    - setting up bounding volumes
+    - setting up type
+        - object particle system
+        - point particle system
+    - setting up emitter
+        - point particle emitter
+        - bounding box particle emitter
+        - circle particle emitter
+        - circle particle emitter with velocity on circle plane
+        - sphere particle emitter
+    - setting up up to 8 bounding volumes
         - none
         - sphere
         - capsule
@@ -28,9 +27,10 @@
         - oriented bounding box
         - convex mesh
         - concave terrain mesh
-    - sound
-        - attach sounds to optional animations with optional additional key
-        - also set up gain, pitch, looping, fixed and offset for each sound
+
+- What is WIP
+    - audio support
+    - particle system groups
 
 - Links
 	- TDME2 Engine, see [README.md](./README.md)

@@ -14,7 +14,7 @@
     - setting up model properties
         - key, value map for what ever reason
     - setting up the model pivot
-    - setting up bounding volumes
+    - setting up up to 8 bounding volumes (WIP)
         - none
         - sphere
         - capsule
@@ -31,9 +31,6 @@
     - animations editor
         - create, edit and delete animations
         - relate sounds to animations
-    - sound
-        - attach sounds to optional animations with optional additional key
-        - also set up gain, pitch, looping, fixed and offset for each sound
     - set up rendering options
         - shader
         - use dynamic shadowing
@@ -43,6 +40,9 @@
         - opaque faces
         - transparent faces
         - material count
+
+- What is WIP
+    - audio support
 
 - Links
 	- TDME2 Engine, see [README.md](./README.md)
