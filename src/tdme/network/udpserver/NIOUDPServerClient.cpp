@@ -74,8 +74,7 @@ const bool NIOUDPServerClient::setKey(const string &key) {
 
 stringstream* NIOUDPServerClient::createFrame() {
 	stringstream* frame = new stringstream();
-	frame->exceptions(std::ios_base::failbit | std::ios_base::badbit);
-	NIOUDPServer::initializeHeader(frame);
+	NIOUDPServer::writeHeader(frame);
 	return frame;
 }
 

@@ -17,7 +17,7 @@
 #include <tdme/network/udpserver/NIOServerRequest.h>
 
 using std::pair;
-using std::ios_base;
+using std::ios;
 using std::map;
 using std::string;
 using std::to_string;
@@ -301,8 +301,9 @@ void NIOUDPServerIOThread::sendMessage(const NIOUDPServerClient* client, const u
 	//	For now, we will go with plain mutexes
 
 	// reset stream for read
-	frame->seekg(0, ios_base::beg);
-	frame->seekp(0, ios_base::end);
+	frame->clear();
+	frame->seekg(0, ios::beg);
+	frame->seekp(0, ios::end);
 
 	// create message
 	Message message;
