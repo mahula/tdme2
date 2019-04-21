@@ -465,7 +465,6 @@ void EntityPhysicsSubScreenController::onBoundingVolumeConvexMeshFile(LevelEdito
 		"Load from: ",
 		extensions,
 		entity->getBoundingVolumeAt(idx)->getModelMeshFile().length() > 0 ? entity->getBoundingVolumeAt(idx)->getModelMeshFile() : entity->getFileName(),
-		true,
 		new OnBoundingVolumeConvexMeshFileAction(this, idxFinal, entityFinal)
 	);
 }
@@ -509,7 +508,6 @@ void EntityPhysicsSubScreenController::onBoundingVolumeConvexMeshesFile(LevelEdi
 		"Load from: ",
 		extensions,
 		Tools::getFileName(convexMeshesFile->getController()->getValue().getString()),
-		true,
 		new OnBoundingVolumeConvexMeshesFileAction(this, entityFinal)
 	);
 }

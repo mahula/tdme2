@@ -27,7 +27,6 @@
 #include <tdme/utils/Console.h>
 #include <tdme/utils/Exception.h>
 #include <tdme/utils/MutableString.h>
-#include <tdme/gui/events/GUIChangeListener.h>
 
 
 using tdme::tools::gui::GUITest;
@@ -125,7 +124,6 @@ void GUITest::initialize()
 			"Open screen from",
 			{"xml"},
 			FileSystem::getInstance()->getFileName(screenFileName),
-			true,
 			new ScreenLoaderAction(this)
 		);
 	} catch (Exception& exception) {

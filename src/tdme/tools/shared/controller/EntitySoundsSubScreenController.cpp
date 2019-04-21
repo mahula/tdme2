@@ -246,7 +246,6 @@ void EntitySoundsSubScreenController::onSoundLoad(int soundIdx) {
 		"Load from: ",
 		extensions,
 		soundsSoundFile[soundIdx]->getController()->getValue().getString().length() > 0?Tools::getFileName(soundsSoundFile[soundIdx]->getController()->getValue().getString()):"",
-		true,
 		new LoadSoundAction(this, soundIdx)
 	);
 }

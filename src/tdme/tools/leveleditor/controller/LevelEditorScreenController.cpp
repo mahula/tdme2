@@ -9,7 +9,6 @@
 #include <tdme/gui/GUIParser.h>
 #include <tdme/gui/events/Action.h>
 #include <tdme/gui/events/GUIActionListener_Type.h>
-#include <tdme/gui/events/GUIChangeListener.h>
 #include <tdme/gui/nodes/GUIElementNode.h>
 #include <tdme/gui/nodes/GUINode.h>
 #include <tdme/gui/nodes/GUINodeController.h>
@@ -692,7 +691,6 @@ void LevelEditorScreenController::onMapLoad()
 		"Load from: ",
 		extensions,
 		view->getFileName(),
-		true,
 		new OnMapLoadAction(this)
 	);
 }
@@ -727,7 +725,6 @@ void LevelEditorScreenController::onMapSave()
 		"Save to: ",
 		extensions,
 		view->getFileName(),
-		false,
 		new OnMapSaveAction(this)
 	);
 }

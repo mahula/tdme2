@@ -26,7 +26,6 @@ using tdme::gui::effects::GUIEffect;
 using tdme::gui::events::GUIActionListener_Type;
 using tdme::gui::events::GUIActionListener;
 using tdme::gui::events::GUIChangeListener;
-using tdme::gui::events::GUIFocusListener;
 using tdme::gui::events::GUIInputEventHandler;
 using tdme::gui::events::GUIKeyboardEvent;
 using tdme::gui::events::GUIMouseEvent;
@@ -71,7 +70,6 @@ private:
 	vector<GUIActionListener*> actionListener {  };
 	vector<GUIChangeListener*> changeListener {  };
 	vector<GUIMouseOverListener*> mouseOverListener {  };
-	vector<GUIFocusListener*> focusListener {  };
 	GUIInputEventHandler* inputEventHandler {  };
 	vector<GUINode*> childControllerNodes {  };
 	GUIScreenNode_SizeConstraints sizeConstraints {  };
@@ -368,30 +366,6 @@ public:
 	 * @param node node
 	 */
 	void delegateMouseOver(GUIElementNode* node);
-
-	/**
-	 * Add focus listener
-	 * @param listener listener
-	 */
-	void addFocusListener(GUIFocusListener* listener);
-
-	/**
-	 * Remove focus listener
-	 * @param listener listener
-	 */
-	void removeFocusListener(GUIFocusListener* listener);
-
-	/**
-	 * Delegate focus event
-	 * @param node node
-	 */
-	void delegateFocus(GUIElementNode* node);
-
-	/**
-	 * Delegate unfocus event
-	 * @param node node
-	 */
-	void delegateUnfocus(GUIElementNode* node);
 
 	/**
 	 * Add tick node, registered node controllers will have a tick once per frame
