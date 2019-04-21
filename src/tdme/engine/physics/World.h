@@ -180,15 +180,6 @@ public:
 	 */
 	bool doCollide(Body* body1, Body* body2);
 
-	/**
-	 * Determine collision hit points
-	 * @param body1 body 1
-	 * @param body2 body 2
-	 * @param hitPoints hit points
-	 * @return if having hit points
-	 */
-	bool determineCollisionHitPoints(Body* body1, Body* body2, vector<Vector3>& hitPoints);
-
 	/** 
 	 * Clone this world
 	 * @param collisionTypeIds collision type ids to clone
