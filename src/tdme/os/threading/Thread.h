@@ -2,8 +2,6 @@
 
 #include "fwd-tdme.h"
 
-#include <tdme/tdme.h>
-
 #include <pthread.h>
 
 #include <string>
@@ -18,10 +16,8 @@ class tdme::os::threading::Thread {
 public:
 	/**
 	 * @brief Public constructor
-	 * @param name name
-	 * @param stackSize stack size, defaults to 2MB
 	 */
-	Thread(const string& name, size_t stackSize = 2 * 1024 * 1024);
+	Thread(const string& name);
 
 	/**
 	 * @brief Public destructor
@@ -66,5 +62,4 @@ private:
 	bool pThreadCreated;
 	pthread_t pThread;
 	volatile bool stopRequested;
-	size_t stackSize;
 };
