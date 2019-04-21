@@ -46,11 +46,6 @@ public:
 	void setInputEventHandler(ApplicationInputEventsHandler* inputEventHandler);
 
 	/**
-	 * Windows only: Install exception handler that will print a stack trace if crashing
-	 */
-	static void installExceptionHandler();
-
-	/**
 	 * Set mouse cursor
 	 * @param mouseCursor mouse cursor, see MOUSE_CURSOR_*
 	 */
