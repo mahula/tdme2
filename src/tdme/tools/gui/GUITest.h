@@ -8,7 +8,6 @@
 #include <tdme/gui/events/GUIActionListener.h>
 #include <tdme/gui/events/GUIChangeListener.h>
 #include <tdme/tools/gui/fwd-tdme.h>
-#include <tdme/tools/shared/views/fwd-tdme.h>
 
 using std::string;
 
@@ -17,7 +16,6 @@ using tdme::engine::Engine;
 using tdme::gui::events::GUIActionListener;
 using tdme::gui::events::GUIActionListener_Type;
 using tdme::gui::events::GUIChangeListener;
-using tdme::tools::shared::views::PopUps;
 
 
 /** 
@@ -31,7 +29,6 @@ class tdme::tools::gui::GUITest final
 private:
 	string screenFileName;
 	Engine* engine {  };
-	PopUps* popUps {  };
 
 public:
 	void initialize() override;
