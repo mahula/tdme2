@@ -1,13 +1,12 @@
 #pragma once
 
 #include <tdme/tdme.h>
-#include <tdme/application/Application.h>
-#include <tdme/application/InputEventHandler.h>
 #include <tdme/engine/fwd-tdme.h>
+#include <tdme/application/Application.h>
+#include <tdme/application/ApplicationInputEventsHandler.h>
 #include <tdme/tests/fwd-tdme.h>
 
 using tdme::application::Application;
-using tdme::application::InputEventHandler;
 using tdme::engine::Engine;
 
 /** 
@@ -16,7 +15,7 @@ using tdme::engine::Engine;
  * @version $Id$
  */
 class tdme::tests::SkinningTest final
-	: public virtual Application, public virtual InputEventHandler
+	: public virtual Application, public virtual ApplicationInputEventsHandler
 {
 private:
 	Engine* engine {  };

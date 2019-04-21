@@ -28,14 +28,9 @@
  * @author Andreas Drewke
  * @version $Id$
  */
-class tdme::application::InputEventHandler
+class tdme::application::ApplicationInputEventsHandler
 {
 public:
-	/**
-	 * Destructor
-	 */
-	virtual ~InputEventHandler();
-
 	/**
 	 * Get keyboard modifiers
 	 * @return modifiers (one of KEYBOARD_MODIFIER_*)

@@ -1,4 +1,3 @@
-
 #if defined(__FreeBSD__) || defined(__NetBSD__) || defined(__linux__) || defined(_WIN32)
 	#include <GL/freeglut.h>
 #elif defined(__APPLE__)
@@ -7,13 +6,10 @@
 	#include <GL/glut.h>
 #endif
 
-#include "InputEventHandler.h"
+#include <tdme/application/ApplicationInputEventsHandler.h>
 
-using tdme::application::InputEventHandler;
+using tdme::application::ApplicationInputEventsHandler;
 
-InputEventHandler::~InputEventHandler() {
-}
-
-int InputEventHandler::getKeyboardModifiers() {
+int ApplicationInputEventsHandler::getKeyboardModifiers() {
 	return glutGetModifiers();
 }

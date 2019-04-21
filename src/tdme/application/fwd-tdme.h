@@ -4,6 +4,6 @@
 namespace tdme {
 namespace application {
 		class Application;
-		class InputEventHandler;
+		class ApplicationInputEventsHandler;
 }  // namespace application
 }  // namespace tdme
