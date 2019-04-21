@@ -35,7 +35,6 @@ TDMEModelEditor* TDMEModelEditor::instance = nullptr;
 
 TDMEModelEditor::TDMEModelEditor()
 {
-	Tools::loadSettings(this);
 	TDMEModelEditor::instance = this;
 	engine = Engine::getInstance();
 	view = nullptr;
