@@ -19,6 +19,7 @@ void PostProcessingShaderBlurImplementation::initialize()
 {
 	auto rendererVersion = renderer->getGLVersion();
 
+	// lighting
 	//	fragment shader
 	fragmentShaderId = renderer->loadShader(
 		renderer->SHADER_FRAGMENT_SHADER,

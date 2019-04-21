@@ -33,17 +33,17 @@ public:
 	bool isInitialized();
 
 	/** 
-	 * Initialize
+	 * Init shadow mapping
 	 */
 	void initialize();
 
 	/** 
-	 * Use render program
+	 * Use render GUI program
 	 */
 	void useProgram();
 
 	/** 
-	 * Un use render program
+	 * Un use render GUI program
 	 */
 	void unUseProgram();
 
@@ -63,7 +63,6 @@ public:
 
 	/**
 	 * Public constructor
-	 * @param renderer renderer
 	 */
 	FrameBufferRenderShader(GLRenderer* renderer);
 

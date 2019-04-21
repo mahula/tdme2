@@ -208,7 +208,7 @@ private:
 	static FrameBufferRenderShader* getFrameBufferRenderShader();
 
 	/**
-	 * @return post processing shader
+	 * @return post processed shader
 	 */
 	static PostProcessingShader* getPostProcessingShader();
 
@@ -447,8 +447,7 @@ public:
 	void clearPostProcessing();
 
 	/**
-	 * Add post processing shader
-	 * @param shaderId shader id
+	 * Add post processing
 	 */
 	void addPostProcessing(const string& shaderId);
 

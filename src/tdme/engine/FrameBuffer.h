@@ -85,7 +85,7 @@ public:
 	int32_t getDepthBufferTextureId();
 
 	/**
-	 * Render to screen or bound frame buffer
+	 * Render to screen
 	 */
 	void renderToScreen();
 
