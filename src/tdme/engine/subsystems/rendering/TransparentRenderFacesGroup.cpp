@@ -78,9 +78,7 @@ const string TransparentRenderFacesGroup::createKey(Model* model, Object3DGroup*
 		"," +
 		to_string(efcaData[3]) +
 		"," +
-		(material == nullptr ? "tdme.material.none" : material->getId()) + // TODO: material id could contain this "," delimiter
-		"," +
-		to_string(object3DGroup->dynamicDiffuseTextureIdsByEntities[facesEntityIdx]) +
+		(material == nullptr ? "tdme.material.none" : material->getId()) +
 		"," +
 		(textureCoordinates == true ? "TCT" : "TCF");
 		"," +
