@@ -2,7 +2,6 @@
 
 #include <vector>
 #include <string>
-#include <map>
 
 #include <tdme/tdme.h>
 #include <tdme/engine/LODObject3D.h>
