@@ -5,7 +5,6 @@
 #include <vector>
 #include <set>
 #include <string>
-#include <unordered_set>
 
 #include <tdme/engine/Camera.h>
 #include <tdme/engine/Engine.h>
@@ -37,7 +36,6 @@
 #include <tdme/engine/subsystems/rendering/TransparentRenderPoint.h>
 #include <tdme/engine/subsystems/rendering/TransparentRenderPointsPool.h>
 #include <tdme/engine/subsystems/particlesystem/ParticleEmitter.h>
-#include <tdme/engine/subsystems/particlesystem/ParticlesShader.h>
 #include <tdme/engine/subsystems/particlesystem/PointsParticleSystemEntityInternal.h>
 #include <tdme/engine/subsystems/renderer/GLRenderer.h>
 #include <tdme/engine/subsystems/shadowmapping/ShadowMapping.h>
@@ -58,7 +56,6 @@ using std::sort;
 using std::vector;
 using std::string;
 using std::to_string;
-using std::unordered_set;
 
 using tdme::engine::subsystems::rendering::Object3DVBORenderer;
 using tdme::engine::Engine;
@@ -91,7 +88,6 @@ using tdme::engine::subsystems::rendering::TransparentRenderFacesPool;
 using tdme::engine::subsystems::rendering::TransparentRenderPoint;
 using tdme::engine::subsystems::rendering::TransparentRenderPointsPool;
 using tdme::engine::subsystems::particlesystem::ParticleEmitter;
-using tdme::engine::subsystems::particlesystem::ParticlesShader;
 using tdme::engine::subsystems::particlesystem::PointsParticleSystemEntityInternal;
 using tdme::engine::subsystems::renderer::GLRenderer;
 using tdme::engine::subsystems::shadowmapping::ShadowMapping;
@@ -928,7 +924,7 @@ void Object3DVBORenderer::clearMaterial()
 	renderer->setTextureUnit(LightingShaderConstants::TEXTUREUNIT_DIFFUSE);
 }
 
-const string Object3DVBORenderer::createPseKey(const Color4& effectColorAdd, const Color4& effectColorMul, float pointSize, int32_t textureId, bool depthBuffer, bool sort)
+const string Object3DVBORenderer::createPseKey(const Color4& effectColorAdd, const Color4& effectColorMul, bool depthBuffer, bool sort)
 {
 	auto& efcaData = effectColorAdd.getArray();
 	auto& efcmData = effectColorMul.getArray();
@@ -949,10 +945,6 @@ const string Object3DVBORenderer::createPseKey(const Color4& effectColorAdd, con
 		"," +
 		to_string(efcaData[3]) +
 		"," +
-		to_string(pointSize) +
-		"," +
-		to_string(textureId) +
-		"," +
 		(depthBuffer == true ? "DBT" : "DBF") +
 		"," +
 		(sort == true ? "DS" : "NS");
@@ -969,27 +961,17 @@ void Object3DVBORenderer::render(const vector<PointsParticleSystemEntity*>& visi
 	//
 	// set up GL state
 	renderer->enableBlending();
-	renderer->disableDepthBufferTest();
 	// 	model view matrix
 	renderer->getModelViewMatrix().identity();
 	renderer->onUpdateModelViewMatrix();
 	// find all keys which differentiate with effect colors and depth buffer
-	unordered_set<string> pseKeys;
+	set<string> pseKeys;
 	for (auto i = 0; i < visiblePses.size(); i++) {
 		PointsParticleSystemEntityInternal* ppse = visiblePses[i];
-		auto pseKey = createPseKey(
-			ppse->getEffectColorAdd(),
-			ppse->getEffectColorMul(),
-			ppse->getPointSize(),
-			ppse->getTextureId(),
-			ppse->isPickable(),
-			ppse->getParticleEmitter()->getColorStart().equals(ppse->getParticleEmitter()->getColorEnd()) == false
-		);
+		string pseKey = createPseKey(ppse->getEffectColorAdd(), ppse->getEffectColorMul(), ppse->isPickable(), ppse->getParticleEmitter()->getColorStart().equals(ppse->getParticleEmitter()->getColorEnd()) == false);
 		pseKeys.insert(pseKey);
 	}
 	// process each key
-	int32_t pseTextureId = 0;
-	float psePointSize = 0.0f;
 	for (auto pseKey: pseKeys) {
 		auto pseSort = false;
 		PointsParticleSystemEntityInternal* currentPse = nullptr;
@@ -997,21 +979,12 @@ void Object3DVBORenderer::render(const vector<PointsParticleSystemEntity*>& visi
 		for (auto j = 0; j < visiblePses.size(); j++) {
 			// check if ppse belongs to current key, otherwise skip this pse
 			PointsParticleSystemEntityInternal* ppse = visiblePses[j];
-			auto innerPseKey = createPseKey(
-				ppse->getEffectColorAdd(),
-				ppse->getEffectColorMul(),
-				ppse->getPointSize(),
-				ppse->getTextureId(),
-				ppse->isPickable(),
-				ppse->getParticleEmitter()->getColorStart().equals(ppse->getParticleEmitter()->getColorEnd()) == false
-			);
+			string innerPseKey = createPseKey(ppse->getEffectColorAdd(), ppse->getEffectColorMul(), ppse->isPickable(), ppse->getParticleEmitter()->getColorStart().equals(ppse->getParticleEmitter()->getColorEnd()) == false);
 			if (pseKey != innerPseKey) {
 				continue;
 			} else {
 				currentPse = visiblePses[j];
 				pseSort = ppse->getParticleEmitter()->getColorStart().equals(ppse->getParticleEmitter()->getColorEnd()) == false;
-				pseTextureId = ppse->getTextureId();
-				psePointSize = ppse->getPointSize();
 			}
 			// merge ppse pool
 			pseTransparentRenderPointsPool->merge(ppse->getRenderPointsPool());
@@ -1029,19 +1002,11 @@ void Object3DVBORenderer::render(const vector<PointsParticleSystemEntity*>& visi
 		renderer->setEffectColorAdd(currentPse->getEffectColorAdd().getArray());
 		renderer->setEffectColorMul(currentPse->getEffectColorMul().getArray());
 		renderer->onUpdateEffect();
-		// TODO: maybe use onBindTexture() or onUpdatePointSize()
-		engine->getParticlesShader()->setParameters(pseTextureId, psePointSize);
-		// TODO: point size
 		// render, clear
 		psePointBatchVBORenderer->render();
 		psePointBatchVBORenderer->clear();
 		pseTransparentRenderPointsPool->reset();
 	}
-	// unbind texture
-	renderer->bindTexture(renderer->ID_NONE);
-	// TODO: before render sort all pps by distance to camera and render them in correct order
-	// unset GL state
-	renderer->enableDepthBufferTest();
 	renderer->disableBlending();
 	// restore gl state
 	renderer->unbindBufferObjects();

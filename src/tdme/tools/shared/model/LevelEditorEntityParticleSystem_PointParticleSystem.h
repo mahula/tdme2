@@ -1,14 +1,9 @@
+
 #pragma once
 
-#include <string>
-
 #include <tdme/tdme.h>
-#include <tdme/engine/fileio/textures/fwd-tdme.h>
 #include <tdme/tools/shared/model/fwd-tdme.h>
 
-using std::string;
-
-using tdme::engine::fileio::textures::Texture;
 using tdme::tools::shared::model::LevelEditorEntityParticleSystem_BoundingBoxParticleEmitter;
 using tdme::tools::shared::model::LevelEditorEntityParticleSystem_CircleParticleEmitter;
 using tdme::tools::shared::model::LevelEditorEntityParticleSystem_CircleParticleEmitterPlaneVelocity;
@@ -38,9 +33,6 @@ class tdme::tools::shared::model::LevelEditorEntityParticleSystem_PointParticleS
 
 private:
 	int32_t maxPoints {  };
-	float pointSize {  };
-	string textureFileName {  };
-	Texture* texture {  };
 	bool autoEmit {  };
 
 public:
@@ -48,76 +40,27 @@ public:
 	/** 
 	 * @return max points
 	 */
-	inline virtual int32_t getMaxPoints() {
-		return maxPoints;
-	}
+	virtual int32_t getMaxPoints();
 
 	/** 
 	 * Set max points
 	 * @param maxPoints max points
 	 */
-	inline virtual void setMaxPoints(int32_t maxPoints) {
-		this->maxPoints = maxPoints;
-	}
+	virtual void setMaxPoints(int32_t maxPoints);
 
 	/** 
-	 * @return point size
-	 */
-	inline virtual float getPointSize() {
-		return pointSize;
-	}
-
-	/**
-	 * Set point size
-	 * @param pointSize point size
-	 */
-	inline virtual void setPointSize(float pointSize) {
-		this->pointSize = pointSize;
-	}
-
-	/**
-	 * @return texture
-	 */
-	inline virtual Texture* getTexture() {
-		return texture;
-	}
-
-	/**
-	 * @return texture file name
-	 */
-	inline virtual const string& getTextureFileName() {
-		return textureFileName;
-	}
-
-	/**
-	 * Set texture file name
-	 * @param textureFileName texture file name
-	 */
-	virtual void setTextureFileName(const string& textureFileName);
-
-	/**
 	 * @return is auto emit
 	 */
-	inline virtual bool isAutoEmit() {
-		return autoEmit;
-	}
+	virtual bool isAutoEmit();
 
 	/** 
 	 * Set auto emit
 	 * @param autoEmit auto emit
 	 */
-	inline virtual void setAutoEmit(bool autoEmit) {
-		this->autoEmit = autoEmit;
-	}
+	virtual void setAutoEmit(bool autoEmit);
 
 	/**
 	 * Public constructor
 	 */
 	LevelEditorEntityParticleSystem_PointParticleSystem();
-
-	/**
-	 * Public destructor
-	 */
-	virtual ~LevelEditorEntityParticleSystem_PointParticleSystem();
-
 };

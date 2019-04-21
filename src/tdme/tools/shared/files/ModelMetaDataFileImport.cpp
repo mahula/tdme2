@@ -219,23 +219,9 @@ LevelEditorEntity* ModelMetaDataFileImport::doImportFromJSON(int32_t id, const s
 				}
 			} else
 			if (v == LevelEditorEntityParticleSystem_Type::POINT_PARTICLE_SYSTEM) {
-				auto pointParticleSystem = particleSystem->getPointParticleSystem();
 				auto& jPointParticleSystem = jParticleSystem["pps"];
-				pointParticleSystem->setMaxPoints(jPointParticleSystem["mp"].getInt());
-				if (jPointParticleSystem["ps"].isNull() == false) pointParticleSystem->setPointSize(static_cast<float>(jPointParticleSystem["ps"].getDouble()));
-				if (jPointParticleSystem["t"].isNull() == false) {
-					try {
-						auto particleTextureFileName = jPointParticleSystem["t"].getString();
-						auto particleTexturePathName = getResourcePathName(pathName, particleTextureFileName);
-						pointParticleSystem->setTextureFileName(
-							particleTexturePathName + "/" + Tools::getFileName(particleTextureFileName)
-						);
-					} catch (Exception& exception) {
-						Console::print(string("ModelMetaDataFileImport::doImport(): An error occurred: "));
-						Console::println(string(exception.what()));
-					}
-				}
-				pointParticleSystem->setAutoEmit(jPointParticleSystem["ae"].getBoolean());
+				particleSystem->getPointParticleSystem()->setMaxPoints(jPointParticleSystem["mp"].getInt());
+				particleSystem->getPointParticleSystem()->setAutoEmit(jPointParticleSystem["ae"].getBoolean());
 			} else {
 				Console::println(
 					string(

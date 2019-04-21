@@ -1,6 +1,8 @@
 #include <tdme/engine/subsystems/particlesystem/ParticlesShader.h>
 
 #include <tdme/engine/Engine.h>
+#include <tdme/engine/fileio/textures/TextureLoader.h>
+#include <tdme/engine/subsystems/manager/TextureManager.h>
 #include <tdme/engine/subsystems/renderer/GLRenderer.h>
 #include <tdme/math/Matrix4x4.h>
 
@@ -76,6 +78,8 @@ void ParticlesShader::initialize()
 	uniformEffectColorAdd = renderer->getProgramUniformLocation(renderProgramId, "effectColorAdd");
 	if (uniformEffectColorAdd == -1)
 		return;
+	// load point sprite
+	pointTextureId = engine->getTextureManager()->addTexture(TextureLoader::loadTexture("resources/textures", "point.png"));
 	initialized = true;
 }
 
@@ -85,6 +89,7 @@ void ParticlesShader::useProgram()
 	renderer->useProgram(renderProgramId);
 	renderer->setProgramUniformInteger(uniformDiffuseTextureUnit, 0);
 	renderer->setProgramUniformFloat(uniformPointSize, renderer->pointSize);
+	renderer->bindTexture(pointTextureId);
 }
 
 void ParticlesShader::updateEffect(GLRenderer* renderer)
@@ -113,9 +118,4 @@ void ParticlesShader::updateMatrices(GLRenderer* renderer)
 	// upload matrices
 	renderer->setProgramUniformFloatMatrix4x4(uniformMVPMatrix, mvpMatrix.getArray());
 	renderer->setProgramUniformFloatMatrix4x4(uniformMVMatrix, renderer->getModelViewMatrix().getArray());
-}
-
-void ParticlesShader::setParameters(int32_t textureId, float pointSize) {
-	renderer->setProgramUniformFloat(uniformPointSize, renderer->pointSize * pointSize);
-	renderer->bindTexture(textureId);
 }
