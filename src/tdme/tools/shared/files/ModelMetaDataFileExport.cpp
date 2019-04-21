@@ -167,7 +167,6 @@ tdme::ext::jsonbox::Object ModelMetaDataFileExport::exportToJSON(LevelEditorEnti
 				jAnimationSound["file"] = animationSound->getFileName();
 				jAnimationSound["g"] = animationSound->getGain();
 				jAnimationSound["p"] = animationSound->getPitch();
-				jAnimationSound["o"] = animationSound->getOffset();
 				jAnimationSound["l"] = animationSound->isLooping();
 				jAnimationSound["f"] = animationSound->isFixed();
 				jAnimationSounds.push_back(jAnimationSound);

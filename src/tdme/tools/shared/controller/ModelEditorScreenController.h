@@ -115,7 +115,6 @@ private:
 	GUIElementNode* animationsAnimationSoundClear {  };
 	GUIElementNode* animationsAnimationSoundGain {  };
 	GUIElementNode* animationsAnimationSoundPitch {  };
-	GUIElementNode* animationsAnimationSoundOffset {  };
 	GUIElementNode* animationsAnimationSoundLooping {  };
 	GUIElementNode* animationsAnimationSoundFixed {  };
 	GUIElementNode* animationsAnimationSoundApply {  };
