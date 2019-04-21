@@ -15,7 +15,6 @@ using std::vector;
 
 /**
  * Basic HTTP client
- * @author Andreas Drewke
  */
 class tdme::network::httpclient::HTTPClient {
 
