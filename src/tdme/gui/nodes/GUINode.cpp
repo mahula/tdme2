@@ -1069,7 +1069,7 @@ void GUINode::scrollToNodeX(GUIParentNode* toNode)
 	scrollXParentNode->scrollToNodeX(toNode);
 }
 
-void GUINode::dumpNode(GUINode* node, int depth, int indent, int depthIdx) {
+void GUINode::dumpNode(GUINode* node, int indent) {
 	for (auto i = 0; i < indent; i++) Console::print("  ");
 	Console::println(
 		node->id + ": " +
@@ -1084,10 +1084,10 @@ void GUINode::dumpNode(GUINode* node, int depth, int indent, int depthIdx) {
 		to_string(node->conditionsMet) + "; " +
 		to_string(node->layouted)
 	);
-	if (dynamic_cast< GUIParentNode* >(node) != nullptr && (depth == 0 || depthIdx + 1 < depth)) {
+	if (dynamic_cast< GUIParentNode* >(node) != nullptr) {
 		auto parentNode = dynamic_cast< GUIParentNode* >(node);
 		for (auto subNode: parentNode->subNodes) {
-			dumpNode(subNode, depth, indent + 1, depthIdx + 1);
+			dumpNode(subNode, indent + 1);
 		}
 	}
 }
