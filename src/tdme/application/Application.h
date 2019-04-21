@@ -20,7 +20,7 @@ using std::string;
 using tdme::application::InputEventHandler;
 
 /** 
- * Application base class, please make sure to allocate application on heap to have correct application shutdown working
+ * Application
  * @author Andreas Drewke
  * @version $Id$
  */
@@ -155,11 +155,6 @@ public:
 	virtual void dispose() = 0;
 
 private:
-	struct ApplicationShutdown {
-		~ApplicationShutdown();
-	};
-
-	static ApplicationShutdown applicationShutdown;
 	static Application* application;
 	static InputEventHandler* inputEventHandler;
 	bool initialized { false };

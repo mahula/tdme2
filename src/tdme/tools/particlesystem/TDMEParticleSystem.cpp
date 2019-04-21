@@ -56,8 +56,8 @@ void TDMEParticleSystem::main(int argc, char** argv)
 	Console::println(string("TDMEParticleSystem " + VERSION));
 	Console::println(string("Programmed 2018 by Andreas Drewke, drewke.net."));
 	Console::println();
-	auto tdmeParticleSystem = new TDMEParticleSystem();
-	tdmeParticleSystem->run(argc, argv, "TDMEParticleSystem");
+	TDMEParticleSystem tdmeParticleSystem;
+	tdmeParticleSystem.run(argc, argv, "TDMEParticleSystem");
 }
 
 TDMEParticleSystem* TDMEParticleSystem::getInstance()

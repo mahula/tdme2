@@ -4,12 +4,13 @@
 
 #pragma once
 
-#include <iostream>
 #include <string>
 
-using std::cout;
-using std::endl;
+#include <tdme/utils/Console.h>
+
 using std::string;
 using std::to_string;
 
-#define PTHREAD_CHECK_ERROR(NAME, MSG, FUNCTION) if (result != 0) cout << (NAME + "(" + FUNCTION + "): " + MSG + "(" + to_string(result) + ")") << endl;
+using tdme::utils::Console;
+
+#define PTHREAD_CHECK_ERROR(NAME, MSG, FUNCTION) if (result != 0) Console::println(NAME + "(" + FUNCTION + "): " + MSG + "(" + to_string(result) + ")");

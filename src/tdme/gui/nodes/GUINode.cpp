@@ -421,8 +421,9 @@ bool GUINode::checkConditions(GUIElementNode* elementNode)
 
 void GUINode::dispose()
 {
-	if (backgroundTexture != nullptr) Engine::getInstance()->getTextureManager()->removeTexture(backgroundTexture->getId());
-	if (controller != nullptr) controller->dispose();
+	if (controller != nullptr)
+		controller->dispose();
+
 }
 
 void GUINode::setConditionsMet()

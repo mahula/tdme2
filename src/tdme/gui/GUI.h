@@ -53,12 +53,11 @@ class tdme::gui::GUI final: public virtual InputEventHandler
 	friend class tdme::gui::nodes::GUIVerticalScrollbarInternalController;
 
 private:
-	static map<string, GUIFont*>* fontCache;
-	static map<string, Texture*>* imageCache;
-
 	GUIRenderer* guiRenderer {  };
 	Engine* engine {  };
 	map<string, GUIScreenNode*> screens {  };
+	static map<string, GUIFont*> fontCache;
+	static map<string, Texture*> imageCache;
 	GUIColor foccussedBorderColor;
 	vector<GUIElementNode*> focusableNodes {  };
 	vector<GUIScreenNode*> focusableScreenNodes {  };

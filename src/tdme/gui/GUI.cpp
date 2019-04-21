@@ -68,8 +68,8 @@ using tdme::utils::Time;
 using tdme::utils::Console;
 using tdme::utils::Exception;
 
-map<string, GUIFont*>* GUI::fontCache = new map<string, GUIFont*>();
-map<string, Texture*>* GUI::imageCache = new map<string, Texture*>();
+map<string, GUIFont*> GUI::fontCache;
+map<string, Texture*> GUI::imageCache;
 
 GUI::GUI(Engine* engine, GUIRenderer* guiRenderer)
 {
@@ -149,8 +149,8 @@ GUIFont* GUI::getFont(const string& fileName) throw (FileSystemException)
 		return nullptr;
 	}
 
-	auto fontCacheIt = fontCache->find(canonicalFile);
-	if (fontCacheIt == fontCache->end()) {
+	auto fontCacheIt = fontCache.find(canonicalFile);
+	if (fontCacheIt == fontCache.end()) {
 		try {
 			font = GUIFont::parse(path, file);
 		} catch (Exception& exception) {
@@ -159,7 +159,7 @@ GUIFont* GUI::getFont(const string& fileName) throw (FileSystemException)
 			throw;
 		}
 
-		(*fontCache)[canonicalFile] = font;
+		fontCache[canonicalFile] = font;
 	}
 	else {
 		font = fontCacheIt->second;
@@ -183,8 +183,8 @@ Texture* GUI::getImage(const string& fileName) throw (FileSystemException)
 		return nullptr;
 	}
 
-	auto imageIt = imageCache->find(canonicalFile);
-	auto image = imageIt != imageCache->end() ? imageIt->second : nullptr;
+	auto imageIt = imageCache.find(canonicalFile);
+	auto image = imageIt != imageCache.end() ? imageIt->second : nullptr;
 	if (image == nullptr) {
 		try {
 			image = TextureReader::read(path, file, false);
@@ -194,7 +194,7 @@ Texture* GUI::getImage(const string& fileName) throw (FileSystemException)
 			Console::println(string(exception.what()));
 			throw;
 		}
-		(*imageCache)[canonicalFile] = image;
+		imageCache[canonicalFile] = image;
 	}
 	return image;
 }
@@ -218,14 +218,14 @@ void GUI::removeScreen(const string& id)
 {
 	auto screensIt = screens.find(id);
 	if (screensIt != screens.end()) {
-		auto screen = screensIt->second;
-		screens.erase(screensIt);
+		screens.erase(id);
 		mouseOutCandidateEventNodeIds.erase(id);
 		mouseOutClickCandidateEventNodeIds.erase(id);
 		mousePressedEventNodeIds.erase(id);
 		mouseDraggingEventNodeIds.erase(id);
 		mouseIsDragging.erase(id);
-		delete screen;
+		screensIt->second->dispose();
+		delete screensIt->second;
 	}
 }
 
@@ -238,13 +238,10 @@ void GUI::reset()
 	for (auto i = 0; i < entitiesToRemove.size(); i++) {
 		removeScreen(entitiesToRemove[i]);
 	}
-	/*
-	// TODO: check me!
-	for (auto fontCacheIt: *fontCache) delete fontCacheIt.second;
-	fontCache->clear();
-	for (auto imageCacheIt: *imageCache) imageCacheIt.second->releaseReference();
-	imageCache->clear();
-	*/
+	for (auto fontCacheIt: fontCache) delete fontCacheIt.second;
+	fontCache.clear();
+	for (auto imageCacheIt: imageCache) imageCacheIt.second->releaseReference();
+	imageCache.clear();
 }
 
 void GUI::resetRenderScreens()

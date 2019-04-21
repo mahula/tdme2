@@ -94,9 +94,6 @@ GUIScreenNode::~GUIScreenNode() {
 	}
 	subNodes.clear();
 
-	// dispose
-	GUINode::dispose();
-
 	// remove effects
 	vector<string> effectsToRemove;
 	for (auto effectIt: effects) {
