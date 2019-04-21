@@ -45,8 +45,6 @@ map<string, string>* GUIButton::getAttributes(GUIScreenNode* screenNode)
 	attributes["text"] = "";
 	attributes["on-mouse-click"] = "";
 	attributes["on-mouse-doubleclick"] = "";
-	attributes["show-on"] = "";
-	attributes["hide-on"] = "";
 	return &attributes;
 }
 
