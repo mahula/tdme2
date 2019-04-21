@@ -35,7 +35,6 @@ string GUIDropDownOptionController::CONDITION_UNSELECTED = "unselected";
 GUIDropDownOptionController::GUIDropDownOptionController(GUINode* node) 
 	: GUIElementController(node)
 {
-	this->initialPostLayout = true;
 	this->selected = (dynamic_cast< GUIElementNode* >(node))->isSelected();
 }
 
@@ -96,12 +95,10 @@ void GUIDropDownOptionController::initialize()
 
 void GUIDropDownOptionController::postLayout()
 {
-	if (initialPostLayout != true) return;
 	if (selected == true) {
 		node->scrollToNodeX(dropDownNode);
 		node->scrollToNodeY(dropDownNode);
 	}
-	initialPostLayout = false;
 }
 
 void GUIDropDownOptionController::dispose()
