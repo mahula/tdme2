@@ -391,11 +391,9 @@ public:
 	/**
 	 * Determine mouse event nodes
 	 * @param event event
-	 * @param floatingNode if node is floating node
 	 * @param eventNodeIds event node ids
-	 * @param eventFloatingNodeIds event floating node ids
 	 */
-	virtual void determineMouseEventNodes(GUIMouseEvent* event, bool floatingNode, set<string>& eventNodeIds, set<string>& eventFloatingNodeIds);
+	virtual void determineMouseEventNodes(GUIMouseEvent* event, set<string>& eventNodeIds); // TODO: std container: maybe use call by reference
 
 	/**
 	 * Handle keyboard event

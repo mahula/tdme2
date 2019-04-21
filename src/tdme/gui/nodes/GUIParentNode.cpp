@@ -439,7 +439,7 @@ void GUIParentNode::render(GUIRenderer* guiRenderer, vector<GUINode*>& floatingN
 	guiRenderer->setRenderAreaBottom(renderAreaBottomCurrent);
 }
 
-void GUIParentNode::determineMouseEventNodes(GUIMouseEvent* event, bool floatingNode, set<string>& eventNodeIds, set<string>& eventFloatingNodeIds)
+void GUIParentNode::determineMouseEventNodes(GUIMouseEvent* event, set<string>& eventNodeIds)
 {
 	if (conditionsMet == false)
 		return;
@@ -472,11 +472,11 @@ void GUIParentNode::determineMouseEventNodes(GUIMouseEvent* event, bool floating
 
 		for (auto i = 0; i < vieportSubNodesCache.size(); i++) {
 			auto subNode = vieportSubNodesCache[i];
-			subNode->determineMouseEventNodes(event, floatingNode == true || subNode->flow == GUINode_Flow::FLOATING, eventNodeIds, eventFloatingNodeIds);
+			subNode->determineMouseEventNodes(event, eventNodeIds);
 		}
 	}
 
-	GUINode::determineMouseEventNodes(event, floatingNode, eventNodeIds, eventFloatingNodeIds);
+	GUINode::determineMouseEventNodes(event, eventNodeIds);
 }
 
 void GUIParentNode::handleKeyboardEvent(GUIKeyboardEvent* event)

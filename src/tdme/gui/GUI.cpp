@@ -441,10 +441,9 @@ bool GUI::isHavingMouseInteraction(GUINode* node) {
 		mouseDraggingEventNodeIds[screenNodeId].find(nodeId) != mouseDraggingEventNodeIds[screenNodeId].end();
 }
 
-void GUI::handleMouseEvent(GUINode* node, GUIMouseEvent* event, const set<string>& mouseOutCandidateEventNodeIds, set<string>& mousePressedEventNodeIds, bool floatingNodes)
+void GUI::handleMouseEvent(GUINode* node, GUIMouseEvent* event, const set<string>& mouseOutCandidateEventNodeIds, set<string>& mousePressedEventNodeIds, bool skipFloatingNodes)
 {
 	// handle each event
-	set<string> mouseEventNodeIgnore;
 	set<string> mouseEventNodeIds;
 
 	//
@@ -460,11 +459,7 @@ void GUI::handleMouseEvent(GUINode* node, GUIMouseEvent* event, const set<string
 		mouseEventNodeIds = mouseDraggingEventNodeIds[node->getScreenNode()->getId()];
 	} else {
 		// otherwise continue with determining nodes that receive this event
-		if (floatingNodes == true) {
-			node->determineMouseEventNodes(event, node->flow == GUINode_Flow::FLOATING, mouseEventNodeIgnore, mouseEventNodeIds);
-		} else {
-			node->determineMouseEventNodes(event, node->flow == GUINode_Flow::FLOATING, mouseEventNodeIds, mouseEventNodeIgnore);
-		}
+		node->determineMouseEventNodes(event, mouseEventNodeIds);
 	}
 
 	// inject former mouse out candidates
@@ -477,7 +472,7 @@ void GUI::handleMouseEvent(GUINode* node, GUIMouseEvent* event, const set<string
 		// node event occurred on
 		auto eventNode = node->getScreenNode()->getNodeById(eventNodeId);
 		if (eventNode == nullptr) continue;
-		if (eventNode->flow == GUINode_Flow::FLOATING) continue;
+		if (skipFloatingNodes == true && eventNode->flow == GUINode_Flow::FLOATING) continue;
 
 		// controller node
 		auto controllerNode = eventNode;
@@ -576,7 +571,7 @@ void GUI::handleEvents()
 			for (auto j = 0; j < floatingNodes->size(); j++) {
 				auto floatingNode = floatingNodes->at(j);
 
-				handleMouseEvent(floatingNode, &event, _mouseOutCandidateEventNodeIds[screen->getId()], mousePressedEventNodeIds[screen->getId()], true);
+				handleMouseEvent(floatingNode, &event, _mouseOutCandidateEventNodeIds[screen->getId()], mousePressedEventNodeIds[screen->getId()], false);
 
 				// do not continue handling mouse events if already processed
 				if (event.isProcessed() == true) break;
@@ -593,7 +588,7 @@ void GUI::handleEvents()
 			for (int32_t i = renderScreens.size() - 1; i >= 0; i--) {
 				auto screen = renderScreens[i];
 				if (screen->isVisible() == false) continue;
-				handleMouseEvent(screen, &event, _mouseOutCandidateEventNodeIds[screen->getId()], mousePressedEventNodeIds[screen->getId()], false);
+				handleMouseEvent(screen, &event, _mouseOutCandidateEventNodeIds[screen->getId()], mousePressedEventNodeIds[screen->getId()], true);
 				if (screen->isPopUp() == true) break;
 			}
 		}

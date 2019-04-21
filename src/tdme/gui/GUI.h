@@ -259,9 +259,8 @@ private:
 	 * @param event event
 	 * @param mouseOutCandidateEventNodeIds mouse out candidate event node ids
 	 * @param mousePressedEventNodeIds mouse pressed event node ids
-	 * @param floatingNodes check if to gather floating nodes only
 	 */
-	void handleMouseEvent(GUINode* node, GUIMouseEvent* event, const set<string>& mouseOutCandidateEventNodeIds, set<string>& mousePressedEventNodeIds, bool floatingNodes);
+	void handleMouseEvent(GUINode* node, GUIMouseEvent* event, const set<string>& mouseOutCandidateEventNodeIds, set<string>& mousePressedEventNodeIds, bool skipFloatingNodes);
 
 	/**
 	 * Handle mouse event for given node

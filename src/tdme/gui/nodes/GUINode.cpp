@@ -940,15 +940,13 @@ GUIParentNode* GUINode::getParentControllerNode()
 	return node;
 }
 
-void GUINode::determineMouseEventNodes(GUIMouseEvent* event, bool floatingNode, set<string>& eventNodeIds, set<string>& eventFloatingNodeIds)
+void GUINode::determineMouseEventNodes(GUIMouseEvent* event, set<string>& eventNodeIds)
 {
 	if (conditionsMet == false)
 		return;
 
-	// node belongs to event?
 	if (isEventBelongingToNode(event) == true) {
-		// yep insert
-		if (floatingNode == true || flow == GUINode_Flow::FLOATING) eventFloatingNodeIds.insert(id); else eventNodeIds.insert(id);
+		eventNodeIds.insert(this->id);
 	}
 }
 

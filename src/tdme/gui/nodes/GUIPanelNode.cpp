@@ -38,9 +38,9 @@ const string GUIPanelNode::getNodeType()
 	return "panel";
 }
 
-void GUIPanelNode::determineMouseEventNodes(GUIMouseEvent* event, bool floatingNode, set<string>& eventNodeIds, set<string>& eventFloatingNodeIds)
+void GUIPanelNode::determineMouseEventNodes(GUIMouseEvent* event, set<string>& eventNodeIds)
 {
-	GUILayoutNode::determineMouseEventNodes(event, floatingNode, eventNodeIds, eventFloatingNodeIds);
+	GUILayoutNode::determineMouseEventNodes(event, eventNodeIds);
 	if (isEventBelongingToNode(event) == true) {
 		event->setProcessed(true);
 	}
