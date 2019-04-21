@@ -48,7 +48,7 @@ Matrix3x3 Matrix3x3::getInverse() const {
     decimal determinant = getDeterminant();
 
     // Check if the determinant is equal to zero
-    assert(determinant != decimal(0.0));
+    assert(std::abs(determinant) > MACHINE_EPSILON);
 
     decimal invDeterminant = decimal(1.0) / determinant;
 

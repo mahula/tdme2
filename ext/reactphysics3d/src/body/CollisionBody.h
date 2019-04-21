@@ -42,7 +42,7 @@ class ProxyShape;
 class CollisionWorld;
 class CollisionShape;
 struct RaycastInfo;
-class DefaultPoolAllocator;
+class PoolAllocator;
 class Profiler;
 
 /// Enumeration for the type of a body

@@ -35,7 +35,7 @@ namespace reactphysics3d {
 
 // Declarations
 class Profiler;
-class DefaultPoolAllocator;
+class PoolAllocator;
 class AABB;
 class Transform;
 struct Ray;

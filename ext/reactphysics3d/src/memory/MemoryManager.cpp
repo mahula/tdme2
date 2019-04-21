@@ -32,9 +32,3 @@ using namespace reactphysics3d;
 DefaultAllocator MemoryManager::mDefaultAllocator;
 MemoryAllocator* MemoryManager::mBaseAllocator = &mDefaultAllocator;
 
-// Constructor
-MemoryManager::MemoryManager() {
-
-    mSingleFrameAllocator = &mDefaultSingleFrameAllocator;
-    mPoolAllocator = &mDefaultPoolAllocator;
-}
