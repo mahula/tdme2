@@ -38,7 +38,7 @@ using tdme::utils::Console;
 using tdme::utils::VectorIteratorMultiple;
 
 /** 
- * Oct tree partition implementation
+ * Partition oct tree implementation
  * @author Andreas Drewke
  * @version $Id$
  */

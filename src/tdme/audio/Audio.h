@@ -22,7 +22,7 @@ using tdme::audio::AudioEntity;
 using tdme::math::Vector3;
 
 /** 
- * Interface to audio module
+ * Interface to TDME audio methods
  * @author Andreas Drewke
  * @version $Id$
  */

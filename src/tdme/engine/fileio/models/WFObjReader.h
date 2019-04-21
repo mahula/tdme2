@@ -22,7 +22,7 @@ using tdme::os::filesystem::FileSystemException;
 
 
 /** 
- * Wavefront object model reader
+ * Wavefront object reader
  * @author andreas.drewke
  * @version $Id$
  */

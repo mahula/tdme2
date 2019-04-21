@@ -30,7 +30,7 @@ using tdme::math::Vector3;
 using tdme::tools::shared::files::ProgressCallback;
 
 /** 
- * Model helper functions class
+ * Model Helper
  * @author Andreas Drewke
  */
 class tdme::engine::model::ModelHelper final

@@ -15,7 +15,7 @@ using tdme::math::Vector3;
 using tdme::utils::VectorIteratorMultiple;
 
 /** 
- * Partition interface
+ * PartitionQuadTree interface
  * @author Andreas Drewke
  * @version $Id$
  */

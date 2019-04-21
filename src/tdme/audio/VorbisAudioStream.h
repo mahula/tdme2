@@ -16,7 +16,7 @@ using tdme::audio::decoder::VorbisDecoder;
 using tdme::utils::ByteBuffer;
 
 /** 
- * Vorbis audio stream
+ * Vorbis Audio Stream
  * @author Andreas Drewke
  * @version $Id$
  */

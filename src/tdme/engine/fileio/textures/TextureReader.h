@@ -67,7 +67,7 @@ private:
 };
 
 /** 
- * Texture reader class
+ * Texture loader class
  * @author Andreas Drewke
  * @version $Id$
  */
@@ -82,7 +82,7 @@ public:
 	static const vector<string>& getTextureExtensions();
 
 	/** 
-	 * Reads a texture
+	 * Loads a texture
 	 * @param pathName path name
 	 * @param fileName file name
 	 * @param useCache use cache

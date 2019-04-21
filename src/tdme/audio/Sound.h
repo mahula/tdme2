@@ -11,7 +11,7 @@ using std::string;
 using tdme::audio::AudioEntity;
 
 /** 
- * Sound audio entity implementation
+ * Simple sound implementation
  * @author Andreas Drewke
  * @version $Id$
  */

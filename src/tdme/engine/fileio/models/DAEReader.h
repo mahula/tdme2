@@ -33,7 +33,7 @@ using tdme::tools::shared::model::LevelEditorLevel;
 using tdme::ext::tinyxml::TiXmlElement;
 
 /** 
- * Collada DAE model reader
+ * Collada DAE reader
  * @author Andreas Drewke
  * @version $Id$
  */

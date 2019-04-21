@@ -11,7 +11,7 @@ using std::vector;
 using tdme::math::Matrix4x4;
 
 /** 
- * Animation entity
+ * AnimationSetup
  * @author andreas.drewke
  * @version $Id$
  */

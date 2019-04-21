@@ -9,7 +9,7 @@
 using std::array;
 
 /** 
- * Class representing texture UV coordinates data
+ * Class representing a UV data
  * @author andreas.drewke
  * @version $Id$
  */

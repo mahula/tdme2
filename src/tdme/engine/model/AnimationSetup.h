@@ -10,7 +10,7 @@ using std::string;
 using tdme::engine::model::Model;
 
 /** 
- * Animation setup
+ * AnimationSetup
  * @author Andreas Drewke
  * @version $Id$
  */

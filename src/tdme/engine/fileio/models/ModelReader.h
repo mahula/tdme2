@@ -17,7 +17,7 @@ using tdme::engine::model::Model;
 using tdme::os::filesystem::FileSystemException;
 
 /** 
- * Model reader class
+ * Model loader class
  * @author Andreas Drewke
  * @version $Id$
  */

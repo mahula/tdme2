@@ -5,7 +5,7 @@
 #include <tdme/engine/fwd-tdme.h>
 
 /** 
- * Timing class
+ * Timing
  * @author Andreas Drewke
  * @version $Id$
  */

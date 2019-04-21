@@ -4,7 +4,6 @@
 #include <tdme/engine/model/fwd-tdme.h>
 
 /** 
- * Joint/bone weight
  * @author andreas.drewke
  * @version $Id$
  */
