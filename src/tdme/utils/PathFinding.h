@@ -60,7 +60,7 @@ public:
 	 * @param z z
 	 * @return string representation
 	 */
-	inline static string toKey(float x, float y, float z) {
+	inline string toKey(float x, float y, float z) {
 		return
 			floatToStringKey(x) + "," +
 			floatToStringKey(y) + "," +
@@ -90,7 +90,7 @@ private:
 	 * @param value value
 	 * @return string representation
 	 */
-	inline static string floatToStringKey(float value) {
+	inline string floatToStringKey(float value) {
 		string floatString = to_string(value);
 		return floatString.substr(0, floatString.length() - 5);
 	}

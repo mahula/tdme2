@@ -3,8 +3,6 @@
 #include <tdme/engine/primitives/fwd-tdme.h>
 #include <tdme/utils/fwd-tdme.h>
 
-using tdme::engine::primitives::BoundingVolume;
-
 /**
  * Path finding custom test interface
  * @author Andreas Drewke
