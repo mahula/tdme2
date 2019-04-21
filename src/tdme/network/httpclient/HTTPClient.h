@@ -30,7 +30,6 @@ private:
 	unordered_map<string, string> getParameters;
 	unordered_map<string, string> postParameters;
 	string body;
-	string contentType;
 
 	stringstream rawResponse;
 	int16_t httpStatusCode;
@@ -131,7 +130,7 @@ public:
 
 	/**
 	 * Get body
-	 * @return body
+	 * @return method
 	 */
 	inline const string& getBody() {
 		return body;
@@ -139,30 +138,11 @@ public:
 
 	/**
 	 * Set body
-	 * @param contentType content type
 	 * @param body body
 	 */
-	inline void setBody(const string& contentType, const string& body) {
-		this->contentType = contentType;
+	inline void setBody(const string& body) {
 		this->body = body;
 	}
-
-	/**
-	 * Get content type
-	 * @return content type
-	 */
-	inline const string& getContentType() {
-		return contentType;
-	}
-
-	/**
-	 * Set content type
-	 * @param contentType content type
-	 */
-	inline void setContentType(const string& contentType) {
-		this->contentType = contentType;
-	}
-
 
 	/**
 	 * Reset this HTTP client
