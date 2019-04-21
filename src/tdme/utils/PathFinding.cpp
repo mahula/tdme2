@@ -65,13 +65,7 @@ void PathFinding::reset() {
 	closedNodes.clear();
 }
 
-bool PathFinding::isWalkableInternal(float x, float y, float z, float& height, uint16_t collisionTypeIds, bool ignoreStepUpMax) {
-	auto walkable = isWalkable(x, y, z, height, collisionTypeIds, ignoreStepUpMax);
-	if (walkable == false) return false;
-	return customTest == nullptr || customTest->isWalkable(this, x, height, z) == true;
-}
-
-bool PathFinding::isWalkable(float x, float y, float z, float& height, uint16_t collisionTypeIds, bool ignoreStepUpMax) {
+bool PathFinding::isWalkable(float x, float y, float z, float stepUpMax, float& height) {
 	// determine y height of ground plate of actor bounding volume
 	float _z = z - actorZHalfExtension;
 	height = -10000.0f;
@@ -81,8 +75,8 @@ bool PathFinding::isWalkable(float x, float y, float z, float& height, uint16_t 
 		for (int j = 0; j < 2; j++) {
 			Vector3 actorPositionCandidate;
 			if (world->determineHeight(
-				collisionTypeIds == 0?this->collisionTypeIds:collisionTypeIds,
-				ignoreStepUpMax == true?10000.0f:actorStepUpMax,
+				collisionTypeIds,
+				stepUpMax,
 				actorPositionCandidate.set(_x, y, _z),
 				actorPosition) == nullptr) {
 				return false;
@@ -93,17 +87,23 @@ bool PathFinding::isWalkable(float x, float y, float z, float& height, uint16_t 
 		_z+= actorZHalfExtension * 2.0f;
 	}
 
+	// custom test
+	if (customTest != nullptr && customTest->isWalkable(actorBoundingVolume, x, height, z) == false) {
+		return false;
+	}
+
 	// set up transformations
 	actorTransformations.setTranslation(Vector3(x, height + 0.1f, z));
 	actorTransformations.update();
 
 	// update rigid body
-	auto actorCollisionBody = world->getBody("tdme.pathfinding.actor");
+	auto actorCollisionBody = world->getBody("pathfinding.actor");
 	actorCollisionBody->fromTransformations(actorTransformations);
 
 	// check if actor collides with world
 	vector<Body*> collidedRigidBodies;
-	return world->doesCollideWith(collisionTypeIds == 0?this->collisionTypeIds:collisionTypeIds, actorCollisionBody, collidedRigidBodies) == false;
+	auto collision = world->doesCollideWith(collisionTypeIds, actorCollisionBody, collidedRigidBodies) == false;
+	return collision;
 }
 
 void PathFinding::start(Vector3 startPosition, Vector3 endPosition) {
@@ -166,7 +166,7 @@ PathFinding::PathFindingStatus PathFinding::step() {
 			float successorX = x * stepSize + node->x;
 			float successorZ = z * stepSize + node->z;
 			// first node or walkable?
-			if (isWalkableInternal(successorX, node->y, successorZ, yHeight) == true) {
+			if (isWalkable(successorX, node->y, successorZ, actorStepUpMax, yHeight) == true) {
 				// check if successor node equals previous node / node
 				if (equals(node, successorX, yHeight, successorZ)) {
 					continue;
@@ -291,7 +291,7 @@ bool PathFinding::findPath(BoundingVolume* actorBoundingVolume, const Transforma
 	// init bounding volume, transformations, collision body
 	this->actorBoundingVolume = actorBoundingVolume;
 	this->actorTransformations.fromTransformations(actorTransformations);
-	auto actorCollisionBody = world->addCollisionBody("tdme.pathfinding.actor", true, 32768, actorTransformations, {actorBoundingVolume});
+	auto actorCollisionBody = world->addCollisionBody("pathfinding.actor", true, 32768, actorTransformations, {actorBoundingVolume});
 
 	// positions
 	Vector3 startPositionComputed;
@@ -321,13 +321,12 @@ bool PathFinding::findPath(BoundingVolume* actorBoundingVolume, const Transforma
 	endPositionComputed.set(endPosition);
 	{
 		float endYHeight = endPositionComputed.getY();
-		if (isWalkableInternal(
+		if (isWalkable(
 				endPositionComputed.getX(),
 				endPositionComputed.getY(),
 				endPositionComputed.getZ(),
-				endYHeight,
-				0,
-				true
+				10000.0f,
+				endYHeight
 			) == false) {
 			//
 			Console::println("PathFinding::findPath(): end is not walkable!");
@@ -399,7 +398,7 @@ bool PathFinding::findPath(BoundingVolume* actorBoundingVolume, const Transforma
 
 	// unset actor bounding volume and remove rigid body
 	this->actorBoundingVolume = nullptr;
-	world->removeBody("tdme.pathfinding.actor");
+	world->removeBody("pathfinding.actor");
 
 	// reset
 	reset();
