@@ -220,7 +220,6 @@ void GUI::removeScreen(const string& id)
 	if (screensIt != screens.end()) {
 		screens.erase(id);
 		mouseOutCandidateEventNodeIds.erase(id);
-		mouseOutClickCandidateEventNodeIds.erase(id);
 		mousePressedEventNodeIds.erase(id);
 		mouseDraggingEventNodeIds.erase(id);
 		mouseIsDragging.erase(id);
@@ -446,7 +445,7 @@ bool GUI::isHavingMouseInteraction(GUINode* node) {
 		mouseDraggingEventNodeIds[screenNodeId].find(nodeId) != mouseDraggingEventNodeIds[screenNodeId].end();
 }
 
-void GUI::handleMouseEvent(GUINode* node, GUIMouseEvent* event, const set<string>& mouseOutCandidateEventNodeIds, const set<string>& mouseOutClickCandidateEventNodeIds, set<string>& mousePressedEventNodeIds, bool floatingNodes)
+void GUI::handleMouseEvent(GUINode* node, GUIMouseEvent* event, const set<string>& mouseOutCandidateEventNodeIds, set<string>& mousePressedEventNodeIds, bool floatingNodes)
 {
 	// handle each event
 	set<string> mouseEventNodeIgnore;
@@ -477,17 +476,12 @@ void GUI::handleMouseEvent(GUINode* node, GUIMouseEvent* event, const set<string
 		mouseEventNodeIds.insert(eventNodeId);
 	}
 
-	// inject former mouse out click candidates
-	for (auto eventNodeId: mouseOutClickCandidateEventNodeIds) {
-		mouseEventNodeIds.insert(eventNodeId);
-	}
-
 	// handle mouse event for each node we collected
 	for (auto eventNodeId: mouseEventNodeIds) {
 		// node event occurred on
 		auto eventNode = node->getScreenNode()->getNodeById(eventNodeId);
 		if (eventNode == nullptr) continue;
-		if (floatingNodes == false && eventNode->flow == GUINode_Flow::FLOATING) continue;
+		if (eventNode->flow == GUINode_Flow::FLOATING) continue;
 
 		// controller node
 		auto controllerNode = eventNode;
@@ -553,7 +547,6 @@ void GUI::handleEvents()
 	lockEvents();
 
 	map<string, set<string>> _mouseOutCandidateEventNodeIds;
-	map<string, set<string>> _mouseOutClickCandidateEventNodeIds;
 
 	// handle mouse events
 	for (auto& event: mouseEvents) {
@@ -562,12 +555,7 @@ void GUI::handleEvents()
 		if (event.getType() == GUIMouseEvent_Type::MOUSEEVENT_MOVED) {
 			_mouseOutCandidateEventNodeIds = mouseOutCandidateEventNodeIds;
 			mouseOutCandidateEventNodeIds.clear();
-		} else
-		if (event.getType() == GUIMouseEvent_Type::MOUSEEVENT_PRESSED || event.getType() == GUIMouseEvent_Type::MOUSEEVENT_RELEASED) {
-			_mouseOutClickCandidateEventNodeIds = mouseOutClickCandidateEventNodeIds;
-			mouseOutClickCandidateEventNodeIds.clear();
 		}
-
 
 		// handle mouse dragged event
 		if (event.getType() == GUIMouseEvent_Type::MOUSEEVENT_DRAGGED) {
@@ -592,7 +580,7 @@ void GUI::handleEvents()
 			for (auto j = 0; j < floatingNodes.size(); j++) {
 				auto floatingNode = floatingNodes.at(j);
 
-				handleMouseEvent(floatingNode, &event, _mouseOutCandidateEventNodeIds[screen->getId()], _mouseOutClickCandidateEventNodeIds[screen->getId()], mousePressedEventNodeIds[screen->getId()], true);
+				handleMouseEvent(floatingNode, &event, _mouseOutCandidateEventNodeIds[screen->getId()], mousePressedEventNodeIds[screen->getId()], true);
 
 				// do not continue handling mouse events if already processed
 				if (event.isProcessed() == true) break;
@@ -609,7 +597,7 @@ void GUI::handleEvents()
 			for (int32_t i = renderScreens.size() - 1; i >= 0; i--) {
 				auto screen = renderScreens[i];
 				if (screen->isVisible() == false) continue;
-				handleMouseEvent(screen, &event, _mouseOutCandidateEventNodeIds[screen->getId()], _mouseOutClickCandidateEventNodeIds[screen->getId()], mousePressedEventNodeIds[screen->getId()], false);
+				handleMouseEvent(screen, &event, _mouseOutCandidateEventNodeIds[screen->getId()], mousePressedEventNodeIds[screen->getId()], false);
 				if (screen->isPopUp() == true) break;
 			}
 		}
@@ -920,6 +908,3 @@ void GUI::addMouseOutCandidateElementNode(GUINode* node) {
 	mouseOutCandidateEventNodeIds[node->getScreenNode()->getId()].insert(node->getId());
 }
 
-void GUI::addMouseOutClickCandidateElementNode(GUINode* node) {
-	mouseOutClickCandidateEventNodeIds[node->getScreenNode()->getId()].insert(node->getId());
-}
