@@ -406,6 +406,7 @@ bool PathFinding::findPath(BoundingVolume* actorBoundingVolume, const Transforma
 	// dispose custom test
 	if (this->customTest != nullptr) {
 		this->customTest->dispose();
+		delete this->customTest;
 		this->customTest = nullptr;
 	}
 
