@@ -65,7 +65,6 @@ void StandardFileSystem::list(const string& pathName, vector<string>& files, Fil
 			if (filter != nullptr && filter->accept(pathName, fileName) == false) continue;
 		} catch (Exception& exception) {
 			Console::println("StandardFileSystem::list(): Filter::accept(): " + pathName + "/" + fileName + ": " + exception.what());
-			continue;
 		}
 		files.push_back(fileName);
 	}
