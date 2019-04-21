@@ -22,7 +22,7 @@ using tdme::math::Vector3;
 using tdme::math::Vector4;
 
 /** 
- * Shadow mapping module
+ * Shadow mapping
  * @author Andreas Drewke
  * @version $Id$
  */

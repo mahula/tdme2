@@ -9,7 +9,7 @@ using tdme::engine::primitives::BoundingVolume;
 using tdme::math::Vector3;
 
 /** 
- * Capsule physics primitive
+ * Capsule primitive
  * @author Andreas Drewke
  * @version $Id$
  */

@@ -6,7 +6,7 @@
 using tdme::engine::subsystems::rendering::ModelUtilitiesInternal;
 
 /** 
- * Model statistics entity
+ * Model statistics class
  * @author Andreas Drewke
  * @version $Id$
  */

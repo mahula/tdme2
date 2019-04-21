@@ -1,3 +1,4 @@
+
 #pragma once
 
 #include <string>
@@ -32,7 +33,7 @@ using tdme::engine::subsystems::renderer::GLRenderer;
 using tdme::math::Matrix4x4;
 
 /** 
- * Points particle system
+ * Points particle system entity internal
  * @author Andreas Drewke
  * @version $Id$
  */

@@ -9,7 +9,7 @@ using tdme::engine::FrameBuffer;
 using tdme::engine::subsystems::renderer::GLRenderer;
 
 /** 
- * Post processing shader
+ * Interface to post processing shader program
  * @author Andreas Drewke
  * @version $Id$
  */

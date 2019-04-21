@@ -14,7 +14,7 @@ using tdme::engine::model::Color4;
 using tdme::engine::subsystems::particlesystem::ParticleEmitter;
 
 /** 
- * Particle system entity interface
+ * Particle System Entity Interface
  * @author Andreas Drewke
  * @version $Id$
  */

@@ -14,7 +14,7 @@ using tdme::engine::primitives::BoundingBox;
 using tdme::math::Vector3;
 
 /** 
- * Oriented bounding box physics primitive
+ * Oriented Bounding Box
  * @author Andreas Drewke
  * @version $Id$
  */

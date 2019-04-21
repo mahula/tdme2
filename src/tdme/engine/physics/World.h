@@ -30,7 +30,7 @@ using tdme::math::Matrix4x4;
 using tdme::math::Vector3;
 
 /** 
- * Dynamic physics world class
+ * Physics
  * @author Andreas Drewke
  * @version $Id$
  */

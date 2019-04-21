@@ -18,7 +18,7 @@ using tdme::engine::subsystems::shadowmapping::ShadowMappingShaderRenderImplemen
 using tdme::math::Matrix4x4;
 
 /** 
- * Shadow mapping shader to render shadows
+ * Shadow mapping shader for render shadows pass
  * @author Andreas Drewke
  * @version $Id$
  */

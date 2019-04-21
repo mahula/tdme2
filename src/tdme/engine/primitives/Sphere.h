@@ -9,7 +9,7 @@ using tdme::engine::primitives::BoundingVolume;
 using tdme::math::Vector3;
 
 /** 
- * Sphere physics primitive
+ * Sphere
  * @author Andreas Drewke
  * @version $Id$
  */

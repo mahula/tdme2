@@ -30,7 +30,7 @@ using tdme::math::Matrix4x4;
 using tdme::engine::subsystems::rendering::Object3DGroup;
 
 /** 
- * Object 3d group specifically for rendering
+ * Object 3d render group 
  * @author Andreas Drewke
  * @version $Id$
  */

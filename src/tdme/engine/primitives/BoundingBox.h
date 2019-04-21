@@ -18,7 +18,7 @@ using tdme::engine::physics::CollisionResponse;
 using tdme::math::Vector3;
 
 /** 
- * Axis aligned bounding box used for frustum, this is not directly connectable with physics engine
+ * Axis Aligned Bounding Box
  * @author Andreas Drewke
  * @version $Id$
  */

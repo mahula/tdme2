@@ -8,7 +8,7 @@
 using std::array;
 
 /** 
- * Renderer material data entity
+ * Bean holding material data
  */
 struct tdme::engine::subsystems::renderer::GLRenderer_Material
 {

@@ -16,7 +16,7 @@ using tdme::engine::Object3DModel;
 using tdme::math::Vector3;
 
 /** 
- * Convex mesh physics primitive
+ * Convex mesh collision object
  * @author Andreas Drewke
  * @version $Id$
  */

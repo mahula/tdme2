@@ -18,7 +18,7 @@ using tdme::engine::subsystems::particlesystem::Particle;
 using tdme::math::Vector3;
 
 /** 
- * Bounding box particle emitter
+ * Sphere particle emitter
  * @author Andreas Drewke
  * @version $Id$
  */

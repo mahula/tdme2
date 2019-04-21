@@ -6,7 +6,7 @@ using tdme::engine::physics::CollisionResponse;
 using tdme::engine::physics::Body;
 
 /** 
- * Collision listener
+ * Rigid body collision listener
  * @author Andreas Drewke
  * @version $Id$
  */

@@ -8,7 +8,7 @@ using tdme::engine::subsystems::renderer::GLRenderer;
 using tdme::engine::subsystems::shadowmapping::ShadowMappingShaderPreBaseImplementation;
 
 /** 
- * Shadow mapping foliage shader class to render shadow map
+ * Pre shadow mapping shader for render shadow map pass 
  * @author Andreas Drewke
  * @version $Id$
  */

@@ -10,7 +10,7 @@
 using tdme::utils::ByteBuffer;
 
 /** 
- * Buffers used to transfer data between main memory to graphics board memory
+ * Buffer
  * @author Andreas Drewke
  * @version $Id$
  */

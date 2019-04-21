@@ -9,7 +9,7 @@
 using tdme::math::Vector3;
 
 /** 
- * Plane entity, this is not directly connectable with physics engine
+ * Plane
  * @author Andreas Drewke
  * @version $Id$
  */
