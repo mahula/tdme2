@@ -40,7 +40,6 @@ private:
 	int32_t maxPoints {  };
 	float pointSize {  };
 	string textureFileName {  };
-	string transparencyTextureFileName {  };
 	Texture* texture {  };
 	bool autoEmit {  };
 
@@ -91,18 +90,10 @@ public:
 	}
 
 	/**
-	 * @return transparency texture file name
-	 */
-	inline virtual const string& getTransparencyTextureFileName() {
-		return transparencyTextureFileName;
-	}
-
-	/**
-	 * Set texture file name with optional transparency texture
+	 * Set texture file name
 	 * @param textureFileName texture file name
-	 * @param transparencyTextureFileName transparency texture file name
 	 */
-	virtual void setTextureFileName(const string& textureFileName, const string& transparencyTextureFileName = string());
+	virtual void setTextureFileName(const string& textureFileName);
 
 	/**
 	 * @return is auto emit
