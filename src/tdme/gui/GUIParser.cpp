@@ -126,7 +126,7 @@ GUIScreenNode* GUIParser::parse(const string& xml) throw (GUIParserException, Fi
 	xmlDocument.Parse(xml.c_str());
 	if (xmlDocument.Error() == true) {
 		throw GUIParserException(
-			string("GUIParser::parse():: Could not parse XML. Error='") + string(xmlDocument.ErrorDesc()) + "': \n\n" + xml
+			"GUIParser::parse():: Could not parse XML. Error='" + string(xmlDocument.ErrorDesc())
 		);
 	}
 	TiXmlElement* xmlRoot = xmlDocument.RootElement();
@@ -205,7 +205,7 @@ void GUIParser::parse(GUIParentNode* parentNode, const string& xml) throw (GUIPa
 	xmlDocument.Parse((string("<gui-element>") + xml + string("</gui-element>")).c_str());
 	if (xmlDocument.Error() == true) {
 		throw GUIParserException(
-			"GUIParser::parse():: Could not parse XML. Error='" + string(xmlDocument.ErrorDesc()) + "': \n\n" + xml
+			"GUIParser::parse():: Could not parse XML. Error='" + string(xmlDocument.ErrorDesc())
 		);
 	}
 	TiXmlElement* xmlNode = xmlDocument.RootElement();
