@@ -82,15 +82,7 @@ void Console::println()
 	mutex->unlock();
 }
 
-void Console::shutdown() {
-	mutex->lock();
-	cout << "Console::shutdown()\n";
-	ofstream ofs("console.log", ofstream::app);
-	for (auto message: *Console::messages) {
-		ofs << message;
-		ofs << "\n";
-	}
-	ofs.close();
-	Console::messages->clear();
-	mutex->unlock();
+void Console::forceShutdown() {
+	Console::logWriterThread.stop();
+	Console::logWriterThread.join();
 }

@@ -45,7 +45,7 @@ public:
 	/**
 	 * Shutdown console logging and especially writing log to file
 	 */
-	static void shutdown();
+	static void forceShutdown();
 
 private:
 	class LogWriterThread: public Thread {
