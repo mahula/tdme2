@@ -7,7 +7,7 @@ namespace engine {
 namespace fileio {
 namespace textures {
 	class Texture;
-	class TextureReader;
+	class TextureLoader;
 }  // namespace textures
 }  // namespace fileio
 }  // namespace engine

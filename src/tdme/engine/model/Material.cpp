@@ -3,7 +3,7 @@
 #include <string>
 
 #include <tdme/engine/fileio/textures/Texture.h>
-#include <tdme/engine/fileio/textures/TextureReader.h>
+#include <tdme/engine/fileio/textures/TextureLoader.h>
 #include <tdme/engine/model/Color4.h>
 #include <tdme/math/Math.h>
 #include <tdme/utils/ByteBuffer.h>
@@ -12,7 +12,7 @@ using std::string;
 
 using tdme::engine::model::Material;
 using tdme::engine::fileio::textures::Texture;
-using tdme::engine::fileio::textures::TextureReader;
+using tdme::engine::fileio::textures::TextureLoader;
 using tdme::engine::model::Color4;
 using tdme::math::Math;
 using tdme::utils::ByteBuffer;
@@ -47,7 +47,7 @@ void Material::setDiffuseTexture(const string& pathName, const string& fileName,
 	// load diffuse texture
 	diffuseTexturePathName = pathName;
 	diffuseTextureFileName = fileName;
-	diffuseTexture = TextureReader::read(pathName, fileName);
+	diffuseTexture = TextureLoader::loadTexture(pathName, fileName);
 	diffuseTransparencyTexturePathName = "";
 	diffuseTransparencyTextureFileName = "";
 	// check if we have a additional transparency texture
@@ -55,7 +55,7 @@ void Material::setDiffuseTexture(const string& pathName, const string& fileName,
 		diffuseTransparencyTexturePathName = transparencyPathName;
 		diffuseTransparencyTextureFileName = transparencyFileName;
 		// yep
-		auto transparencyTexture = TextureReader::read(transparencyPathName, transparencyFileName);
+		auto transparencyTexture = TextureLoader::loadTexture(transparencyPathName, transparencyFileName);
 		// laoded?
 		if (transparencyTexture != nullptr) {
 			// same dimensions and supported pixel depth?
@@ -121,21 +121,21 @@ void Material::setSpecularTexture(const string& pathName, const string& fileName
 {
 	specularTexturePathName = pathName;
 	specularTextureFileName = fileName;
-	specularTexture = TextureReader::read(pathName, fileName);
+	specularTexture = TextureLoader::loadTexture(pathName, fileName);
 }
 
 void Material::setNormalTexture(const string& pathName, const string& fileName)
 {
 	normalTexturePathName = pathName;
 	normalTextureFileName = fileName;
-	normalTexture = TextureReader::read(pathName, fileName);
+	normalTexture = TextureLoader::loadTexture(pathName, fileName);
 }
 
 void Material::setDisplacementTexture(const string& pathName, const string& fileName)
 {
 	displacementTexturePathName = pathName;
 	displacementTextureFileName = fileName;
-	displacementTexture = TextureReader::read(pathName, fileName);
+	displacementTexture = TextureLoader::loadTexture(pathName, fileName);
 }
 
 string Material::defaultMaterialId = "tdme.default_material";
