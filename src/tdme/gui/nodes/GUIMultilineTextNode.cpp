@@ -158,7 +158,7 @@ void GUIMultilineTextNode::computeContentAlignment() {
 
 void GUIMultilineTextNode::setText(const MutableString& text) {
 	this->text = text;
-	screenNode->layout(this);
+	screenNode->layout(parentNode);
 }
 
 void GUIMultilineTextNode::dispose()

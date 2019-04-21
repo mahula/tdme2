@@ -216,9 +216,8 @@ void GUIScreenNode::layout(GUINode* node)
 			auto controller = childNode->getController();
 			if (controller != nullptr) controller->postLayout();
 		}
-		auto controller = parentNode->getController();
-		if (controller != nullptr) controller->postLayout();
-	} else {
+	}
+	{
 		node->computeContentAlignment();
 		auto controller = node->getController();
 		if (controller != nullptr) controller->postLayout();

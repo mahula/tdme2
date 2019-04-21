@@ -176,6 +176,13 @@ protected:
 	virtual float computeParentChildrenRenderOffsetYTotal();
 
 	/**
+	 * Compute indent string
+	 * @param indent ident
+	 * @return indented string
+	 */
+	virtual const string indent(int32_t indent);
+
+	/**
 	 * Public constructor
 	 * @param screenNode screen node
 	 * @param parentNode parent node
@@ -432,10 +439,4 @@ public:
 	 */
 	virtual void scrollToNodeX(GUIParentNode* toNode);
 
-	/**
-	 * Dump node
-	 * @param node node to dump
-	 * @param indent indention depth
-	 */
-	static void dumpNode(GUINode* node, int indent = 0);
 };
