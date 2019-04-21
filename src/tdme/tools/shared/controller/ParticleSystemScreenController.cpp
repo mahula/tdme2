@@ -113,11 +113,7 @@ ParticleSystemScreenController::ParticleSystemScreenController(SharedParticleSys
 			finalView->onSetEntityData();
 		}
 
-		/**
-		 * Public constructor
-		 * @param particleSystemScreenController particle system screen controller
-		 * @param finalView final view
-		 */
+		// Generated
 		OnSetEntityDataAction(ParticleSystemScreenController* particleSystemScreenController, SharedParticleSystemView* finalView)
 			: particleSystemScreenController(particleSystemScreenController)
 			, finalView(finalView) {
@@ -770,10 +766,7 @@ void ParticleSystemScreenController::onParticleSystemLoad()
 			particleSystemScreenController->view->getPopUpsViews()->getFileDialogScreenController()->close();
 		}
 
-		/**
-		 * Public constructor
-		 * @param particleSystemScreenController particle system screen controller
-		 */
+		// Generated
 		OnParticleSystemLoad(ParticleSystemScreenController* particleSystemScreenController): particleSystemScreenController(particleSystemScreenController) {
 		}
 
@@ -808,10 +801,7 @@ void ParticleSystemScreenController::onEntitySave()
 			}
 		}
 
-		/**
-		 * Public constructor
-		 * @param particleSystemScreenController particle system screen controller
-		 */
+		// Generated
 		OnEntitySave(ParticleSystemScreenController* particleSystemScreenController): particleSystemScreenController(particleSystemScreenController) {
 		}
 
