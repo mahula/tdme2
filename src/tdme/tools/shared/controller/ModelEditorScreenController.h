@@ -121,7 +121,6 @@ private:
 	GUIElementNode* animationsAnimationSoundLooping {  };
 	GUIElementNode* animationsAnimationSoundFixed {  };
 	GUIElementNode* animationsAnimationSoundApply {  };
-	GUIElementNode* buttonToolsComputeNormals {  };
 	GUIElementNode* statsOpaqueFaces {  };
 	GUIElementNode* statsTransparentFaces {  };
 	GUIElementNode* statsMaterialCount {  };
@@ -367,16 +366,6 @@ public:
 	void unsetStatistics();
 
 	/** 
-	 * Set up tool
-	 */
-	void setTools();
-
-	/**
-	 * Unset tools
-	 */
-	void unsetTools();
-
-	/**
 	 * On quit
 	 */
 	void onQuit();
@@ -405,11 +394,6 @@ public:
 	 * On rendering apply
 	 */
 	void onRenderingApply();
-
-	/**
-	 * On tools compute normals
-	 */
-	void onToolsComputeNormal();
 
 	/**
 	 * Save file

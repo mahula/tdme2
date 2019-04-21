@@ -10,7 +10,6 @@
 #include <tdme/engine/Object3D.h>
 #include <tdme/engine/fileio/models/ModelReader.h>
 #include <tdme/engine/model/Model.h>
-#include <tdme/engine/model/ModelHelper.h>
 #include <tdme/engine/primitives/BoundingBox.h>
 #include <tdme/gui/GUI.h>
 #include <tdme/gui/nodes/GUIScreenNode.h>
@@ -23,10 +22,8 @@
 #include <tdme/tools/shared/controller/FileDialogScreenController.h>
 #include <tdme/tools/shared/controller/InfoDialogScreenController.h>
 #include <tdme/tools/shared/controller/ModelEditorScreenController.h>
-#include <tdme/tools/shared/controller/ProgressBarScreenController.h>
 #include <tdme/tools/shared/files/ModelMetaDataFileExport.h>
 #include <tdme/tools/shared/files/ModelMetaDataFileImport.h>
-#include <tdme/tools/shared/files/ProgressCallback.h>
 #include <tdme/tools/shared/model/LevelEditorEntity_EntityType.h>
 #include <tdme/tools/shared/model/LevelEditorEntity.h>
 #include <tdme/tools/shared/model/LevelEditorEntityAudio.h>
@@ -54,7 +51,6 @@ using tdme::engine::Object3D;
 using tdme::engine::PartitionNone;
 using tdme::engine::fileio::models::ModelReader;
 using tdme::engine::model::Model;
-using tdme::engine::model::ModelHelper;
 using tdme::engine::primitives::BoundingBox;
 using tdme::engine::subsystems::rendering::ModelStatistics;
 using tdme::gui::GUI;
@@ -68,10 +64,8 @@ using tdme::tools::shared::controller::FileDialogPath;
 using tdme::tools::shared::controller::FileDialogScreenController;
 using tdme::tools::shared::controller::InfoDialogScreenController;
 using tdme::tools::shared::controller::ModelEditorScreenController;
-using tdme::tools::shared::controller::ProgressBarScreenController;
 using tdme::tools::shared::files::ModelMetaDataFileExport;
 using tdme::tools::shared::files::ModelMetaDataFileImport;
-using tdme::tools::shared::files::ProgressCallback;
 using tdme::tools::shared::model::LevelEditorEntity_EntityType;
 using tdme::tools::shared::model::LevelEditorEntity;
 using tdme::tools::shared::model::LevelEditorEntityAudio;
@@ -190,27 +184,10 @@ void SharedModelEditorView::reloadFile()
 
 void SharedModelEditorView::pivotApply(float x, float y, float z)
 {
-	if (entity == nullptr) return;
-	entity->getPivot().set(x, y, z);
-}
+	if (entity == nullptr)
+		return;
 
-void SharedModelEditorView::computeNormals() {
-	if (entity == nullptr) return;
-	engine->removeEntity("model");
-	class ComputeNormalsProgressCallback: public ProgressCallback {
-	private:
-		ProgressBarScreenController* progressBarScreenController;
-	public:
-		ComputeNormalsProgressCallback(ProgressBarScreenController* progressBarScreenController): progressBarScreenController(progressBarScreenController) {
-		}
-		virtual void progress(float value) {
-			progressBarScreenController->progress(value);
-		}
-	};
-	popUps->getProgressBarScreenController()->show();
-	ModelHelper::computeNormals(entity->getModel(), new ComputeNormalsProgressCallback(popUps->getProgressBarScreenController()));
-	popUps->getProgressBarScreenController()->close();
-	resetEntity();
+	entity->getPivot().set(x, y, z);
 }
 
 void SharedModelEditorView::handleInputEvents()
@@ -259,7 +236,6 @@ void SharedModelEditorView::updateGUIElements()
 		modelEditorScreenController->setLODLevel(entity, lodLevel);
 		modelEditorScreenController->setMaterials(entity);
 		modelEditorScreenController->setAnimations(entity);
-		modelEditorScreenController->setTools();
 	} else {
 		modelEditorScreenController->setScreenCaption("Model Editor - no entity loaded");
 		modelEditorScreenController->unsetEntityProperties();
@@ -273,7 +249,6 @@ void SharedModelEditorView::updateGUIElements()
 		modelEditorScreenController->unsetLODLevel();
 		modelEditorScreenController->unsetMaterials();
 		modelEditorScreenController->unsetAnimations();
-		modelEditorScreenController->unsetTools();
 	}
 }
 
@@ -325,7 +300,6 @@ void SharedModelEditorView::activate()
 	onInitAdditionalScreens();
 	engine->getGUI()->addRenderScreen(popUps->getFileDialogScreenController()->getScreenNode()->getId());
 	engine->getGUI()->addRenderScreen(popUps->getInfoDialogScreenController()->getScreenNode()->getId());
-	engine->getGUI()->addRenderScreen(popUps->getProgressBarScreenController()->getScreenNode()->getId());
 }
 
 void SharedModelEditorView::storeSettings()

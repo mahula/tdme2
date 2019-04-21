@@ -529,6 +529,6 @@ tdme::ext::jsonbox::Object ModelMetaDataFileExport::exportToJSON(LevelEditorEnti
 	jEntityRoot["rg"] = entity->isRenderGroups();
 	jEntityRoot["s"] = entity->getShader();
 	jEntityRoot["sds"] = entity->getDistanceShader();
-	jEntityRoot["sdsd"] = static_cast< double >(entity->getDistanceShaderDistance());
+	jEntityRoot["sdsd"] = entity->getDistanceShaderDistance();
 	return jEntityRoot;
 }
