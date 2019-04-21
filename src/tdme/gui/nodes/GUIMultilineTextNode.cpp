@@ -11,7 +11,6 @@
 #include <tdme/gui/nodes/GUINode_ComputedConstraints.h>
 #include <tdme/gui/nodes/GUINode_Padding.h>
 #include <tdme/gui/nodes/GUINode_Scale9Grid.h>
-#include <tdme/gui/nodes/GUIScreenNode.h>
 #include <tdme/gui/renderer/GUIFont.h>
 #include <tdme/utils/Console.h>
 #include <tdme/utils/Exception.h>
@@ -29,7 +28,6 @@ using tdme::gui::nodes::GUINode_Border;
 using tdme::gui::nodes::GUINode_ComputedConstraints;
 using tdme::gui::nodes::GUINode_Padding;
 using tdme::gui::nodes::GUINode_Scale9Grid;
-using tdme::gui::nodes::GUIScreenNode;
 using tdme::gui::renderer::GUIFont;
 using tdme::utils::Console;
 using tdme::utils::Exception;
@@ -98,12 +96,8 @@ void GUIMultilineTextNode::computeContentAlignment() {
 		bool hadBreak = false;
 		for (auto i = 0; i < text.length(); i++) {
 			auto c = text.charAt(i);
-			// last char
 			auto lastChar = i == text.length() - 1;
-			// check for separation char or last char
 			if (c == '\n' || c == ' ' || c == '\t' || lastChar == true) {
-				// if last char add it to current word
-				if (lastChar == true) word+= c;
 				// determine current line width + word width
 				auto lineWidth = font->getTextWidth(MutableString(line)) + font->getTextWidth(MutableString(word));
 				// check if too long
@@ -114,51 +108,35 @@ void GUIMultilineTextNode::computeContentAlignment() {
 				if (tooLong == true ||
 					c == '\n' ||
 					lastChar == true) {
-					// add word to line if required
 					if (tooLong == false || hadBreak == false) line+= word;
 					// determine current line width
 					lineWidth = font->getTextWidth(MutableString(line));
-					// did we already had a whitespace?
+					// alignment
 					if (hadBreak == false) {
-						// clear current line as it has been rendered
+						// no op
 						line.clear();
 					} else
-					// too long?
 					if (tooLong == true) {
-						// new line is current word
 						line = word;
-						// add white space if we have one
 						if (c != '\n') line+= c;
 					} else {
-						// otherwise empty current line
 						line.clear();
 					}
-					// empty word
 					word.clear();
-					// reset
 					hadBreak = false;
-					// track dimension
 					if (lineWidth > autoWidth) autoWidth = lineWidth;
 					autoHeight+= font->getLineHeight();
 				} else
 				if (c != '\n') {
-					// no flush yet, add word to line
 					line+= word + c;
-					// reset
 					word.clear();
 					hadBreak = true;
 				}
 			} else {
-				// regular character
 				word+= c;
 			}
 		}
 	}
-}
-
-void GUIMultilineTextNode::setText(const MutableString& text) {
-	this->text = text;
-	screenNode->layout(parentNode);
 }
 
 void GUIMultilineTextNode::dispose()
@@ -192,12 +170,8 @@ void GUIMultilineTextNode::render(GUIRenderer* guiRenderer, vector<GUINode*>& fl
 		bool hadBreak = false;
 		for (auto i = 0; i < text.length(); i++) {
 			auto c = text.charAt(i);
-			// last char
 			auto lastChar = i == text.length() - 1;
-			// check for separation char or last char
 			if (c == '\n' || c == ' ' || c == '\t' || lastChar == true) {
-				// if last char add it to current word
-				if (lastChar == true) word+= c;
 				// determine current line width + word width
 				auto lineWidth = font->getTextWidth(MutableString(line)) + font->getTextWidth(MutableString(word));
 				// check if too long
@@ -208,11 +182,10 @@ void GUIMultilineTextNode::render(GUIRenderer* guiRenderer, vector<GUINode*>& fl
 				if (tooLong == true ||
 					c == '\n' ||
 					lastChar == true) {
-					// add word to line if required
 					if (tooLong == false || hadBreak == false) line+= word;
 					// determine current line width
 					lineWidth = font->getTextWidth(MutableString(line));
-					// horizontal alignment
+					// alignment
 					auto x = 0;
 					if (alignments.horizontal == GUINode_AlignmentHorizontal::LEFT) {
 						// no op
@@ -223,7 +196,6 @@ void GUIMultilineTextNode::render(GUIRenderer* guiRenderer, vector<GUINode*>& fl
 					if (alignments.horizontal == GUINode_AlignmentHorizontal::RIGHT) {
 						x = (computedConstraints.width - (border.left + border.right + padding.left + padding.right) - lineWidth);
 					}
-					// flush/draw to screen
 					font->drawString(
 						guiRenderer,
 						x + xIndentLeft,
@@ -233,36 +205,26 @@ void GUIMultilineTextNode::render(GUIRenderer* guiRenderer, vector<GUINode*>& fl
 						0,
 						color
 					);
-					// did we already had a whitespace?
 					if (hadBreak == false) {
-						// clear current line as it has been rendered
+						// no op
 						line.clear();
 					} else
 					if (tooLong == true) {
-						// new line is current word
 						line = word;
-						// add white space if we have one
 						if (c != '\n') line+= c;
 					} else {
-						// otherwise empty current line
 						line.clear();
 					}
-					// empty word
 					word.clear();
-					// reset
 					hadBreak = false;
-					// move y
 					y+= font->getLineHeight();
 				} else
 				if (c != '\n') {
-					// no flush yet, add word to line
 					line+= word + c;
-					// reset
 					word.clear();
 					hadBreak = true;
 				}
 			} else {
-				// regular character
 				word+= c;
 			}
 		}
