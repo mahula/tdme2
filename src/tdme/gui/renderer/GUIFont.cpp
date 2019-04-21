@@ -117,6 +117,12 @@ GUIFont_CharacterDefinition* GUIFont::parseCharacter(const string& line)
 	return characterDefinition;
 }
 
+GUIFont_CharacterDefinition* GUIFont::getCharacter(int32_t charId) {
+	auto charIt = chars.find(charId);
+	if (charIt != chars.end()) return charIt->second;
+	return nullptr;
+}
+
 void GUIFont::initialize()
 {
 	textureId = Engine::getInstance()->getTextureManager()->addTexture(texture);
@@ -200,9 +206,11 @@ int32_t GUIFont::getTextHeight(const MutableString& text)
 	auto maxHeight = 0;
 	for (auto i = 0; i < text.length(); i++) {
 		int32_t id = text.charAt(i);
-		if (id == ' ') continue;
-		auto charDef = getCharacter(id);
+		GUIFont_CharacterDefinition* charDef = getCharacter(id);
 		if (charDef == nullptr) continue;
+		if (id == L' ') {
+			continue;
+		}
 		maxHeight = Math::max(charDef->height + charDef->yOffset, maxHeight);
 	}
 	return maxHeight;
@@ -213,7 +221,7 @@ int32_t GUIFont::getTextWidth(const MutableString& text)
 	auto width = 0;
 	for (auto i = 0; i < text.length(); i++) {
 		int32_t id = text.charAt(i);
-		auto charDef = getCharacter(id);
+		GUIFont_CharacterDefinition* charDef = getCharacter(id);
 		if (charDef == nullptr) continue;
 		auto xAdvance = charDef->xAdvance;
 		width += xAdvance;
