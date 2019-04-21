@@ -67,7 +67,6 @@ void StandardFileSystem::list(const string& pathName, vector<string>& files, Fil
 	}
 	while ((dirent = readdir(dir)) != NULL) {
 		string fileName = (dirent->d_name);
-		if (fileName == ".") continue;
 		try {
 			if (filter != nullptr && filter->accept(pathName, fileName) == false) continue;
 		} catch (Exception& exception) {
