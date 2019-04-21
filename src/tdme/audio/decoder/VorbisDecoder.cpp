@@ -36,7 +36,12 @@ using tdme::os::filesystem::FileSystemInterface;
 using tdme::os::filesystem::FileSystemException;
 using tdme::utils::ByteBuffer;
 
-static size_t oggfiledata_read(void* buffer, size_t size, size_t count, VorbisDecoder::OGGFileData* oggFileData) {
+struct OGGFileData {
+	vector<uint8_t> data;
+	size_t position { 0 };
+};
+
+static size_t oggfiledata_read(void* buffer, size_t size, size_t count, OGGFileData* oggFileData) {
 	size_t bytesRead = 0;
 	for (size_t i = 0; i < size * count; i++) {
 		if (oggFileData->position == oggFileData->data.size()) break;
@@ -47,7 +52,7 @@ static size_t oggfiledata_read(void* buffer, size_t size, size_t count, VorbisDe
 	return bytesRead;
 }
 
-static int oggfiledata_seek(VorbisDecoder::OGGFileData* oggFileData, ogg_int64_t offset, int whence) {
+static int oggfiledata_seek(OGGFileData* oggFileData, ogg_int64_t offset, int whence) {
 	switch (whence) {
 		case SEEK_SET:
 			oggFileData->position = offset;
@@ -63,12 +68,12 @@ static int oggfiledata_seek(VorbisDecoder::OGGFileData* oggFileData, ogg_int64_t
 	}
 }
 
-static int oggfiledata_close(VorbisDecoder::OGGFileData* oggFileData) {
+static int oggfiledata_close(OGGFileData* oggFileData) {
 	delete oggFileData;
 	return 0;
 }
 
-static long oggfiledata_tell(VorbisDecoder::OGGFileData* oggFileData) {
+static long oggfiledata_tell(OGGFileData* oggFileData) {
 	return oggFileData->position;
 }
 

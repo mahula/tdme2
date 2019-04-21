@@ -3,7 +3,6 @@
 #include <vorbis/vorbisfile.h>
 
 #include <string>
-#include <vector>
 
 #include <tdme/tdme.h>
 #include <tdme/audio/decoder/fwd-tdme.h>
@@ -14,7 +13,6 @@
 #include <tdme/utils/fwd-tdme.h>
 
 using std::string;
-using std::vector;
 
 using tdme::audio::decoder::AudioDecoder;
 using tdme::audio::decoder::AudioDecoderException;
@@ -24,10 +22,6 @@ using tdme::utils::ByteBuffer;
 class tdme::audio::decoder::VorbisDecoder: public AudioDecoder
 {
 public:
-	struct OGGFileData {
-		vector<uint8_t> data;
-		size_t position { 0 };
-	};
 
 	/**
 	 * Open a local file
