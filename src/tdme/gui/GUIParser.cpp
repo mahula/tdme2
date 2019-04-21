@@ -46,7 +46,6 @@
 #include <tdme/gui/nodes/GUITextNode.h>
 #include <tdme/gui/nodes/GUIVerticalScrollbarInternalNode.h>
 #include <tdme/os/filesystem/FileSystem.h>
-#include <tdme/os/filesystem/FileSystemException.h>
 #include <tdme/os/filesystem/FileSystemInterface.h>
 #include <tdme/utils/MutableString.h>
 #include <tdme/utils/StringUtils.h>
@@ -100,7 +99,6 @@ using tdme::gui::nodes::GUISpaceNode;
 using tdme::gui::nodes::GUITextNode;
 using tdme::gui::nodes::GUIVerticalScrollbarInternalNode;
 using tdme::os::filesystem::FileSystem;
-using tdme::os::filesystem::FileSystemException;
 using tdme::os::filesystem::FileSystemInterface;
 using tdme::utils::MutableString;
 using tdme::utils::StringUtils;
@@ -115,12 +113,12 @@ using tdme::ext::tinyxml::TiXmlAttribute;
 
 map<string, GUIElement*> GUIParser::elements;
 
-GUIScreenNode* GUIParser::parse(const string& pathName, const string& fileName) throw (GUIParserException, FileSystemException)
+GUIScreenNode* GUIParser::parse(const string& pathName, const string& fileName) throw (GUIParserException)
 {
 	return parse(FileSystem::getInstance()->getContentAsString(pathName, fileName));
 }
 
-GUIScreenNode* GUIParser::parse(const string& xml) throw (GUIParserException, FileSystemException)
+GUIScreenNode* GUIParser::parse(const string& xml) throw (GUIParserException)
 {
 	TiXmlDocument xmlDocument;
 	xmlDocument.Parse(xml.c_str());
@@ -193,13 +191,13 @@ GUIScreenNode* GUIParser::parse(const string& xml) throw (GUIParserException, Fi
 	return guiScreenNode;
 }
 
-void GUIParser::parse(GUIParentNode* parentNode, const string& pathName, const string& fileName) throw (GUIParserException, FileSystemException)
+void GUIParser::parse(GUIParentNode* parentNode, const string& pathName, const string& fileName) throw (GUIParserException)
 {
 	string xml = FileSystem::getInstance()->getContentAsString(pathName, fileName);
 	parse(parentNode, xml);
 }
 
-void GUIParser::parse(GUIParentNode* parentNode, const string& xml) throw (GUIParserException, FileSystemException)
+void GUIParser::parse(GUIParentNode* parentNode, const string& xml) throw (GUIParserException)
 {
 	TiXmlDocument xmlDocument;
 	xmlDocument.Parse((string("<gui-element>") + xml + string("</gui-element>")).c_str());
@@ -212,7 +210,7 @@ void GUIParser::parse(GUIParentNode* parentNode, const string& xml) throw (GUIPa
 	parseGUINode(parentNode, xmlNode, nullptr);
 }
 
-void GUIParser::parseGUINode(GUIParentNode* guiParentNode, TiXmlElement* xmlParentNode, GUIElement* guiElement) throw (GUIParserException, FileSystemException)
+void GUIParser::parseGUINode(GUIParentNode* guiParentNode, TiXmlElement* xmlParentNode, GUIElement* guiElement) throw (GUIParserException)
 {
 	GUINodeController* guiElementController = nullptr;
 	auto guiElementControllerInstalled = false;
@@ -920,7 +918,7 @@ const string GUIParser::escapeQuotes(const string& str)
 	return StringUtils::replace(str, "\"", "&quot;");
 }
 
-void GUIParser::addElement(GUIElement* guiElement) throw (GUIParserException, FileSystemException)
+void GUIParser::addElement(GUIElement* guiElement) throw (GUIParserException)
 {
 	if (elements.find(guiElement->getName()) != elements.end()) {
 		throw GUIParserException(
