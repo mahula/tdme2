@@ -19,11 +19,11 @@ using tdme::tools::shared::model::LevelEditorEntity;
 using tdme::tools::shared::views::PopUps;
 
 /** 
- * Entity physics view
+ * Entity physics sub screen controller
  * @author Andreas Drewke
  * @version $Id$
  */
-class tdme::tools::shared::views::EntityPhysicsView
+class tdme::tools::shared::views::EntityBoundingVolumeView
 {
 private:
 	Engine* engine {  };
@@ -177,5 +177,5 @@ public:
 	 * @param entityPhysicsSubScreenController pop ups
 	 * @param popUps model editor screen controller
 	 */
-	EntityPhysicsView(EntityPhysicsSubScreenController* entityPhysicsSubScreenController, PopUps* popUps);
+	EntityBoundingVolumeView(EntityPhysicsSubScreenController* entityPhysicsSubScreenController, PopUps* popUps);
 };

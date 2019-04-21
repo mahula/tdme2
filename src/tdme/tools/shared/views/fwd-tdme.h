@@ -7,7 +7,7 @@ namespace shared {
 namespace views {
 	class CameraRotationInputHandler;
 	class EntityBaseView;
-	class EntityPhysicsView;
+	class EntityBoundingVolumeView;
 	class EntitySoundsView;
 	class EntityDisplayView;
 	class PopUps;

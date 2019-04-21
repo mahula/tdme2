@@ -1,4 +1,4 @@
-#include <tdme/tools/shared/views/EntityPhysicsView.h>
+#include <tdme/tools/shared/views/EntityBoundingVolumeView.h>
 
 #include <tdme/math/Math.h>
 
@@ -21,7 +21,7 @@
 #include <tdme/tools/shared/model/LevelEditorEntityBoundingVolume.h>
 #include <tdme/tools/shared/views/PopUps.h>
 
-using tdme::tools::shared::views::EntityPhysicsView;
+using tdme::tools::shared::views::EntityBoundingVolumeView;
 
 using tdme::math::Math;
 
@@ -44,19 +44,19 @@ using tdme::tools::shared::model::LevelEditorEntity;
 using tdme::tools::shared::model::LevelEditorEntityBoundingVolume;
 using tdme::tools::shared::views::PopUps;
 
-EntityPhysicsView::EntityPhysicsView(EntityPhysicsSubScreenController* entityPhysicsSubScreenController, PopUps* popUps)
+EntityBoundingVolumeView::EntityBoundingVolumeView(EntityPhysicsSubScreenController* entityPhysicsSubScreenController, PopUps* popUps)
 {
 	this->engine = Engine::getInstance();
 	this->popUps = popUps;
 	this->entityPhysicsSubScreenController = entityPhysicsSubScreenController;
 }
 
-PopUps* EntityPhysicsView::getPopUpsViews()
+PopUps* EntityBoundingVolumeView::getPopUpsViews()
 {
 	return popUps;
 }
 
-void EntityPhysicsView::initialize()
+void EntityBoundingVolumeView::initialize()
 {
 	vector<string> boundingVolumeTypes = {
 		"None",
@@ -72,7 +72,7 @@ void EntityPhysicsView::initialize()
 	}
 }
 
-void EntityPhysicsView::resetBoundingVolume(LevelEditorEntity* entity, int32_t idx)
+void EntityBoundingVolumeView::resetBoundingVolume(LevelEditorEntity* entity, int32_t idx)
 {
 	BoundingBox* aabb = nullptr;
 	if (entity->getModel() != nullptr) {
@@ -121,7 +121,7 @@ void EntityPhysicsView::resetBoundingVolume(LevelEditorEntity* entity, int32_t i
 	entityPhysicsSubScreenController->selectBoundingVolume(idx, EntityPhysicsSubScreenController_BoundingVolumeType::NONE);
 }
 
-void EntityPhysicsView::setBoundingVolumes(LevelEditorEntity* entity)
+void EntityBoundingVolumeView::setBoundingVolumes(LevelEditorEntity* entity)
 {
 	for (auto i = 0; i < LevelEditorEntity::MODEL_BOUNDINGVOLUME_COUNT; i++) {
 		resetBoundingVolume(entity, i);
@@ -161,14 +161,14 @@ void EntityPhysicsView::setBoundingVolumes(LevelEditorEntity* entity)
 	}
 }
 
-void EntityPhysicsView::unsetBoundingVolumes()
+void EntityBoundingVolumeView::unsetBoundingVolumes()
 {
 	for (auto i = 0; i < LevelEditorEntity::MODEL_BOUNDINGVOLUME_COUNT; i++) {
 		entityPhysicsSubScreenController->disableBoundingVolume(i);
 	}
 }
 
-void EntityPhysicsView::selectBoundingVolumeType(int32_t idx, int32_t bvTypeId)
+void EntityBoundingVolumeView::selectBoundingVolumeType(int32_t idx, int32_t bvTypeId)
 {
 	switch (bvTypeId) {
 	case 0:
@@ -193,7 +193,7 @@ void EntityPhysicsView::selectBoundingVolumeType(int32_t idx, int32_t bvTypeId)
 
 }
 
-void EntityPhysicsView::clearModelBoundingVolume(int32_t idx) {
+void EntityBoundingVolumeView::clearModelBoundingVolume(int32_t idx) {
 	auto modelBoundingVolumeEntityId = LevelEditorEntity::MODEL_BOUNDINGVOLUME_IDS[idx];
 	auto modelBoundingVolumeEntity = engine->getEntity(modelBoundingVolumeEntityId);
 	if (modelBoundingVolumeEntity != nullptr) {
@@ -201,7 +201,7 @@ void EntityPhysicsView::clearModelBoundingVolume(int32_t idx) {
 	}
 }
 
-void EntityPhysicsView::setupModelBoundingVolume(LevelEditorEntity* entity, int32_t idx)
+void EntityBoundingVolumeView::setupModelBoundingVolume(LevelEditorEntity* entity, int32_t idx)
 {
 	auto entityBoundingVolume = entity->getBoundingVolumeAt(idx);
 	auto modelBoundingVolumeEntityId = LevelEditorEntity::MODEL_BOUNDINGVOLUME_IDS[idx];
@@ -220,7 +220,7 @@ void EntityPhysicsView::setupModelBoundingVolume(LevelEditorEntity* entity, int3
 	engine->addEntity(modelBoundingVolumeEntity);
 }
 
-void EntityPhysicsView::applyBoundingVolumeNone(LevelEditorEntity* entity, int32_t idx)
+void EntityBoundingVolumeView::applyBoundingVolumeNone(LevelEditorEntity* entity, int32_t idx)
 {
 	if (entity == nullptr)
 		return;
@@ -231,7 +231,7 @@ void EntityPhysicsView::applyBoundingVolumeNone(LevelEditorEntity* entity, int32
 	setupModelBoundingVolume(entity, idx);
 }
 
-void EntityPhysicsView::applyBoundingVolumeSphere(LevelEditorEntity* entity, int32_t idx, const Vector3& center, float radius)
+void EntityBoundingVolumeView::applyBoundingVolumeSphere(LevelEditorEntity* entity, int32_t idx, const Vector3& center, float radius)
 {
 	if (entity == nullptr)
 		return;
@@ -242,7 +242,7 @@ void EntityPhysicsView::applyBoundingVolumeSphere(LevelEditorEntity* entity, int
 	setupModelBoundingVolume(entity, idx);
 }
 
-void EntityPhysicsView::applyBoundingVolumeCapsule(LevelEditorEntity* entity, int32_t idx, const Vector3& a, const Vector3& b, float radius)
+void EntityBoundingVolumeView::applyBoundingVolumeCapsule(LevelEditorEntity* entity, int32_t idx, const Vector3& a, const Vector3& b, float radius)
 {
 	if (entity == nullptr)
 		return;
@@ -253,7 +253,7 @@ void EntityPhysicsView::applyBoundingVolumeCapsule(LevelEditorEntity* entity, in
 	setupModelBoundingVolume(entity, idx);
 }
 
-void EntityPhysicsView::applyBoundingVolumeAabb(LevelEditorEntity* entity, int32_t idx, const Vector3& min, const Vector3& max)
+void EntityBoundingVolumeView::applyBoundingVolumeAabb(LevelEditorEntity* entity, int32_t idx, const Vector3& min, const Vector3& max)
 {
 	if (entity == nullptr)
 		return;
@@ -264,7 +264,7 @@ void EntityPhysicsView::applyBoundingVolumeAabb(LevelEditorEntity* entity, int32
 	setupModelBoundingVolume(entity, idx);
 }
 
-void EntityPhysicsView::applyBoundingVolumeObb(LevelEditorEntity* entity, int32_t idx, const Vector3& center, const Vector3& axis0, const Vector3& axis1, const Vector3& axis2, const Vector3& halfExtension)
+void EntityBoundingVolumeView::applyBoundingVolumeObb(LevelEditorEntity* entity, int32_t idx, const Vector3& center, const Vector3& axis0, const Vector3& axis1, const Vector3& axis2, const Vector3& halfExtension)
 {
 	if (entity == nullptr)
 		return;
@@ -275,7 +275,7 @@ void EntityPhysicsView::applyBoundingVolumeObb(LevelEditorEntity* entity, int32_
 	setupModelBoundingVolume(entity, idx);
 }
 
-void EntityPhysicsView::applyBoundingVolumeConvexMesh(LevelEditorEntity* entity, int32_t idx, const string& fileName)
+void EntityBoundingVolumeView::applyBoundingVolumeConvexMesh(LevelEditorEntity* entity, int32_t idx, const string& fileName)
 {
 	if (entity == nullptr)
 		return;
@@ -289,29 +289,29 @@ void EntityPhysicsView::applyBoundingVolumeConvexMesh(LevelEditorEntity* entity,
 	setupModelBoundingVolume(entity, idx);
 }
 
-void EntityPhysicsView::setTerrainMesh(LevelEditorEntity* entity) {
+void EntityBoundingVolumeView::setTerrainMesh(LevelEditorEntity* entity) {
 	if (entity == nullptr)
 		return;
 
 	entityPhysicsSubScreenController->setTerrainMesh(entity);
 }
 
-void EntityPhysicsView::unsetTerrainMesh() {
+void EntityBoundingVolumeView::unsetTerrainMesh() {
 	entityPhysicsSubScreenController->unsetTerrainMesh();
 }
 
-void EntityPhysicsView::unsetConvexMeshes() {
+void EntityBoundingVolumeView::unsetConvexMeshes() {
 	entityPhysicsSubScreenController->unsetConvexMeshes();
 }
 
-void EntityPhysicsView::setConvexMeshes(LevelEditorEntity* entity) {
+void EntityBoundingVolumeView::setConvexMeshes(LevelEditorEntity* entity) {
 	entityPhysicsSubScreenController->setConvexMeshes(entity);
 }
 
-void EntityPhysicsView::unsetPhysics() {
+void EntityBoundingVolumeView::unsetPhysics() {
 	entityPhysicsSubScreenController->unsetPhysics();
 }
 
-void EntityPhysicsView::setPhysics(LevelEditorEntity* entity) {
+void EntityBoundingVolumeView::setPhysics(LevelEditorEntity* entity) {
 	entityPhysicsSubScreenController->setPhysics(entity);
 }
