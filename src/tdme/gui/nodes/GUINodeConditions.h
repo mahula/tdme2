@@ -28,26 +28,26 @@ private:
 	 * Update node
 	 * @param node node
 	 */
-	void updateNode(GUINode* node) const;
+	void updateNode(GUINode* node);
 
 	/**
 	 * Update element node
 	 */
-	void updateElementNode() const;
+	void updateElementNode();
 
 public:
 
 	/** 
 	 * @return conditions
 	 */
-	const vector<string>& getConditions() const;
+	vector<string>& getConditions();
 
 	/**
 	 * Returns if condition is set
 	 * @param condition condition name
 	 * @return if condition is set
 	 */
-	bool has(const string& condition) const;
+	bool has(const string& condition);
 
 	/** 
 	 * Add a condition
