@@ -95,9 +95,8 @@ bool ModelProperties::removeProperty(const string& name)
 {
 	auto propertyByNameIt = propertiesByName.find(name);
 	if (propertyByNameIt != propertiesByName.end()) {
-		auto property = propertyByNameIt->second;
 		propertiesByName.erase(propertyByNameIt);
-		properties.erase(remove(properties.begin(), properties.end(), property), properties.end());
+		properties.erase(remove(properties.begin(), properties.end(), propertyByNameIt->second), properties.end());
 		return true;
 	}
 

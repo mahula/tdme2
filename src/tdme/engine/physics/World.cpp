@@ -68,17 +68,14 @@ World::World(): world(reactphysics3d::Vector3(0.0, -9.81, 0.0))
 
 World::~World()
 {
-	for (auto worldListener: worldListeners) delete worldListener;
+	auto _worldListeners = worldListeners;
+	for (auto worldListener: _worldListeners) delete worldListener;
 	reset();
 }
 
 void World::reset()
 {
-	for (auto body: bodies) removeBody(body->getId());
-	bodies.clear();
-	rigidBodiesDynamic.clear();
-	bodiesById.clear();
-	bodyCollisionsLastFrame.clear();
+	// TODO
 }
 
 Body* World::addRigidBody(const string& id, bool enabled, uint16_t collisionTypeId, const Transformations& transformations, float restitution, float friction, float mass, const Vector3& inertiaTensor, vector<BoundingVolume*> boundingVolumes)
