@@ -79,7 +79,7 @@ $ pwd
 $ ./bin/tdme/tests/AngleTest
 ```
 
-# 3. Other information
+# Other information
 - Links
 	- TDME2 Engine, see [README.md](./README.md)
     - TDME2 Model Editor, see [README-ModelEditor.md](./README-ModelEditor.md)
