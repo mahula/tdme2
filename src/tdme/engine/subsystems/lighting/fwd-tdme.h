@@ -11,7 +11,6 @@ namespace lighting {
 	class LightingShaderBaseImplementation;
 	class LightingShaderDefaultImplementation;
 	class LightingShaderFoliageImplementation;
-	class LightingShaderTerrainImplementation;
 }  // namespace lighting
 }  // namespace subsystems
 }  // namespace engine
