@@ -161,6 +161,16 @@ private:
 	bool initialized {  };
 
 	/**
+	 * @return texture manager
+	 */
+	static TextureManager* getTextureManager();
+
+	/**
+	 * @return vertex buffer object manager
+	 */
+	static VBOManager* getVBOManager();
+
+	/**
 	 * @return mesh manager
 	 */
 	static MeshManager* getMeshManager();
@@ -268,16 +278,6 @@ public:
 	 * @return height
 	 */
 	int32_t getHeight();
-
-	/**
-	 * @return texture manager
-	 */
-	static TextureManager* getTextureManager();
-
-	/**
-	 * @return vertex buffer object manager
-	 */
-	static VBOManager* getVBOManager();
 
 	/**
 	 * @return shadow mapping or null if disabled
