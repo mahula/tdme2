@@ -2,8 +2,6 @@
  * @version $Id: 1a286d86b29cabf8420205519e524a885c74a8d7 $
  */
 
-#include <errno.h>
-
 #include "Mutex.h"
 #include "ThreadingError.h"
 
@@ -22,9 +20,7 @@ Mutex::~Mutex() {
 
 bool Mutex::tryLock() {
 	int result = pthread_mutex_trylock(&pThreadMutex);
-	if (result != EBUSY) {
-		PTHREAD_CHECK_ERROR(name, "Could not try lock mutex", "pthread_mutex_trylock");
-	}
+	PTHREAD_CHECK_ERROR(name, "Could not try lock mutex", "pthread_mutex_trylock");
 	return result == 0;
 }
 
