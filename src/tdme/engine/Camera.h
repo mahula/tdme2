@@ -147,7 +147,7 @@ public:
 	 * @param lookAt look at
 	 * @return up vector
 	 */
-	static Vector3 computeUpVector(const Vector3& lookFrom, const Vector3& lookAt);
+	Vector3 computeUpVector(const Vector3& lookFrom, const Vector3& lookAt);
 
 private:
 
