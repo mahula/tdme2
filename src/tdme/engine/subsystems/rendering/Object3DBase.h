@@ -103,9 +103,8 @@ protected:
 	 * Compute transformations for given animation state into given transformations matrices
 	 * @param baseAnimation base animation
 	 * @param transformationsMatrices transformations matrices
-	 * @param timing timing
 	 */
-	virtual void computeTransformations(AnimationState& baseAnimation, map<string, Matrix4x4*>* transformationsMatrices, Timing* timing);
+	virtual void computeTransformations(AnimationState& baseAnimation, map<string, Matrix4x4*>* transformationsMatrices);
 
 	/**
 	 * Update skinning transformations matrices
@@ -204,9 +203,8 @@ public:
 
 	/**
 	 * Pre render step, computes transformations
-	 * @param timing timing
 	 */
-	virtual void computeTransformations(Timing* timing);
+	virtual void computeTransformations();
 
 	/**
 	 * @return group count

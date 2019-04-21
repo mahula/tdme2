@@ -131,7 +131,6 @@ ParticlesShader* Engine::particlesShader = nullptr;
 SkinningShader* Engine::skinningShader = nullptr;
 GUIShader* Engine::guiShader = nullptr;
 Engine* Engine::currentEngine = nullptr;
-bool Engine::skinningShaderEnabled = false;
 
 Engine::Engine() 
 {
@@ -873,7 +872,7 @@ void Engine::display()
 							target = postProcessingTemporaryFrameBuffer;
 							break;
 					}
-					FrameBuffer::doPostProcessing(target, source, shaderId, step.bindTemporary == true?postProcessingTemporaryFrameBuffer:nullptr);
+					target->doPostProcessing(source, shaderId, step.bindTemporary == true?postProcessingTemporaryFrameBuffer:nullptr);
 					switch(step.target) {
 						case PostProcessingProgram::FRAMEBUFFERTARGET_SCREEN:
 							postProcessingFrameBufferIdx = (postProcessingFrameBufferIdx + 1) % 2;
