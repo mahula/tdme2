@@ -8,13 +8,11 @@ namespace network {
 	class Network;
 	class NIOException;
 	class NIOIOException;
-	class NIOIOSocketClosedException;
 	class NIOKEMException;
 	class NIONetworkSocket;
 	class NIONetworkServerException;
 	class NIOSocketException;
 	class NIOUDPSocket;
-	class NIOTCPSocket;
 } // namespace network
 } // namespace os
 } // namespace tdme
