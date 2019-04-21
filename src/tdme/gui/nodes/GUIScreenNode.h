@@ -74,6 +74,7 @@ private:
 	vector<GUINode*> childControllerNodes {  };
 	GUIScreenNode_SizeConstraints sizeConstraints {  };
 
+	bool mouseEventProcessedByFloatingNode {  };
 	bool visible {  };
 	bool popUp {  };
 

@@ -47,10 +47,6 @@ using tdme::utils::Time;
 class tdme::gui::GUI final
 	: public virtual InputEventHandler
 {
-	friend class tdme::gui::nodes::GUIElementController;
-	friend class tdme::gui::nodes::GUIHorizontalScrollbarInternalController;
-	friend class tdme::gui::nodes::GUIVerticalScrollbarInternalController;
-
 private:
 	GUIRenderer* guiRenderer {  };
 	Engine* engine {  };
@@ -71,16 +67,10 @@ private:
 	int32_t width {  };
 	int32_t height {  };
 	int32_t mouseButtonLast { };
-	map<string, set<string>> mouseOutCandidateEventNodeIds;
+	map<string, set<string>> mouseMovedEventNodeIdsLast;
 	map<string, set<string>> mousePressedEventNodeIds;
 	map<string, set<string>> mouseDraggingEventNodeIds;
 	map<string, bool> mouseIsDragging;
-
-	/**
-	 * Add element node that is a possible mouse out candidate as it received a mouse over
-	 * @param node element node
-	 */
-	void addMouseOutCandidateElementNode(GUINode* node);
 
 public:
 
@@ -257,10 +247,10 @@ private:
 	 * Handle mouse event for given node
 	 * @param node node
 	 * @param event event
-	 * @param mouseOutCandidateEventNodeIds mouse out candidate event node ids
+	 * @param mouseMovedEventNodeIds mouse moved event nodes ids
 	 * @param mousePressedEventNodeIds mouse pressed event node ids
 	 */
-	void handleMouseEvent(GUINode* node, GUIMouseEvent* event, const set<string>& mouseOutCandidateEventNodeIds, set<string>& mousePressedEventNodeIds, bool skipFloatingNodes);
+	void handleMouseEvent(GUINode* node, GUIMouseEvent* event, set<string>& mouseMovedEventNodeIds, set<string>& mousePressedEventNodeIds);
 
 	/**
 	 * Handle mouse event for given node

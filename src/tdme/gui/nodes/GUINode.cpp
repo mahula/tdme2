@@ -912,9 +912,9 @@ void GUINode::getEventOffNodeRelativePosition(GUIMouseEvent* event, array<float,
 	auto eventX = eventXScreen + computeParentChildrenRenderOffsetXTotal();
 	auto eventY = eventYScreen + computeParentChildrenRenderOffsetYTotal();
 	float left = computedConstraints.left + computedConstraints.alignmentLeft;
-	float right = computedConstraints.left + computedConstraints.alignmentLeft + computedConstraints.width - 1;
+	float right = computedConstraints.left + computedConstraints.alignmentLeft + computedConstraints.width;
 	float top = computedConstraints.top + computedConstraints.alignmentTop;
-	float bottom = computedConstraints.top + computedConstraints.alignmentTop + computedConstraints.height - 1;
+	float bottom = computedConstraints.top + computedConstraints.alignmentTop + computedConstraints.height;
 	if (eventX < left) {
 		position[0] = static_cast< int32_t >((eventX - left));
 	} else if (eventX > right) {
@@ -943,6 +943,9 @@ GUIParentNode* GUINode::getParentControllerNode()
 void GUINode::determineMouseEventNodes(GUIMouseEvent* event, set<string>& eventNodeIds)
 {
 	if (conditionsMet == false)
+		return;
+
+	if (screenNode->mouseEventProcessedByFloatingNode == true)
 		return;
 
 	if (isEventBelongingToNode(event) == true) {
