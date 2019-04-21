@@ -16,14 +16,12 @@ exit
 ```
 
 ### 1.1.2. Clone repository
-
 ```bash
 git clone https://github.com/andreasdr/tdme2
 cd tdme2
 ```
 
 ### 1.1.3. Build
-
 ```bash
 gmake clean && gmake -j HARDWARE_THREADS mains
 ```
@@ -41,14 +39,12 @@ sudo apt-get install freeglut3-dev
 ```
 
 ### 1.2.2. Clone repository
-
 ```bash
 git clone https://github.com/andreasdr/tdme2
 cd tdme2
 ```
 
 ### 1.2.3. Build
-
 ```bash
 make clean && make -j HARDWARE_THREADS mains
 ```
@@ -57,15 +53,14 @@ make clean && make -j HARDWARE_THREADS mains
 ### 1.3.1 Install packages
 You have to install XCode or XCode command line tools.
 
-### 1.3.2. Clone repository
 
+### 1.3.2. Clone repository
 ```bash
 git clone https://github.com/andreasdr/tdme2
 cd tdme2
 ```
 
 ### 1.3.3. Build
-
 ```bash
 make clean && make -j HARDWARE_THREADS mains
 ```
@@ -85,7 +80,6 @@ $ ./bin/tdme/tests/AngleTest
 ```
 
 # 3. Other information
-
 - Links
 	- TDME2 Engine, see [README.md](./README.md)
     - TDME2 Model Editor, see [README-ModelEditor.md](./README-ModelEditor.md)
