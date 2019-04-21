@@ -16,7 +16,6 @@
 using std::map;
 using std::stack;
 using std::string;
-using std::to_string;
 using std::vector;
 
 using tdme::engine::Transformations;
@@ -55,18 +54,9 @@ public:
 	~PathFinding();
 
 	/**
-	 * Return string representation of given x,y,z for path finding key
-	 * @param x x
-	 * @param y y
-	 * @param z z
-	 * @return string representation
+	 * Format float for key usage
 	 */
-	inline string toKey(float x, float y, float z) {
-		return
-			floatToStringKey(x) + "," +
-			floatToStringKey(y) + "," +
-			floatToStringKey(z);
-	}
+	string toKeyFloat(float value);
 
 	/**
 	 * Finds path to given end position
@@ -84,16 +74,6 @@ private:
 	 * Reset path finding
 	 */
 	void reset();
-
-	/**
-	 * Return string representation of float for key usage
-	 * @param value value
-	 * @return string representation
-	 */
-	inline string floatToStringKey(float value) {
-		string floatString = to_string(value);
-		return floatString.substr(0, floatString.length() - 5);
-	}
 
 	/**
 	 * Computes non square rooted distance between a and b
