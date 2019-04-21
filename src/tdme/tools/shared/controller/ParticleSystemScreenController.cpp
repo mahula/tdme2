@@ -402,6 +402,8 @@ void ParticleSystemScreenController::setParticleSystemType()
 			);
 		}
 	}
+
+	view->initParticleSystemRequest();
 }
 
 void ParticleSystemScreenController::onParticleSystemTypeDataApply()
@@ -437,9 +439,11 @@ void ParticleSystemScreenController::onParticleSystemTypeDataApply()
 				);
 			}
 		}
+
 	} catch (Exception& exception) {
 		showErrorPopUp("Warning", (string(exception.what())));
 	}
+	view->initParticleSystemRequest();
 }
 
 void ParticleSystemScreenController::onParticleSystemTypeApply()
@@ -464,8 +468,8 @@ void ParticleSystemScreenController::onParticleSystemTypeApply()
 			)
 		);
 	}
-
 	setParticleSystemType();
+	view->initParticleSystemRequest();
 }
 
 void ParticleSystemScreenController::onParticleSystemEmitterApply()
@@ -500,6 +504,7 @@ void ParticleSystemScreenController::onParticleSystemEmitterApply()
 			)
 		);
 	}
+	setParticleSystemEmitter();
 }
 
 void ParticleSystemScreenController::onParticleSystemEmitterDataApply()
@@ -624,6 +629,7 @@ void ParticleSystemScreenController::onParticleSystemEmitterDataApply()
 	} catch (Exception& exception) {
 		showErrorPopUp("Warning", (string(exception.what())));
 	}
+	view->initParticleSystemRequest();
 }
 
 void ParticleSystemScreenController::setParticleSystemEmitter()
@@ -750,6 +756,7 @@ void ParticleSystemScreenController::setParticleSystemEmitter()
 			);
 		}
 	}
+	view->initParticleSystemRequest();
 }
 
 void ParticleSystemScreenController::onParticleSystemLoad()
@@ -872,28 +879,16 @@ void ParticleSystemScreenController::onActionPerformed(GUIActionListener_Type* t
 				onEntitySave();
 			} else
 			if (node->getId().compare("button_ps_type_apply") == 0) {
-				view->reset();
 				onParticleSystemTypeApply();
-				view->initParticleSystemRequest();
 			} else
 			if (node->getId().compare("button_ops_apply") == 0 || node->getId().compare("button_pps_type_apply") == 0) {
-				view->reset();
 				onParticleSystemTypeDataApply();
-				view->initParticleSystemRequest();
 			} else
 			if (node->getId().compare("button_emitter_apply") == 0) {
-				view->reset();
 				onParticleSystemEmitterApply();
-				view->initParticleSystemRequest();
 			} else
-			if (node->getId().compare("button_ppe_emitter_apply") == 0 ||
-				node->getId().compare("button_bbpe_emitter_apply") == 0 ||
-				node->getId().compare("button_cpe_emitter_apply") == 0 ||
-				node->getId().compare("button_cpepv_emitter_apply") == 0 ||
-				node->getId().compare("button_spe_emitter_apply") == 0) {
-				view->reset();
+			if (node->getId().compare("button_ppe_emitter_apply") == 0 || node->getId().compare("button_bbpe_emitter_apply") == 0 || node->getId().compare("button_cpe_emitter_apply") == 0 || node->getId().compare("button_cpepv_emitter_apply") == 0 || node->getId().compare("button_spe_emitter_apply") == 0) {
 				onParticleSystemEmitterDataApply();
-				view->initParticleSystemRequest();
 			} else
 			if (node->getId().compare("button_ops_model_file") == 0) {
 				class OnLoadModelFile: public virtual Action

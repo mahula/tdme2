@@ -107,11 +107,6 @@ LevelEditorEntity* SharedParticleSystemView::getEntity()
 	return entity;
 }
 
-void SharedParticleSystemView::reset()
-{
-	engine->reset();
-}
-
 void SharedParticleSystemView::setEntity(LevelEditorEntity* entity)
 {
 	engine->reset();
