@@ -40,8 +40,6 @@ class tdme::tools::shared::model::LevelEditorEntity final
 
 public:
 	static constexpr int32_t ID_NONE { -1 };
-	static constexpr int32_t MODEL_BOUNDINGVOLUME_COUNT { 24 };
-	static vector<string> MODEL_BOUNDINGVOLUME_IDS;
 
 private:
 	int32_t id {  };
@@ -185,7 +183,7 @@ public:
 	bool addBoundingVolume(int32_t idx, LevelEditorEntityBoundingVolume* levelEditorEntityBoundingVolume);
 
 	/** 
-	 * Set default (up to 24) bounding volumes, to be used with LevelEditor
+	 * Set default (up to 8) bounding volumes, to be used with LevelEditor
 	 */
 	void setDefaultBoundingVolumes();
 
