@@ -458,7 +458,7 @@ public:
 	/**
 	 * Clear post processing programs
 	 */
-	void resetPostProcessingPrograms();
+	void clearPostProcessingPrograms();
 
 	/**
 	 * Add post processing program
