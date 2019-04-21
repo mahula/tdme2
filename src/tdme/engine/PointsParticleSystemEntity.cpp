@@ -26,32 +26,39 @@ void PointsParticleSystemEntity::initialize()
 {
 }
 
+BoundingBox* PointsParticleSystemEntity::getBoundingBox()
+{
+	return boundingBox;
+}
+
+BoundingBox* PointsParticleSystemEntity::getBoundingBoxTransformed()
+{
+	return boundingBoxTransformed;
+}
+
 void PointsParticleSystemEntity::fromTransformations(const Transformations& transformations)
 {
 	PointsParticleSystemEntityInternal::fromTransformations(transformations);
-	if (parentEntity == nullptr && frustumCulling == true && engine != nullptr && enabled == true) engine->partition->updateEntity(this);
+	if (frustumCulling == true && engine != nullptr && enabled == true) engine->partition->updateEntity(this);
 }
 
 void PointsParticleSystemEntity::update()
 {
 	PointsParticleSystemEntityInternal::update();
-	if (parentEntity == nullptr && frustumCulling == true && engine != nullptr && enabled == true) engine->partition->updateEntity(this);
+	if (frustumCulling == true && engine != nullptr && enabled == true) engine->partition->updateEntity(this);
 }
 
 void PointsParticleSystemEntity::setEnabled(bool enabled)
 {
 	// return if enable state has not changed
 	if (this->enabled == enabled) return;
-	// frustum if root entity
-	if (parentEntity == nullptr) {
-		// frustum culling enabled?
-		if (frustumCulling == true) {
-			// yeo, add or remove from partition
-			if (enabled == true) {
-				if (engine != nullptr) engine->partition->addEntity(this);
-			} else {
-				if (engine != nullptr) engine->partition->removeEntity(this);
-			}
+	// frustum culling enabled?
+	if (frustumCulling == true) {
+		// yeo, add or remove from partition
+		if (enabled == true) {
+			if (engine != nullptr) engine->partition->addEntity(this);
+		} else {
+			if (engine != nullptr) engine->partition->removeEntity(this);
 		}
 	}
 	// call parent class::setEnabled()
@@ -61,7 +68,7 @@ void PointsParticleSystemEntity::setEnabled(bool enabled)
 void PointsParticleSystemEntity::updateParticles()
 {
 	PointsParticleSystemEntityInternal::updateParticles();
-	if (parentEntity == nullptr && frustumCulling == true && engine != nullptr && enabled == true) engine->partition->updateEntity(this);
+	if (frustumCulling == true && engine != nullptr && enabled == true) engine->partition->updateEntity(this);
 }
 
 bool PointsParticleSystemEntity::isFrustumCulling() {
@@ -82,14 +89,14 @@ void PointsParticleSystemEntity::setFrustumCulling(bool frustumCulling) {
 	}
 	this->frustumCulling = frustumCulling;
 	// delegate change to engine
-	if (parentEntity == nullptr && engine != nullptr) engine->updateEntity(this);
+	if (engine != nullptr) engine->updateEntity(this);
 }
 
 void PointsParticleSystemEntity::setAutoEmit(bool autoEmit) {
 	// delegate to base class
 	PointsParticleSystemEntityInternal::setAutoEmit(autoEmit);
 	// delegate change to engine
-	if (parentEntity == nullptr && engine != nullptr) engine->updateEntity(this);
+	if (engine != nullptr) engine->updateEntity(this);
 }
 
 void PointsParticleSystemEntity::dispose()

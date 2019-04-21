@@ -42,41 +42,16 @@ class tdme::engine::ObjectParticleSystemEntity final
 {
 private:
 	bool frustumCulling { true };
-	Entity* parentEntity { nullptr };
 
 public:
-	/**
-	 * Set parent entity, needs to be called before adding to engine
-	 * @param entity entity
-	 */
-	inline void setParentEntity(Entity* entity) {
-		this->parentEntity = entity;
-	}
-
-	/**
-	 * @return parent entity
-	 */
-	inline Entity* getParentEntity() {
-		return parentEntity;
-	}
-
-	// overriden methods
 	void initialize() override;
-
-	inline BoundingBox* getBoundingBox() override {
-		return &boundingBox;
-	}
-
-	inline BoundingBox* getBoundingBoxTransformed() override {
-		return &boundingBoxTransformed;
-	}
+	BoundingBox* getBoundingBox() override;
+	BoundingBox* getBoundingBoxTransformed() override;
 
 	/** 
 	 * @return enabled objects
 	 */
-	inline const vector<Object3D*>& getEnabledObjects() {
-		return enabledObjects;
-	}
+	const vector<Object3D*>* getEnabledObjects();
 
 	// overriden methods
 	void fromTransformations(const Transformations& transformations) override;

@@ -8,7 +8,6 @@
 #include <tdme/engine/model/fwd-tdme.h>
 #include <tdme/engine/model/Color4.h>
 #include <tdme/engine/primitives/fwd-tdme.h>
-#include <tdme/engine/primitives/BoundingBox.h>
 #include <tdme/engine/subsystems/rendering/fwd-tdme.h>
 #include <tdme/engine/subsystems/particlesystem/fwd-tdme.h>
 #include <tdme/engine/subsystems/particlesystem/Particle.h>
@@ -54,8 +53,8 @@ protected:
 	vector<Particle> particles {  };
 	vector<Object3D*> objects {  };
 	vector<Object3D*> enabledObjects {  };
-	BoundingBox boundingBox {  };
-	BoundingBox boundingBoxTransformed {  };
+	BoundingBox* boundingBox {  };
+	BoundingBox* boundingBoxTransformed {  };
 	Transformations inverseTransformation {  };
 	ParticleEmitter* emitter {  };
 	bool pickable {  };
@@ -95,6 +94,7 @@ public:
 	 */
 	void update() override;
 	void fromTransformations(const Transformations& transformations) override;
+	ParticleEmitter* getParticleEmitter() override;
 	int32_t emitParticles() override;
 	void updateParticles() override;
 	virtual void dispose();

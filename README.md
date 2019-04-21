@@ -162,7 +162,6 @@
     - documentation
 
 - What is WIP or planned
-    - Particle system groups
     - PBR lighting shader for GL3/CORE+
     - simple script language for GUI
     - Expose shader and post processing programs setup API

@@ -40,33 +40,12 @@ class tdme::engine::PointsParticleSystemEntity final
 {
 private:
 	bool frustumCulling { true };
-	Entity* parentEntity { nullptr };
 
 public:
-
-	/**
-	 * Set parent entity, needs to be called before adding to engine
-	 * @param entity entity
-	 */
-	inline void setParentEntity(Entity* entity) {
-		this->parentEntity = entity;
-	}
-
-	/**
-	 * @return parent entity
-	 */
-	inline Entity* getParentEntity() {
-		return parentEntity;
-	}
-
 	// overriden methods
 	void initialize() override;
-	inline BoundingBox* getBoundingBox() override {
-		return &boundingBox;
-	}
-	inline BoundingBox* getBoundingBoxTransformed() override {
-		return &boundingBoxTransformed;
-	}
+	BoundingBox* getBoundingBox() override;
+	BoundingBox* getBoundingBoxTransformed() override;
 	void fromTransformations(const Transformations& transformations) override;
 	void update() override;
 	void setEnabled(bool enabled) override;

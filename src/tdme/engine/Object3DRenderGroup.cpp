@@ -300,8 +300,6 @@ void Object3DRenderGroup::setEnabled(bool enabled)
 			if (engine != nullptr) engine->partition->removeEntity(this);
 		}
 	}
-	//
-	this->enabled = enabled;
 }
 
 bool Object3DRenderGroup::isFrustumCulling() {
