@@ -2,14 +2,14 @@
 
 #include <string>
 
-#include <tdme/gui/events/GUIInputEventHandler.h>
+#include "../../../gui/events/GUIInputEventHandler.h"
+#include "View.h"
+
 #include <tdme/audio/fwd-tdme.h>
 #include <tdme/engine/fwd-tdme.h>
 #include <tdme/math/fwd-tdme.h>
 #include <tdme/tools/shared/controller/fwd-tdme.h>
 #include <tdme/tools/shared/model/fwd-tdme.h>
-#include <tdme/tools/shared/views/View.h>
-#include <tdme/tools/shared/views/PlayableSoundView.h>
 
 using std::string;
 
@@ -23,7 +23,6 @@ using tdme::tools::shared::views::CameraRotationInputHandler;
 using tdme::tools::shared::views::EntityPhysicsView;
 using tdme::tools::shared::views::EntityDisplayView;
 using tdme::tools::shared::views::EntitySoundsView;
-using tdme::tools::shared::views::PlayableSoundView;
 using tdme::tools::shared::views::PopUps;
 using tdme::tools::shared::views::View;
 
@@ -34,7 +33,6 @@ using tdme::tools::shared::views::View;
  */
 class tdme::tools::shared::views::SharedModelEditorView
 	: public virtual View
-	, public virtual PlayableSoundView
 	, public virtual GUIInputEventHandler
 {
 protected:
@@ -173,12 +171,10 @@ public:
 	 */
 	virtual void onInitAdditionalScreens();
 
-	// overriden methods
 	void initialize() override;
 	void activate() override;
 	void deactivate() override;
 	void dispose() override;
-	void playSound(const string& soundId) override;
 
 	/** 
 	 * On load model
@@ -196,6 +192,11 @@ public:
 	 * Play animation
 	 */
 	virtual void playAnimation(const string& animationId);
+
+	/**
+	 * Play sound
+	 */
+	virtual void playSound(const string& soundId);
 
 	/**
 	 * Update rendering options

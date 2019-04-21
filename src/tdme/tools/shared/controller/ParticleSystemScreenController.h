@@ -26,7 +26,6 @@ using tdme::gui::nodes::GUITextNode;
 using tdme::tools::shared::controller::EntityBaseSubScreenController;
 using tdme::tools::shared::controller::EntityPhysicsSubScreenController;
 using tdme::tools::shared::controller::EntityDisplaySubScreenController;
-using tdme::tools::shared::controller::EntitySoundsSubScreenController;
 using tdme::tools::shared::controller::FileDialogPath;
 using tdme::tools::shared::model::LevelEditorEntity;
 using tdme::tools::shared::views::SharedParticleSystemView;
@@ -41,6 +40,11 @@ class tdme::tools::shared::controller::ParticleSystemScreenController final
 	, public GUIActionListener
 	, public GUIChangeListener
 {
+	friend class ParticleSystemScreenController_ParticleSystemScreenController_1;
+	friend class ParticleSystemScreenController_onParticleSystemLoad_2;
+	friend class ParticleSystemScreenController_onEntitySave_3;
+	friend class ParticleSystemScreenController_onActionPerformed_4;
+	friend class ParticleSystemScreenController_onActionPerformed_5;
 
 private:
 	static string TYPE_NONE;
@@ -55,7 +59,6 @@ private:
 	EntityBaseSubScreenController* entityBaseSubScreenController {  };
 	EntityDisplaySubScreenController* entityDisplaySubScreenController {  };
 	EntityPhysicsSubScreenController* entityPhysicsSubScreenController {  };
-	EntitySoundsSubScreenController* entitySoundsSubScreenController {  };
 	SharedParticleSystemView* view {  };
 	GUIScreenNode* screenNode {  };
 	GUITextNode* screenCaption {  };
@@ -138,7 +141,6 @@ private:
 	GUIElementNode* speRadius {  };
 	FileDialogPath* particleSystemPath {  };
 	FileDialogPath* modelPath {  };
-	FileDialogPath* audioPath {  };
 
 public:
 
@@ -148,17 +150,9 @@ public:
 	EntityDisplaySubScreenController* getEntityDisplaySubScreenController();
 
 	/** 
-	 * @return entity physics sub screen controller
+	 * @return entity bounding volume sub screen controller
 	 */
 	EntityPhysicsSubScreenController* getEntityPhysicsSubScreenController();
-
-
-	/**
-	 * @return entity sounds sub screen controller
-	 */
-	EntitySoundsSubScreenController* getEntitySoundsSubScreenController();
-
-	// overriden methods
 	GUIScreenNode* getScreenNode() override;
 
 	/** 
