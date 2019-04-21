@@ -99,7 +99,7 @@
             - panel
             - scrollbars
             - space
-            - text + multiline text
+            - text
         - supported compound elements
             - button
             - checkbox
