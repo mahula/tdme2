@@ -26,13 +26,9 @@
 #ifndef REACTPHYSICS3D_POOL_ALLOCATOR_H
 #define REACTPHYSICS3D_POOL_ALLOCATOR_H
 
-#include <tdme/os/threading/Mutex.h>
-
 // Libraries
 #include "configuration.h"
 #include "MemoryAllocator.h"
-
-using tdme::os::threading::Mutex;
 
 /// ReactPhysics3D namespace
 namespace reactphysics3d {
@@ -47,7 +43,6 @@ namespace reactphysics3d {
 class PoolAllocator : public MemoryAllocator {
 
     private :
-		Mutex mutex;
 
         // -------------------- Internal Classes -------------------- //
 
