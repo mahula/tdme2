@@ -40,7 +40,7 @@ public:
 private:
 	string name;
 	unsigned int count;
-	volatile unsigned int entered;
+	unsigned int entered;
 	volatile unsigned int exited;
 	Mutex m;
 	Condition c;
