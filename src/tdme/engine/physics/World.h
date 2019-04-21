@@ -147,12 +147,10 @@ public:
 	 * @param start start
 	 * @param end end
 	 * @param hitPoint hit point
-	 * @param actorId actor rigid body id, which will be exlcluded from ray tracing
 	 * @return body
 	 *
 	 */
-	Body* doRayCasting(uint16_t collisionTypeIds, const Vector3& start, const Vector3& end, Vector3& hitPoint, const string& actorId = string());
-
+	Body* doRayCasting(uint16_t collisionTypeIds, const Vector3& start, const Vector3& end, Vector3& hitPoint);
 	/**
 	 * Check if world collides with given body
 	 * @param collisionTypeIds collision type ids
