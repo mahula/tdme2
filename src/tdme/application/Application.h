@@ -73,7 +73,7 @@ public:
 	int32_t getWindowWidth() const;
 
 	/**
-	 * Set window width
+	 * Set window width when initializing
 	 * @param windowWidth window width
 	 */
 	void setWindowWidth(int32_t windowWidth);
@@ -84,7 +84,7 @@ public:
 	int32_t getWindowHeight() const;
 
 	/**
-	 * Set window height
+	 * Set window height when initializing
 	 * @param windowHeight window height
 	 */
 	void setWindowHeight(int32_t windowHeight);
