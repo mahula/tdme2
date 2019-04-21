@@ -5,8 +5,6 @@
 #include <vector>
 
 #include <tdme/network/httpclient/fwd-tdme.h>
-#include <tdme/network/httpclient/HTTPClientException.h>
-#include <tdme/os/network/NIOException.h>
 
 #include <tdme/tdme.h>
 
@@ -14,9 +12,6 @@ using std::string;
 using std::stringstream;
 using std::unordered_map;
 using std::vector;
-
-using tdme::network::httpclient::HTTPClientException;
-using tdme::os::network::NIOException;
 
 /**
  * Basic HTTP client
@@ -151,10 +146,8 @@ public:
 
 	/**
 	 * Execute HTTP request
-	 * @throws HTTPClientException
-	 * @throws NIOException
 	 */
-	void execute() throw (HTTPClientException, NIOException);
+	void execute();
 
 	/**
 	 * @return complete response stream
