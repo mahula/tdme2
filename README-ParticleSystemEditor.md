@@ -39,5 +39,4 @@
 
 - Credits
     - Dominik Hepp
-    - Kolja Gumpert
     - others
