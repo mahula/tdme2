@@ -873,8 +873,6 @@ bool GUINode::isEventBelongingToNode(GUIMouseEvent* event, array<float,2>& posit
 {
 	auto eventXScreen = event->getX();
 	auto eventYScreen = event->getY();
-	/*
-	// TODO: check me!
 	auto parentNode = this->parentNode;
 	while (parentNode != nullptr) {
 		if (parentNode->flow == GUINode_Flow::FLOATING)
@@ -882,15 +880,11 @@ bool GUINode::isEventBelongingToNode(GUIMouseEvent* event, array<float,2>& posit
 
 		auto eventX = eventXScreen + parentNode->computeParentChildrenRenderOffsetXTotal();
 		auto eventY = eventYScreen + parentNode->computeParentChildrenRenderOffsetYTotal();
-		if ((eventX >= parentNode->computedConstraints.left + parentNode->computedConstraints.alignmentLeft &&
-			eventX < parentNode->computedConstraints.left + parentNode->computedConstraints.alignmentLeft + parentNode->computedConstraints.width &&
-			eventY >= parentNode->computedConstraints.top + parentNode->computedConstraints.alignmentTop &&
-			eventY < parentNode->computedConstraints.top + parentNode->computedConstraints.alignmentTop + parentNode->computedConstraints.height) == false) {
+		if ((eventX >= parentNode->computedConstraints.left + parentNode->computedConstraints.alignmentLeft && eventX < parentNode->computedConstraints.left + parentNode->computedConstraints.alignmentLeft + parentNode->computedConstraints.width && eventY >= parentNode->computedConstraints.top + parentNode->computedConstraints.alignmentTop && eventY < parentNode->computedConstraints.top + parentNode->computedConstraints.alignmentTop + parentNode->computedConstraints.height) == false) {
 			return false;
 		}
 		parentNode = parentNode->parentNode;
 	}
-	*/
 	auto eventX = eventXScreen + computeParentChildrenRenderOffsetXTotal();
 	auto eventY = eventYScreen + computeParentChildrenRenderOffsetYTotal();
 	auto belongsToElement =
