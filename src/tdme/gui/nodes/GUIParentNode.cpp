@@ -94,7 +94,6 @@ void GUIParentNode::clearSubNodes()
 		screenNode->removeNode(subNode);
 	}
 	subNodes.clear();
-	layouted = false;
 
 	//
 	setConditionsMet();
@@ -113,20 +112,8 @@ void GUIParentNode::replaceSubNodes(const string& xml, bool resetScrollOffsets) 
 		screenNode->removeNode(subNode);
 	}
 	subNodes.clear();
-	layouted = false;
 	GUIParser::parse(this, xml);
-
-	floatingNodesCache.clear();
-	for (auto i = 0; i < subNodes.size(); i++) {
-		auto guiSubNode = subNodes[i];
-		if (guiSubNode->flow == GUINode_Flow::FLOATING) {
-			floatingNodesCache.push_back(guiSubNode);
-		}
-	}
-
-	invalidateRenderCaches();
-	setConditionsMet();
-	screenNode->layout(this->parentNode);
+	screenNode->layout(this);
 
 	float elementWidth = computedConstraints.width;
 	float contentWidth = getContentWidth();
@@ -145,6 +132,16 @@ void GUIParentNode::replaceSubNodes(const string& xml, bool resetScrollOffsets) 
 
 	if (childrenRenderOffsetY > scrollableHeight)
 		childrenRenderOffsetY = scrollableHeight;
+
+	setConditionsMet();
+	invalidateRenderCaches();
+	floatingNodesCache.clear();
+	for (auto i = 0; i < subNodes.size(); i++) {
+		auto guiSubNode = subNodes[i];
+		if (guiSubNode->flow == GUINode_Flow::FLOATING) {
+			floatingNodesCache.push_back(guiSubNode);
+		}
+	}
 }
 
 void GUIParentNode::addSubNode(GUINode* node) throw (GUIParserException)
@@ -234,10 +231,6 @@ GUINode_RequestedConstraints GUIParentNode::createRequestedConstraints(const str
 
 void GUIParentNode::layout()
 {
-	if (conditionsMet == false) {
-		layouted = false;
-		return;
-	}
 	GUINode::layout();
 	layoutSubNodes();
 	invalidateRenderCaches();
@@ -330,25 +323,18 @@ void GUIParentNode::dispose()
 
 void GUIParentNode::setConditionsMet()
 {
-	GUINode::setConditionsMet();
+	conditionsMet = checkConditions();
+
 	for (auto i = 0; i < subNodes.size(); i++) {
 		auto guiSubNode = subNodes[i];
 		guiSubNode->setConditionsMet();
 	}
 }
 
-void GUIParentNode::layoutOnDemand() {
-	if (conditionsMet == false) return;
-	GUINode::layoutOnDemand();
-	for (auto i = 0; i < subNodes.size(); i++) {
-		auto guiSubNode = subNodes[i];
-		guiSubNode->layoutOnDemand();
-	}
-}
-
 void GUIParentNode::render(GUIRenderer* guiRenderer)
 {
-	if (conditionsMet == false) return;
+	if (conditionsMet == false)
+		return;
 
 	auto renderAreaLeftCurrent = guiRenderer->getRenderAreaLeft();
 	auto renderAreaTopCurrent = guiRenderer->getRenderAreaTop();

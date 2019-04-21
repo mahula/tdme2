@@ -76,7 +76,8 @@ int32_t GUIHorizontalScrollbarInternalNode::getContentHeight()
 
 void GUIHorizontalScrollbarInternalNode::render(GUIRenderer* guiRenderer)
 {
-	if (conditionsMet == false) return;
+	if (conditionsMet == false)
+		return;
 
 	GUINode::render(guiRenderer);
 	auto screenWidth = screenNode->getScreenWidth();

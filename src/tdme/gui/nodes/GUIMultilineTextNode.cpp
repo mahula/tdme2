@@ -169,7 +169,8 @@ void GUIMultilineTextNode::dispose()
 
 void GUIMultilineTextNode::render(GUIRenderer* guiRenderer)
 {
-	if (conditionsMet == false) return;
+	if (conditionsMet == false)
+		return;
 
 	GUINode::render(guiRenderer);
 
