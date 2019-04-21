@@ -297,11 +297,8 @@ void main (void) {
 			outColor = clamp(gsEffectColorAdd + fragColor, 0.0, 1.0);
 		}
 		if (outColor.a < 0.0001) discard;
-		#if defined(HAVE_BACK)
+		#if defined(HAVE_SKY_SHADING)
 			gl_FragDepth = 1.0;
-		#endif
-		#if defined(HAVE_FRONT)
-			gl_FragDepth = 0.0;
 		#endif
 	#endif
 	#if defined(HAVE_DEPTH_FOG)

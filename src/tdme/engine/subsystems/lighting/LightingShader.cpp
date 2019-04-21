@@ -1,9 +1,7 @@
 #include <tdme/engine/subsystems/lighting/LightingShader.h>
 
-#include <tdme/engine/subsystems/lighting/LightingShaderBackImplementation.h>
 #include <tdme/engine/subsystems/lighting/LightingShaderDefaultImplementation.h>
 #include <tdme/engine/subsystems/lighting/LightingShaderFoliageImplementation.h>
-#include <tdme/engine/subsystems/lighting/LightingShaderFrontImplementation.h>
 #include <tdme/engine/subsystems/lighting/LightingShaderSkyImplementation.h>
 #include <tdme/engine/subsystems/lighting/LightingShaderSolidImplementation.h>
 #include <tdme/engine/subsystems/lighting/LightingShaderTerrainImplementation.h>
@@ -12,10 +10,8 @@
 #include <tdme/utils/Console.h>
 
 using tdme::engine::subsystems::lighting::LightingShader;
-using tdme::engine::subsystems::lighting::LightingShaderBackImplementation;
 using tdme::engine::subsystems::lighting::LightingShaderDefaultImplementation;
 using tdme::engine::subsystems::lighting::LightingShaderFoliageImplementation;
-using tdme::engine::subsystems::lighting::LightingShaderFrontImplementation;
 using tdme::engine::subsystems::lighting::LightingShaderSkyImplementation;
 using tdme::engine::subsystems::lighting::LightingShaderSolidImplementation;
 using tdme::engine::subsystems::lighting::LightingShaderTerrainImplementation;
@@ -25,10 +21,8 @@ using tdme::utils::Console;
 
 LightingShader::LightingShader(GLRenderer* renderer) 
 {
-	if (LightingShaderBackImplementation::isSupported(renderer) == true) shader["back"] = new LightingShaderBackImplementation(renderer);
 	if (LightingShaderDefaultImplementation::isSupported(renderer) == true) shader["default"] = new LightingShaderDefaultImplementation(renderer);
 	if (LightingShaderFoliageImplementation::isSupported(renderer) == true) shader["foliage"] = new LightingShaderFoliageImplementation(renderer);
-	if (LightingShaderFrontImplementation::isSupported(renderer) == true) shader["front"] = new LightingShaderFrontImplementation(renderer);
 	if (LightingShaderSkyImplementation::isSupported(renderer) == true) shader["sky"] = new LightingShaderSkyImplementation(renderer);
 	if (LightingShaderSolidImplementation::isSupported(renderer) == true) shader["solid"] = new LightingShaderSolidImplementation(renderer);
 	if (LightingShaderTerrainImplementation::isSupported(renderer) == true) shader["terrain"] = new LightingShaderTerrainImplementation(renderer);

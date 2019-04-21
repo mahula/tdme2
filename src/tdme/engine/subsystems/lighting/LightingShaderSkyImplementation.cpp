@@ -33,7 +33,7 @@ void LightingShaderSkyImplementation::initialize()
 		renderer->SHADER_FRAGMENT_SHADER,
 		"shader/" + rendererVersion + "/lighting",
 		"render_fragmentshader.c",
-		"#define HAVE_SOLID_SHADING\n#define HAVE_BACK\n\n"
+		"#define HAVE_SOLID_SHADING\n#define HAVE_SKY_SHADING\n\n"
 	);
 	if (renderLightingFragmentShaderId == 0) return;
 
@@ -42,7 +42,7 @@ void LightingShaderSkyImplementation::initialize()
 		renderer->SHADER_VERTEX_SHADER,
 		"shader/" + rendererVersion + "/lighting",
 		"render_vertexshader.c",
-		"#define HAVE_SOLID_SHADING\n#define HAVE_BACK\n\n",
+		"#define HAVE_SOLID_SHADING\n#define HAVE_SKY_SHADING\n\n",
 		FileSystem::getInstance()->getContentAsString(
 			"shader/" + rendererVersion + "/lighting",
 			"render_computevertex.inc.c"
