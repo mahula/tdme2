@@ -7,6 +7,9 @@ namespace tests {
 		class AudioTest;
 		class CrashTest;
 		class EngineTest;
+		class GUITest;
+		class GUITest_init_1;
+		class GUITest_init_2;
 		class LODTest;
 		class PathFindingTest;
 		class PivotTest;
