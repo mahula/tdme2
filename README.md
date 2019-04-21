@@ -22,6 +22,7 @@
             - DAE and WaveFront OBJ files require triangulated meshes for now
         - animations
             - supports model object base animation and animation overlays
+            - supports foliage animation for feasible models via geometry shader on GL3+/CORE using custom shaders
             - supports animation blending when switching base animations
         - skinning via
             - CPU on GL2, GL3+/CORE, GLES2
@@ -42,10 +43,6 @@
             - supports diffuse mapping on GL3+/CORE, GL2, GLES2
             - supports specular shininess mapping on GL3+/CORE
             - supports normal mapping on GL3+/CORE
-        - custum shaders that currently include
-          - lighting
-          - lighting + foliage
-          - lighting + terrain
         - shadow mapping
         - post processing
           - depth blur
