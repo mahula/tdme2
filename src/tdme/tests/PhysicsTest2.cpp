@@ -74,7 +74,6 @@ void PhysicsTest2::dispose()
 void PhysicsTest2::initialize()
 {
 	engine->initialize();
-	engine->addPostProcessingProgram("ssao");
 	Object3D* entity;
 	auto cam = engine->getCamera();
 	cam->setZNear(0.1f);

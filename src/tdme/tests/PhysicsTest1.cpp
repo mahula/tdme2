@@ -121,7 +121,6 @@ void PhysicsTest1::dispose()
 void PhysicsTest1::initialize()
 {
 	engine->initialize();
-	engine->addPostProcessingProgram("ssao");
 	Object3D* entity;
 	auto cam = engine->getCamera();
 	cam->setZNear(0.1f);

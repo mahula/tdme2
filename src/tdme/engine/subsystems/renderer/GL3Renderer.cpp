@@ -267,6 +267,9 @@ bool GL3Renderer::linkProgram(int32_t programId)
 int32_t GL3Renderer::getProgramUniformLocation(int32_t programId, const string& name)
 {
 	auto uniformLocation = glGetUniformLocation(programId, (name).c_str());
+	if (uniformLocation == -1) {
+		Console::println("Did not found uniform location: " + name);
+	}
 	return uniformLocation;
 }
 

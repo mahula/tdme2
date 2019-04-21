@@ -5,8 +5,6 @@
 #include <tdme/engine/subsystems/postprocessing/PostProcessingShaderImplementation.h>
 #include <tdme/engine/subsystems/postprocessing/PostProcessingShaderBlurImplementation.h>
 #include <tdme/engine/subsystems/postprocessing/PostProcessingShaderDefaultImplementation.h>
-#include <tdme/engine/subsystems/postprocessing/PostProcessingShaderSSAOImplementation.h>
-#include <tdme/engine/subsystems/postprocessing/PostProcessingShaderSSAOMapImplementation.h>
 #include <tdme/engine/subsystems/renderer/GLRenderer.h>
 
 using std::string;
@@ -14,8 +12,6 @@ using std::string;
 using tdme::engine::subsystems::postprocessing::PostProcessingShader;
 using tdme::engine::subsystems::postprocessing::PostProcessingShaderImplementation;
 using tdme::engine::subsystems::postprocessing::PostProcessingShaderBlurImplementation;
-using tdme::engine::subsystems::postprocessing::PostProcessingShaderSSAOImplementation;
-using tdme::engine::subsystems::postprocessing::PostProcessingShaderSSAOMapImplementation;
 using tdme::engine::subsystems::renderer::GLRenderer;
 using tdme::engine::Engine;
 
@@ -23,8 +19,6 @@ PostProcessingShader::PostProcessingShader(GLRenderer* renderer)
 {
 	shader["depth_blur"] = new PostProcessingShaderBlurImplementation(renderer);
 	shader["default"] = new PostProcessingShaderDefaultImplementation(renderer);
-	shader["ssao_map"] = new PostProcessingShaderSSAOMapImplementation(renderer);
-	shader["ssao"] = new PostProcessingShaderSSAOImplementation(renderer);
 	implementation = nullptr;
 }
 
