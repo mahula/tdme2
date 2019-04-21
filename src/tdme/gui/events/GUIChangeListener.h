@@ -6,17 +6,12 @@
 using tdme::gui::nodes::GUIElementNode;
 
 /** 
- * GUI change listener interface
+ * GUI change listener
  * @author Andreas Drewke
  * @version $Id$
  */
 struct tdme::gui::events::GUIChangeListener
 {
-
-	/**
-	 * Destructor
-	 */
-	virtual ~GUIChangeListener() {}
 
 	/** 
 	 * On value changed

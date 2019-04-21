@@ -4,7 +4,7 @@
 #include <tdme/gui/nodes/fwd-tdme.h>
 
 /** 
- * GUI node scale 9 grid entity
+ * Scale9Grid definitions
  * @author Andreas Drewke
  * @version $Id$
  */

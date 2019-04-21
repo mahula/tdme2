@@ -18,7 +18,8 @@ using tdme::utils::MutableString;
  * @author Andreas Drewke
  * @version $Id$
  */
-class tdme::gui::elements::GUIScrollAreaController: public GUINodeController
+class tdme::gui::elements::GUIScrollAreaController
+	: public GUINodeController
 {
 	friend class GUIScrollArea;
 
@@ -45,4 +46,6 @@ private:
 	 * @param node node
 	 */
 	GUIScrollAreaController(GUINode* node);
+
+	friend class GUIScrollAreaController_initialize_1;
 };

@@ -20,7 +20,7 @@ using tdme::gui::nodes::GUIScreenNode;
 using tdme::os::filesystem::FileSystemException;
 
 /** 
- * GUI check box element
+ * GUI Checkbox
  * @author Andreas Drewke
  * @version $Id$
  */

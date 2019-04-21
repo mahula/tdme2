@@ -48,7 +48,7 @@ using tdme::gui::nodes::GUIScreenNode;
 using tdme::gui::renderer::GUIRenderer;
 
 /** 
- * GUI node base class
+ * GUI Node class
  * @author Andreas Drewke
  * @version $Id$
  */

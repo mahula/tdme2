@@ -40,7 +40,7 @@ using tdme::os::filesystem::FileSystemException;
 using tdme::utils::Time;
 
 /** 
- * GUI module class
+ * GUI
  * @author Andreas Drewke
  * @version $Id$
  */

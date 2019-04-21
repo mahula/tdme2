@@ -19,11 +19,12 @@ using tdme::gui::nodes::GUIScreenNode;
 using tdme::os::filesystem::FileSystemException;
 
 /** 
- * GUI input element
+ * GUI button element
  * @author Andreas Drewke
  * @version $Id$
  */
-class tdme::gui::elements::GUIInput final: public GUIElement
+class tdme::gui::elements::GUIInput final
+	: public GUIElement
 {
 
 private:

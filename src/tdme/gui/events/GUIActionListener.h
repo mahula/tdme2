@@ -7,7 +7,7 @@ using tdme::gui::events::GUIActionListener_Type;
 using tdme::gui::nodes::GUIElementNode;
 
 /** 
- * GUI action listener interface
+ * GUI action listener
  * @author Andreas Drewke
  * @version $Id$
  */

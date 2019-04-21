@@ -16,7 +16,7 @@ using tdme::gui::nodes::GUINode_RequestedConstraints;
 using tdme::gui::nodes::GUINode;
 
 /** 
- * GUI node border entity
+ * Border
  * @author Andreas Drewke
  * @version $Id$
  */

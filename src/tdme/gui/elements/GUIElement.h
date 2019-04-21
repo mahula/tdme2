@@ -15,7 +15,7 @@ using tdme::gui::nodes::GUINodeController;
 using tdme::gui::nodes::GUIScreenNode;
 
 /** 
- * GUI element base class
+ * GUI element
  * @author Andreas Drewke
  * @version $Id$
  */
@@ -48,13 +48,5 @@ public:
 	 */
 	virtual GUINodeController* createController(GUINode* node) = 0;
 
-	/**
-	 * Public constructor
-	 */
 	GUIElement();
-
-	/**
-	 * Destructor
-	 */
-	virtual ~GUIElement();
 };

@@ -20,11 +20,12 @@ using tdme::gui::nodes::GUIScreenNode;
 using tdme::os::filesystem::FileSystemException;
 
 /** 
- * GUI knob element
+ * GUI knob
  * @author Andreas Drewke
  * @version $Id$
  */
-class tdme::gui::elements::GUIKnob final: public GUIElement
+class tdme::gui::elements::GUIKnob final
+	: public GUIElement
 {
 
 private:

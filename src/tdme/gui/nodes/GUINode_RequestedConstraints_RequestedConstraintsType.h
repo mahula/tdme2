@@ -19,11 +19,8 @@ using tdme::gui::nodes::GUINode_RequestedConstraints;
 using tdme::gui::nodes::GUINode;
 using tdme::gui::nodes::GUINode_RequestedConstraints_RequestedConstraintsType;
 
-/**
- * GUI node requested constraints requested constraints type enum
- * @author Andreas Drewke
- */
-class tdme::gui::nodes::GUINode_RequestedConstraints_RequestedConstraintsType final: public Enum
+class tdme::gui::nodes::GUINode_RequestedConstraints_RequestedConstraintsType final
+	: public Enum
 {
 	friend class GUINode;
 	friend class GUINode_Flow;

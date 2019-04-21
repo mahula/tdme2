@@ -23,7 +23,7 @@ using tdme::gui::nodes::GUINode;
 using tdme::utils::MutableString;
 
 /** 
- * GUI radio button controller
+ * GUI Checkbox controller
  * @author Andreas Drewke
  * @version $Id$
  */

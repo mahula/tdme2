@@ -4,7 +4,7 @@
 #include <tdme/gui/nodes/fwd-tdme.h>
 
 /** 
- * GUI node padding entity
+ * Padding
  * @author Andreas Drewke
  * @version $Id$
  */

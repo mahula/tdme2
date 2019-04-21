@@ -11,11 +11,8 @@ using tdme::utils::Enum;
 using tdme::gui::events::GUIMouseEvent;
 using tdme::gui::events::GUIMouseEvent_Type;
 
-/**
- * GUI mouse event type enum
- * @author Andreas Drewke
- */
-class tdme::gui::events::GUIMouseEvent_Type final: public Enum
+class tdme::gui::events::GUIMouseEvent_Type final
+	: public Enum
 {
 	friend class GUIMouseEvent;
 

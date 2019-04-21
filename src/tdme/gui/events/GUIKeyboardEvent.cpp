@@ -55,9 +55,6 @@ constexpr int32_t GUIKeyboardEvent::KEYCODE_DOWN;
 
 constexpr int32_t GUIKeyboardEvent::KEYCODE_ESCAPE;
 
-GUIKeyboardEvent::~GUIKeyboardEvent() {
-}
-
 int64_t GUIKeyboardEvent::getTime()
 {
 	return time;

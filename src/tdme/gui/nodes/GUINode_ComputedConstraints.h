@@ -14,7 +14,7 @@ using tdme::gui::nodes::GUINode_RequestedConstraints;
 using tdme::gui::nodes::GUINode;
 
 /** 
- * GUI node computed constraints
+ * Computed constraints for this node
  * @author Andreas Drewke
  * @version $Id$
  */

@@ -12,7 +12,7 @@ using std::string;
 using tdme::gui::nodes::GUIElementNode;
 
 /** 
- * GUI element node conditions
+ * GUI node conditions
  * @author Andreas Drewke
  * @version $Id$
  */

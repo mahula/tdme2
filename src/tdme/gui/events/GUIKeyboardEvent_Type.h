@@ -11,11 +11,8 @@ using tdme::utils::Enum;
 using tdme::gui::events::GUIKeyboardEvent;
 using tdme::gui::events::GUIKeyboardEvent_Type;
 
-/**
- * GUI keyboard event type enum
- * @author Andreas Drewke
- */
-class tdme::gui::events::GUIKeyboardEvent_Type final: public Enum
+class tdme::gui::events::GUIKeyboardEvent_Type final
+	: public Enum
 {
 	friend class GUIKeyboardEvent;
 

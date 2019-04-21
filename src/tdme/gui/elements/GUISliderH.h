@@ -20,7 +20,7 @@ using tdme::gui::nodes::GUIScreenNode;
 using tdme::os::filesystem::FileSystemException;
 
 /** 
- * GUI horizontal slider element
+ * GUI horizontal slider
  * @author Andreas Drewke
  * @version $Id$
  */

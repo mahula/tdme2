@@ -7,10 +7,8 @@ using tdme::utils::Enum;
 using tdme::gui::events::GUIActionListener;
 using tdme::gui::events::GUIActionListener_Type;
 
-/**
- * GUI action listener type enum
- */
-class tdme::gui::events::GUIActionListener_Type final: public Enum
+class tdme::gui::events::GUIActionListener_Type final
+	: public Enum
 {
 	friend class GUIActionListener;
 

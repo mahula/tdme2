@@ -47,11 +47,6 @@ private:
 public:
 
 	/**
-	 * Destructor
-	 */
-	virtual ~GUIKeyboardEvent();
-
-	/**
 	 * Get key code from char
 	 * @param key key char
 	 */

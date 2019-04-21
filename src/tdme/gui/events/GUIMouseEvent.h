@@ -31,10 +31,6 @@ private:
 	bool processed {  };
 
 public:
-	/**
-	 * Destructor
-	 */
-	virtual ~GUIMouseEvent();
 
 	/** 
 	 * @return time in milliseconds
