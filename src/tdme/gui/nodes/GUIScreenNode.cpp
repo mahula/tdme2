@@ -12,7 +12,6 @@
 #include <tdme/gui/events/GUIInputEventHandler.h>
 #include <tdme/gui/events/GUIMouseOverListener.h>
 #include <tdme/gui/nodes/GUIElementNode.h>
-#include <tdme/gui/nodes/GUIElementController.h>
 #include <tdme/gui/nodes/GUINode_ComputedConstraints.h>
 #include <tdme/gui/nodes/GUINode_RequestedConstraints_RequestedConstraintsType.h>
 #include <tdme/gui/nodes/GUINode_RequestedConstraints.h>
@@ -39,7 +38,6 @@ using tdme::gui::events::GUIChangeListener;
 using tdme::gui::events::GUIInputEventHandler;
 using tdme::gui::events::GUIMouseOverListener;
 using tdme::gui::nodes::GUIElementNode;
-using tdme::gui::nodes::GUIElementController;
 using tdme::gui::nodes::GUINode_ComputedConstraints;
 using tdme::gui::nodes::GUINode_RequestedConstraints_RequestedConstraintsType;
 using tdme::gui::nodes::GUINode_RequestedConstraints;
@@ -389,7 +387,6 @@ void GUIScreenNode::removeChangeListener(GUIChangeListener* listener)
 
 void GUIScreenNode::delegateValueChanged(GUIElementNode* node)
 {
-	node->executeOnChangeExpression();
 	for (auto i = 0; i < changeListener.size(); i++) {
 		changeListener[i]->onValueChanged(node);
 	}

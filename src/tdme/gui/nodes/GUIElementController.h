@@ -27,15 +27,17 @@ class tdme::gui::nodes::GUIElementController
 	friend class GUIElementNode;
 
 private:
-	static constexpr int64_t TIME_DOUBLECLICK { 300LL };
-
 	static string CONDITION_DISABLED;
 	static string CONDITION_ENABLED;
 	bool disabled {  };
 	bool isActionPerforming {  };
 	bool initialized { };
 	MutableString value;
-	int64_t timeLastClicked { -1LL };
+
+	/**
+	 * Execute expression
+	 */
+	void executeExpression(const string& expression);
 
 public:
 	bool isDisabled() override;

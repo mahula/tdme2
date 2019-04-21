@@ -36,7 +36,6 @@ map<string, string>* GUISelectBox::getAttributes(GUIScreenNode* screenNode)
 	attributes["id"] = screenNode->allocateNodeId();
 	attributes["width"] = "100%";
 	attributes["height"] = "auto";
-	attributes["on-change"] = "";
 	return &attributes;
 }
 

@@ -55,10 +55,8 @@ private:
 	bool ignoreEvents {  };
 	string onInitializeExpression;
 	string onMouseClickExpression;
-	string onMouseDoubleClickExpression;
 	string onMouseOverExpression;
 	string onMouseOutExpression;
-	string onChangeExpression;
 
 protected:
 	/** 
@@ -106,10 +104,8 @@ protected:
 	 * @param ignoreEvents ignore events
 	 * @param onInitialize on initialize expression
 	 * @param onMouseClick on mouse click expression
-	 * @param onMouseDoubleClickExpression on mouse double click expression
 	 * @param onMouseOver on mouse over expression
 	 * @param onMouseOut on mouse out expression
-	 * @param onChangeExpression on change expression
 	 */
 	GUIElementNode(
 		GUIScreenNode* screenNode,
@@ -135,10 +131,8 @@ protected:
 		bool ignoreEvents,
 		const string& onInitialize,
 		const string& onMouseClick,
-		const string& onMouseDoubleClickExpression,
 		const string& onMouseOver,
-		const string& onMouseOut,
-		const string& onChangeExpression
+		const string& onMouseOut
 	) throw (GUIParserException);
 
 public:
@@ -182,11 +176,6 @@ public:
 	const string& getOnMouseClickExpression();
 
 	/**
-	 * @return on mouse double click expression
-	 */
-	const string& getOnMouseDoubleClickExpression();
-
-	/**
 	 * @return on mouse over expression
 	 */
 	const string& getOnMouseOverExpression();
@@ -195,21 +184,6 @@ public:
 	 * @return on mouse out expression
 	 */
 	const string& getOnMouseOutExpression();
-
-	/**
-	 * @return on change expression
-	 */
-	const string& getOnChangeExpression();
-
-	/**
-	 * Execute on change expression
-	 */
-	void executeOnChangeExpression();
-
-	/**
-	 * Execute expression
-	 */
-	void executeExpression(const string& expression);
 
 	/** 
 	 * @return active conditions
