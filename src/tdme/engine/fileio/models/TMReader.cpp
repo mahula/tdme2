@@ -76,10 +76,9 @@ Model* TMReader::read(const string& pathName, const string& fileName) throw (Fil
 	version[2] = is.readByte();
 	if ((version[0] != 1 || version[1] != 0 || version[2] != 0) &&
 		(version[0] != 1 || version[1] != 9 || version[2] != 9) &&
-		(version[0] != 1 || version[1] != 9 || version[2] != 10) &&
-		(version[0] != 1 || version[1] != 9 || version[2] != 11)) {
+		(version[0] != 1 || version[1] != 9 || version[2] != 10)) {
 		throw ModelFileIOException(
-			"Version mismatch, should be 1.0.0, 1.9.9, 1.9.10, 1.9.11 but is " +
+			"Version mismatch, should be 1.0.0, 1.9.9, 1.9.10 but is " +
 			to_string(version[0]) +
 			"." +
 			to_string(version[1]) +
@@ -114,7 +113,7 @@ Model* TMReader::read(const string& pathName, const string& fileName) throw (Fil
 	readSubGroups(&is, model, nullptr, model->getSubGroups());
 	auto animationSetupCount = is.readInt();
 	for (auto i = 0; i < animationSetupCount; i++) {
-		readAnimationSetup(&is, model, version);
+		readAnimationSetup(&is, model);
 	}
 	if (model->getAnimationSetup(Model::ANIMATIONSETUP_DEFAULT) == nullptr) {
 		model->addAnimationSetup(Model::ANIMATIONSETUP_DEFAULT, 0, 0, true);
@@ -188,12 +187,10 @@ Material* TMReader::readMaterial(const string& pathName, TMReaderInputStream* is
 	}
 	m->setDiffuseTextureMaskedTransparency(is->readBoolean());
 	if ((version[0] == 1 && version[1] == 9 && version[2] == 9) ||
-		(version[0] == 1 && version[1] == 9 && version[2] == 10) ||
-		(version[0] == 1 && version[1] == 9 && version[2] == 11)) {
+		(version[0] == 1 && version[1] == 9 && version[2] == 10)) {
 		m->setDiffuseTextureMaskedTransparencyThreshold(is->readFloat());
 	}
-	if ((version[0] == 1 && version[1] == 9 && version[2] == 10) ||
-		(version[0] == 1 && version[1] == 9 && version[2] == 11)) {
+	if ((version[0] == 1 && version[1] == 9 && version[2] == 10)) {
 		array<float, 9> textureMatrix;
 		is->readFloatArray(textureMatrix);
 		m->setTextureMatrix(Matrix2D3x3(textureMatrix));
@@ -201,20 +198,16 @@ Material* TMReader::readMaterial(const string& pathName, TMReaderInputStream* is
 	return m;
 }
 
-void TMReader::readAnimationSetup(TMReaderInputStream* is, Model* model, const array<uint8_t, 3>& version) throw (ModelFileIOException) {
+void TMReader::readAnimationSetup(TMReaderInputStream* is, Model* model) throw (ModelFileIOException) {
 	auto id = is->readString();
 	auto overlayFromGroupId = is->readString();
 	auto startFrame = is->readInt();
 	auto endFrame = is->readInt();
 	auto loop = is->readBoolean();
-	auto speed = 1.0f;
-	if ((version[0] == 1 && version[1] == 9 && version[2] == 11)) {
-		speed = is->readFloat();
-	}
 	if (overlayFromGroupId.length() == 0) {
-		model->addAnimationSetup(id, startFrame, endFrame, loop, speed);
+		model->addAnimationSetup(id, startFrame, endFrame, loop);
 	} else {
-		model->addOverlayAnimationSetup(id, overlayFromGroupId, startFrame, endFrame, loop, speed);
+		model->addOverlayAnimationSetup(id, overlayFromGroupId, startFrame, endFrame, loop);
 	}
 }
 

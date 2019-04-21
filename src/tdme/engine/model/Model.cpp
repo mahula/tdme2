@@ -139,16 +139,16 @@ void Model::setFPS(float fps)
 	this->fps = fps;
 }
 
-AnimationSetup* Model::addAnimationSetup(const string& id, int32_t startFrame, int32_t endFrame, bool loop, float speed)
+AnimationSetup* Model::addAnimationSetup(const string& id, int32_t startFrame, int32_t endFrame, bool loop)
 {
-	auto animationSetup = new AnimationSetup(this, id, startFrame, endFrame, loop, "", speed);
+	auto animationSetup = new AnimationSetup(this, id, startFrame, endFrame, loop, "");
 	animationSetups[id] = animationSetup;
 	return animationSetup;
 }
 
-AnimationSetup* Model::addOverlayAnimationSetup(const string& id, const string& overlayFromGroupId, int32_t startFrame, int32_t endFrame, bool loop, float speed)
+AnimationSetup* Model::addOverlayAnimationSetup(const string& id, const string& overlayFromGroupId, int32_t startFrame, int32_t endFrame, bool loop)
 {
-	auto animationSetup = new AnimationSetup(this, id, startFrame, endFrame, loop, overlayFromGroupId, speed);
+	auto animationSetup = new AnimationSetup(this, id, startFrame, endFrame, loop, overlayFromGroupId);
 	animationSetups[id] = animationSetup;
 	return animationSetup;
 }

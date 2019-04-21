@@ -107,7 +107,6 @@ private:
 	GUIElementNode* animationsAnimationEndFrame {  };
 	GUIElementNode* animationsAnimationOverlayFromGroupIdDropDown {  };
 	GUIElementNode* animationsAnimationLoop {  };
-	GUIElementNode* animationsAnimationSpeed {  };
 	GUIElementNode* animationsAnimationName {  };
 	GUIElementNode* animationsAnimationApply {  };
 	GUIElementNode* buttonToolsComputeNormals {  };
