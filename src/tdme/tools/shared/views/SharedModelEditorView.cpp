@@ -85,7 +85,6 @@ SharedModelEditorView::SharedModelEditorView(PopUps* popUps)
 {
 	this->popUps = popUps;
 	engine = Engine::getInstance();
-	audio = Audio::getInstance();
 	modelEditorScreenController = nullptr;
 	entityDisplayView = nullptr;
 	loadModelRequested = false;
@@ -198,8 +197,8 @@ void SharedModelEditorView::handleInputEvents()
 void SharedModelEditorView::display()
 {
 	if (audioOffset > 0 && Time::getCurrentMillis() - audioStarted >= audioOffset) {
-		auto sound = audio->getEntity("sound");
-		if (sound != nullptr) sound->play();
+		auto audio = Audio::getInstance()->getEntity("audio");
+		if (audio != nullptr) audio->play();
 		audioOffset = -1LL;
 	}
 	if (loadModelRequested == true) {
@@ -217,7 +216,7 @@ void SharedModelEditorView::display()
 	entityDisplayView->display(entity);
 	engine->getGUI()->handleEvents();
 	engine->getGUI()->render();
-	audio->update();
+	Audio::getInstance()->update();
 }
 
 void SharedModelEditorView::updateGUIElements()
@@ -326,7 +325,7 @@ void SharedModelEditorView::dispose()
 {
 	storeSettings();
 	Engine::getInstance()->reset();
-	audio->reset();
+	Audio::getInstance()->reset();
 }
 
 void SharedModelEditorView::onLoadModel(LevelEditorEntity* oldEntity, LevelEditorEntity* entity)
@@ -390,7 +389,7 @@ LevelEditorEntity* SharedModelEditorView::loadModel(const string& name, const st
 void SharedModelEditorView::playAnimation(const string& animationId) {
 	auto object = dynamic_cast<Object3D*>(engine->getEntity("model"));
 	if (object != nullptr) {
-		audio->removeEntity("sound");
+		Audio::getInstance()->removeEntity("audio");
 		object->setAnimation(animationId);
 		auto animationSound = entity->getModelSettings()->getAnimationSound(animationId);
 		if (animationSound != nullptr && animationSound->getFileName().length() > 0) {
@@ -400,7 +399,7 @@ void SharedModelEditorView::playAnimation(const string& animationId) {
 			);
 			string fileName = Tools::getFileName(animationSound->getFileName());
 			auto sound = new Sound(
-				"sound",
+				"audio",
 				pathName,
 				fileName
 			);
@@ -408,7 +407,7 @@ void SharedModelEditorView::playAnimation(const string& animationId) {
 			sound->setPitch(animationSound->getPitch());
 			sound->setLooping(animationSound->isLooping());
 			sound->setFixed(true);
-			audio->addEntity(sound);
+			Audio::getInstance()->addEntity(sound);
 			audioStarted = Time::getCurrentMillis();
 			audioOffset = -1LL;
 			if (animationSound->getOffset() <= 0) {
