@@ -23,7 +23,6 @@
 #include <tdme/utils/StringUtils.h>
 #include <tdme/utils/StringTokenizer.h>
 #include <tdme/utils/Console.h>
-#include <tdme/utils/Exception.h>
 
 using std::getline;
 using std::ifstream;
@@ -39,7 +38,6 @@ using tdme::os::filesystem::StandardFileSystem;
 using tdme::utils::StringUtils;
 using tdme::utils::StringTokenizer;
 using tdme::utils::Console;
-using tdme::utils::Exception;
 
 StandardFileSystem::StandardFileSystem()
 {
@@ -49,42 +47,19 @@ const string StandardFileSystem::getFileName(const string& pathName, const strin
 	return pathName + "/" + fileName;
 }
 
-void StandardFileSystem::list(const string& pathName, vector<string>& files, FilenameFilter* filter, bool addDrives) throw (FileSystemException)
+void StandardFileSystem::list(const string& pathName, vector<string>& files, FilenameFilter* filter) throw (FileSystemException)
 {
-	auto _pathName = pathName;
-	if (StringUtils::endsWith(pathName, "/") == false) _pathName+= "/";
-
 	DIR *dir;
 	struct dirent *dirent;
-	if ((dir = opendir(_pathName.c_str())) == NULL) {
-		throw FileSystemException("Unable to list path(" + to_string(errno) + "): " + _pathName);
+	if ((dir = opendir(pathName.c_str())) == NULL) {
+		throw FileSystemException("Unable to list path(" + to_string(errno) + "): " + pathName);
 	}
 	while ((dirent = readdir(dir)) != NULL) {
 		string fileName = (dirent->d_name);
-		try {
-			if (filter != nullptr && filter->accept(pathName, fileName) == false) continue;
-		} catch (Exception& exception) {
-			Console::println("StandardFileSystem::list(): Filter::accept(): " + pathName + "/" + fileName + ": " + exception.what());
-		}
+		if (filter != nullptr && filter->accept(pathName, fileName) == false) continue;
 		files.push_back(fileName);
 	}
 	sort(files.begin(), files.end());
-
-	#if defined(_WIN32) && defined(_MSC_VER)
-		if (addDrives == true) {
-			for (char drive = 'A'; drive <= 'Z'; drive++) {
-				string fileName;
-				fileName+= drive;
-				fileName+= ":";
-				try {
-					if (fileExists(fileName + "/") == true) files.insert(files.begin() + (drive - 'C'), fileName);
-				} catch (Exception& exception) {
-					Console::println("StandardFileSystem::list(): fileExists(): " + pathName + "/" + fileName + ": " + exception.what());
-				}
-			}
-		}
-	#endif
-
 	closedir(dir);
 }
 
@@ -95,10 +70,6 @@ bool StandardFileSystem::isPath(const string& pathName) throw (FileSystemExcepti
 	} else {
 		throw FileSystemException("Unable to check if path(" + to_string(errno) + "): " + pathName);
 	}
-}
-
-bool StandardFileSystem::isDrive(const string& pathName) throw (FileSystemException) {
-	return StringUtils::matches(pathName, "^[a-zA-Z]\\:[\\/\\\\]?$");
 }
 
 bool StandardFileSystem::fileExists(const string& fileName) throw (FileSystemException) {
@@ -230,7 +201,7 @@ const string StandardFileSystem::getCanonicalPath(const string& pathName, const 
 	auto canonicalPathString = canonicalPath;
 	if (canonicalPathString.length() == 0 ||
 		(StringUtils::startsWith(canonicalPathString, "/") == false &&
-		StringUtils::matches(canonicalPathString, "^[a-zA-Z]\\:.*$") == false)) {
+		StringUtils::matches(canonicalPathString, "^[A-Z]\\:.*$") == false)) {
 		canonicalPathString = getCurrentWorkingPathName() + "/" + canonicalPathString;
 	}
 

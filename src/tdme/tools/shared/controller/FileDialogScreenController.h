@@ -44,6 +44,7 @@ private:
 	GUITextNode* caption {  };
 	GUIElementNode* fileName {  };
 	GUIElementNode* files {  };
+	MutableString* value {  };
 	Action* applyAction {  };
 
 public:
@@ -66,9 +67,8 @@ private:
 
 	/** 
 	 * Set up file dialog list box
-	 * @return success
 	 */
-	bool setupFileDialogListBox();
+	void setupFileDialogListBox();
 
 public:
 
