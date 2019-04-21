@@ -1,13 +1,10 @@
-#pragma once
 
-#include <string>
+#pragma once
 
 #include <tdme/tdme.h>
 #include <tdme/engine/fwd-tdme.h>
 #include <tdme/application/Application.h>
 #include <tdme/tests/fwd-tdme.h>
-
-using std::string;
 
 using tdme::application::Application;
 using tdme::engine::Engine;
@@ -26,7 +23,6 @@ class tdme::tests::GUITest final
 	friend class GUITest_init_2;
 
 private:
-	string screenFileName;
 	Engine* engine {  };
 
 public:
@@ -44,7 +40,6 @@ public:
 
 	/**
 	 * Public constructor
-	 * @param screenFileName screen file name
 	 */
-	GUITest(const string& screenFileName);
+	GUITest();
 };
