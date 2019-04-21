@@ -66,6 +66,7 @@ void EmptyScreenController::dispose()
 void EmptyScreenController::setScreenCaption(const string& text)
 {
 	screenCaption->setText(text);
+	screenNode->layout(screenCaption);
 }
 
 void EmptyScreenController::setEntityData(const string& name, const string& description)

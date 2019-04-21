@@ -90,12 +90,13 @@ const MutableString& GUIProgressBarController::getValue() {
 
 void GUIProgressBarController::setValue(const MutableString& value) {
 	this->value.set(value);
-	valueFloat = Math::clamp(Float::parseFloat(this->value.getString()), 0.0f, 1.0f);
-	textNode->setText((MutableString((int)(valueFloat * 100.0f))).append(" %"));
+	this->valueFloat = Math::clamp(Float::parseFloat(this->value.getString()), 0.0f, 1.0f);
 	updateBar();
 }
 
 void GUIProgressBarController::updateBar() {
 	auto barWidth = this->node->getComputedConstraints().width - this->node->getPadding().left - this->node->getPadding().right;
 	barNode->getClipping().right = barWidth - (int)((float)barWidth * valueFloat);
+	textNode->setText((MutableString((int)(valueFloat * 100.0f))).append(" %"));
+	textNode->getScreenNode()->layout(textNode);
 }
