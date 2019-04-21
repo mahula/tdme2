@@ -6,7 +6,6 @@
 #include <tdme/gui/events/GUIMouseEvent_Type.h>
 #include <tdme/gui/events/GUIMouseEvent.h>
 #include <tdme/gui/nodes/GUIColor.h>
-#include <tdme/gui/nodes/GUIElementController.h>
 #include <tdme/gui/nodes/GUIElementNode.h>
 #include <tdme/gui/nodes/GUINode_Border.h>
 #include <tdme/gui/nodes/GUINode.h>
@@ -22,7 +21,6 @@ using tdme::gui::elements::GUITabsHeaderController;
 using tdme::gui::events::GUIMouseEvent_Type;
 using tdme::gui::events::GUIMouseEvent;
 using tdme::gui::nodes::GUIColor;
-using tdme::gui::nodes::GUIElementController;
 using tdme::gui::nodes::GUIElementNode;
 using tdme::gui::nodes::GUINode_Border;
 using tdme::gui::nodes::GUINode;
@@ -37,7 +35,7 @@ string GUITabController::CONDITION_SELECTED = "selected";
 string GUITabController::CONDITION_UNSELECTED = "unselected";
 
 GUITabController::GUITabController(GUINode* node) 
-	: GUIElementController(node)
+	: GUINodeController(node)
 {
 	this->tabsNode = nullptr;
 	this->tabsHeaderNode = nullptr;
@@ -103,14 +101,11 @@ void GUITabController::initialize()
 	unfocussedNodeBorderBottomColor = border.bottomColor;
 	unfocussedNodeBorderRightColor = border.rightColor;
 	setSelected(selected);
-
-	//
-	GUIElementController::initialize();
+	setDisabled(disabled);
 }
 
 void GUITabController::dispose()
 {
-	GUIElementController::dispose();
 }
 
 void GUITabController::postLayout()
@@ -119,7 +114,6 @@ void GUITabController::postLayout()
 
 void GUITabController::handleMouseEvent(GUINode* node, GUIMouseEvent* event)
 {
-	GUIElementController::handleMouseEvent(node, event);
 	if (disabled == false && node == this->node && node->isEventBelongingToNode(event) && event->getButton() == 1) {
 		event->setProcessed(true);
 		if (event->getType() == GUIMouseEvent_Type::MOUSEEVENT_RELEASED) {
@@ -133,12 +127,10 @@ void GUITabController::handleMouseEvent(GUINode* node, GUIMouseEvent* event)
 
 void GUITabController::handleKeyboardEvent(GUINode* node, GUIKeyboardEvent* event)
 {
-	GUIElementController::handleKeyboardEvent(node, event);
 }
 
 void GUITabController::tick()
 {
-	GUIElementController::tick();
 }
 
 void GUITabController::onFocusGained()

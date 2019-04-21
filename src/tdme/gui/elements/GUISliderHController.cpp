@@ -8,7 +8,6 @@
 #include <tdme/gui/events/GUIKeyboardEvent.h>
 #include <tdme/gui/events/GUIMouseEvent_Type.h>
 #include <tdme/gui/events/GUIMouseEvent.h>
-#include <tdme/gui/nodes/GUIElementController.h>
 #include <tdme/gui/nodes/GUIElementNode.h>
 #include <tdme/gui/nodes/GUINode.h>
 #include <tdme/gui/nodes/GUIScreenNode.h>
@@ -25,7 +24,6 @@ using tdme::gui::events::GUIKeyboardEvent_Type;
 using tdme::gui::events::GUIKeyboardEvent;
 using tdme::gui::events::GUIMouseEvent_Type;
 using tdme::gui::events::GUIMouseEvent;
-using tdme::gui::nodes::GUIElementController;
 using tdme::gui::nodes::GUIElementNode;
 using tdme::gui::nodes::GUINode;
 using tdme::gui::nodes::GUIScreenNode;
@@ -36,7 +34,7 @@ using tdme::utils::Time;
 
 using tdme::gui::elements::GUISliderHController;
 
-GUISliderHController::GUISliderHController(GUINode* node): GUIElementController(node)
+GUISliderHController::GUISliderHController(GUINode* node): GUINodeController(node)
 {
 	// TODO: maybe introduce a custom relative node alignment, I use content alignment for now
 }
@@ -52,11 +50,9 @@ void GUISliderHController::setDisabled(bool disabled) {
 void GUISliderHController::initialize() {
 	sliderNode = this->node->getScreenNode()->getNodeById(this->node->getId() + "_slider");
 	setValue(MutableString(dynamic_cast<GUIElementNode*>(node)->getValue()));
-	GUIElementController::initialize();
 }
 
 void GUISliderHController::dispose() {
-	GUIElementController::dispose();
 }
 
 void GUISliderHController::postLayout() {
@@ -64,7 +60,6 @@ void GUISliderHController::postLayout() {
 }
 
 void GUISliderHController::handleMouseEvent(GUINode* node, GUIMouseEvent* event) {
-	GUIElementController::handleMouseEvent(node, event);
 	array<float, 2> nodeMousePosition;
 	if (node == this->node &&
 		event->getType() == GUIMouseEvent_Type::MOUSEEVENT_RELEASED == true) {
@@ -88,7 +83,6 @@ void GUISliderHController::handleMouseEvent(GUINode* node, GUIMouseEvent* event)
 }
 
 void GUISliderHController::handleKeyboardEvent(GUINode* node, GUIKeyboardEvent* event) {
-	GUIElementController::handleKeyboardEvent(node, event);
 	if (node == this->node) {
 		switch (event->getKeyCode()) {
 			case GUIKeyboardEvent::KEYCODE_LEFT: {
@@ -114,7 +108,6 @@ void GUISliderHController::handleKeyboardEvent(GUINode* node, GUIKeyboardEvent* 
 }
 
 void GUISliderHController::tick() {
-	GUIElementController::tick();
 }
 
 void GUISliderHController::onFocusGained() {

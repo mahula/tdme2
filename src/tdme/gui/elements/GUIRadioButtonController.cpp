@@ -5,10 +5,10 @@
 #include <tdme/gui/events/GUIKeyboardEvent.h>
 #include <tdme/gui/events/GUIMouseEvent_Type.h>
 #include <tdme/gui/events/GUIMouseEvent.h>
-#include <tdme/gui/nodes/GUIElementController.h>
 #include <tdme/gui/nodes/GUIElementNode.h>
 #include <tdme/gui/nodes/GUINode.h>
 #include <tdme/gui/nodes/GUINodeConditions.h>
+#include <tdme/gui/nodes/GUINodeController.h>
 #include <tdme/gui/nodes/GUIScreenNode.h>
 #include <tdme/utils/MutableString.h>
 
@@ -18,15 +18,15 @@ using tdme::gui::events::GUIKeyboardEvent_Type;
 using tdme::gui::events::GUIKeyboardEvent;
 using tdme::gui::events::GUIMouseEvent_Type;
 using tdme::gui::events::GUIMouseEvent;
-using tdme::gui::nodes::GUIElementController;
 using tdme::gui::nodes::GUIElementNode;
 using tdme::gui::nodes::GUINode;
 using tdme::gui::nodes::GUINodeConditions;
+using tdme::gui::nodes::GUINodeController;
 using tdme::gui::nodes::GUIScreenNode;
 using tdme::utils::MutableString;
 
 GUIRadioButtonController::GUIRadioButtonController(GUINode* node) 
-	: GUIElementController(node)
+	: GUINodeController(node)
 {
 	init();
 	this->selected = (dynamic_cast< GUIElementNode* >(node))->isSelected();
@@ -88,14 +88,11 @@ void GUIRadioButtonController::initialize()
 {
 	auto& nodeConditions = (dynamic_cast< GUIElementNode* >(node))->getActiveConditions();
 	nodeConditions.add(this->selected == true ? CONDITION_SELECTED : CONDITION_UNSELECTED);
-
-	//
-	GUIElementController::initialize();
+	setDisabled(disabled);
 }
 
 void GUIRadioButtonController::dispose()
 {
-	GUIElementController::dispose();
 	radioButtonGroupNodesByName.erase(radioButtonGroupNodesByName.find(this->node->getScreenNode()->getId() + "_radiobuttongroup_" +
 		(dynamic_cast< GUIElementNode* >(this->node))->getName()));
 }
@@ -106,7 +103,6 @@ void GUIRadioButtonController::postLayout()
 
 void GUIRadioButtonController::handleMouseEvent(GUINode* node, GUIMouseEvent* event)
 {
-	GUIElementController::handleMouseEvent(node, event);
 	if (disabled == false && node == this->node && node->isEventBelongingToNode(event) && event->getButton() == 1) {
 		event->setProcessed(true);
 		if (event->getType() == GUIMouseEvent_Type::MOUSEEVENT_RELEASED) {
@@ -119,7 +115,6 @@ void GUIRadioButtonController::handleMouseEvent(GUINode* node, GUIMouseEvent* ev
 
 void GUIRadioButtonController::handleKeyboardEvent(GUINode* node, GUIKeyboardEvent* event)
 {
-	GUIElementController::handleKeyboardEvent(node, event);
 	if (disabled == false && node == this->node) {
 		switch (event->getKeyCode()) {
 		case GUIKeyboardEvent::KEYCODE_SPACE: {
@@ -140,7 +135,6 @@ void GUIRadioButtonController::handleKeyboardEvent(GUINode* node, GUIKeyboardEve
 
 void GUIRadioButtonController::tick()
 {
-	GUIElementController::tick();
 }
 
 void GUIRadioButtonController::onFocusGained()
