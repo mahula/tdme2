@@ -106,21 +106,6 @@ public:
 	}
 
 	/**
-	 * @return is full screen
-	 */
-	inline bool isFullScreen() const {
-		return fullScreen;
-	}
-
-	/**
-	 * Set full screen mode when initializing
-	 * @param fullScreen full screen
-	 */
-	inline void setFullScreen(bool fullScreen) {
-		this->fullScreen = fullScreen;
-	}
-
-	/**
 	 * Windows only: Install exception handler that will print a stack trace if crashing
 	 */
 	static void installExceptionHandler();
@@ -182,7 +167,6 @@ private:
 	int32_t windowHeight { 768 };
 	int32_t windowXPosition { 100 };
 	int32_t windowYPosition { 100 };
-	bool fullScreen { false };
 	static int64_t timeLast;
 
 	/**
