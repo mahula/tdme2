@@ -9,13 +9,13 @@ namespace particlesystem {
 				class BoundingBoxParticleEmitter;
 				class CircleParticleEmitter;
 				class CircleParticleEmitterPlaneVelocity;
-				class ObjectParticleSystemInternal;
+				class ObjectParticleSystemEntityInternal;
 				class Particle;
 				struct ParticleEmitter;
 				struct ParticleSystemEntity;
 				class ParticlesShader;
 				class PointParticleEmitter;
-				class PointsParticleSystemInternal;
+				class PointsParticleSystemEntityInternal;
 				class SphereParticleEmitter;
 }  // namespace particlesystem
 }  // namespace subsystems

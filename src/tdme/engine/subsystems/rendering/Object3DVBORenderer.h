@@ -179,7 +179,7 @@ public:
 	 * Render batch VBO renderer points entities
 	 * @param visiblePses points batch VBO renderer points
 	 */
-	void render(const vector<PointsParticleSystem*>& visiblePses);
+	void render(const vector<PointsParticleSystemEntity*>& visiblePses);
 
 	/**
 	 * Public constructor

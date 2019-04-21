@@ -1,4 +1,4 @@
-#include <tdme/engine/PointsParticleSystem.h>
+#include <tdme/engine/PointsParticleSystemEntity.h>
 
 #include <string>
 
@@ -10,35 +10,35 @@
 
 using std::string;
 
-using tdme::engine::PointsParticleSystem;
+using tdme::engine::PointsParticleSystemEntity;
 using tdme::engine::Engine;
 using tdme::engine::Partition;
 using tdme::engine::Transformations;
 using tdme::engine::fileio::textures::Texture;
 using tdme::engine::primitives::BoundingBox;
 
-PointsParticleSystem::PointsParticleSystem(const string& id, ParticleEmitter* emitter, int32_t maxPoints, float pointSize, bool autoEmit, Texture* texture) :
-	PointsParticleSystemInternal(id, emitter, maxPoints, pointSize, autoEmit, texture)
+PointsParticleSystemEntity::PointsParticleSystemEntity(const string& id, ParticleEmitter* emitter, int32_t maxPoints, float pointSize, bool autoEmit, Texture* texture) :
+	PointsParticleSystemEntityInternal(id, emitter, maxPoints, pointSize, autoEmit, texture)
 {
 }
 
-void PointsParticleSystem::initialize()
+void PointsParticleSystemEntity::initialize()
 {
 }
 
-void PointsParticleSystem::fromTransformations(const Transformations& transformations)
+void PointsParticleSystemEntity::fromTransformations(const Transformations& transformations)
 {
-	PointsParticleSystemInternal::fromTransformations(transformations);
+	PointsParticleSystemEntityInternal::fromTransformations(transformations);
 	if (parentEntity == nullptr && frustumCulling == true && engine != nullptr && enabled == true) engine->partition->updateEntity(this);
 }
 
-void PointsParticleSystem::update()
+void PointsParticleSystemEntity::update()
 {
-	PointsParticleSystemInternal::update();
+	PointsParticleSystemEntityInternal::update();
 	if (parentEntity == nullptr && frustumCulling == true && engine != nullptr && enabled == true) engine->partition->updateEntity(this);
 }
 
-void PointsParticleSystem::setEnabled(bool enabled)
+void PointsParticleSystemEntity::setEnabled(bool enabled)
 {
 	// return if enable state has not changed
 	if (this->enabled == enabled) return;
@@ -55,20 +55,20 @@ void PointsParticleSystem::setEnabled(bool enabled)
 		}
 	}
 	// call parent class::setEnabled()
-	PointsParticleSystemInternal::setEnabled(enabled);
+	PointsParticleSystemEntityInternal::setEnabled(enabled);
 }
 
-void PointsParticleSystem::updateParticles()
+void PointsParticleSystemEntity::updateParticles()
 {
-	PointsParticleSystemInternal::updateParticles();
+	PointsParticleSystemEntityInternal::updateParticles();
 	if (parentEntity == nullptr && frustumCulling == true && engine != nullptr && enabled == true) engine->partition->updateEntity(this);
 }
 
-bool PointsParticleSystem::isFrustumCulling() {
+bool PointsParticleSystemEntity::isFrustumCulling() {
 	return frustumCulling;
 }
 
-void PointsParticleSystem::setFrustumCulling(bool frustumCulling) {
+void PointsParticleSystemEntity::setFrustumCulling(bool frustumCulling) {
 	// check if enabled and engine attached
 	if (enabled == true && engine != nullptr) {
 		// had frustum culling
@@ -85,25 +85,25 @@ void PointsParticleSystem::setFrustumCulling(bool frustumCulling) {
 	if (parentEntity == nullptr && engine != nullptr) engine->updateEntity(this);
 }
 
-void PointsParticleSystem::setAutoEmit(bool autoEmit) {
+void PointsParticleSystemEntity::setAutoEmit(bool autoEmit) {
 	// delegate to base class
-	PointsParticleSystemInternal::setAutoEmit(autoEmit);
+	PointsParticleSystemEntityInternal::setAutoEmit(autoEmit);
 	// delegate change to engine
 	if (parentEntity == nullptr && engine != nullptr) engine->updateEntity(this);
 }
 
-void PointsParticleSystem::dispose()
+void PointsParticleSystemEntity::dispose()
 {
-	PointsParticleSystemInternal::dispose();
+	PointsParticleSystemEntityInternal::dispose();
 }
 
-void PointsParticleSystem::setEngine(Engine* engine)
+void PointsParticleSystemEntity::setEngine(Engine* engine)
 {
-	PointsParticleSystemInternal::setEngine(engine);
+	PointsParticleSystemEntityInternal::setEngine(engine);
 }
 
-void PointsParticleSystem::setRenderer(GLRenderer* renderer)
+void PointsParticleSystemEntity::setRenderer(GLRenderer* renderer)
 {
-	PointsParticleSystemInternal::setRenderer(renderer);
+	PointsParticleSystemEntityInternal::setRenderer(renderer);
 }
 
