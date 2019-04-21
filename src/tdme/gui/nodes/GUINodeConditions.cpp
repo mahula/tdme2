@@ -23,7 +23,7 @@ const vector<string>& GUINodeConditions::getConditions( ) const
 
 bool GUINodeConditions::has(const string& condition) const {
 	for (auto _condition: conditions) {
-		if (condition == _condition) return true;
+		if (condition == condition) return true;
 	}
 	return false;
 }
