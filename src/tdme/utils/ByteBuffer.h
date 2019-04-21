@@ -15,11 +15,8 @@ using tdme::utils::FloatBuffer;
 using tdme::utils::IntBuffer;
 using tdme::utils::ShortBuffer;
 
-/**
- * Byte buffer class
- * @author Andreas Drewke
- */
-class tdme::utils::ByteBuffer: public Buffer
+class tdme::utils::ByteBuffer
+	: public Buffer
 {
 public:
 	/**

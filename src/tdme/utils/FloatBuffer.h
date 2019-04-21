@@ -9,11 +9,8 @@ using std::array;
 
 using tdme::utils::Buffer;
 
-/**
- * Float buffer class
- * @author Andreas Drewke
- */
-class tdme::utils::FloatBuffer: public Buffer
+class tdme::utils::FloatBuffer
+	: public Buffer
 {
 public:
 	/**

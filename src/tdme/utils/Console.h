@@ -11,7 +11,7 @@
 using std::string;
 
 /** 
- * Console class
+ * Console 
  * @author Andreas Drewke
  * @versio $Id$
  */

@@ -7,7 +7,7 @@
 using std::string;
 
 /** 
- * String utilities class
+ * String utilities
  * @author Andreas Drewke
  * @version $Id$
  */

@@ -5,11 +5,8 @@
 
 using tdme::utils::Buffer;
 
-/**
- * Short buffer class
- * @author Andreas Drewke
- */
-class tdme::utils::ShortBuffer: public Buffer
+class tdme::utils::ShortBuffer
+	: public Buffer
 {
 public:
 	/**

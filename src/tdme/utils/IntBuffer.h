@@ -5,11 +5,8 @@
 
 using tdme::utils::Buffer;
 
-/**
- * Integer buffer class
- * @author Andreas Drewke
- */
-class tdme::utils::IntBuffer: public Buffer
+class tdme::utils::IntBuffer
+	: public Buffer
 {
 public:
 	/**

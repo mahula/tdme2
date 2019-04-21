@@ -13,7 +13,7 @@ namespace tdme {
 namespace utils {
 
 /** 
- * Vector iterator template to be used to iterate multiple vectors at a single invocation
+ * Vector iterator for multiple vectors
  * @author Andreas Drewke
  * @version $Id$
  */

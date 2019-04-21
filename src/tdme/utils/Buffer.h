@@ -7,8 +7,7 @@
 using std::vector;
 
 /**
- * Base class of buffers
- * @author Andreas Drewke
+ * Buffer
  */
 class tdme::utils::Buffer
 {

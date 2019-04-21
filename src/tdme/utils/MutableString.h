@@ -9,7 +9,7 @@
 using std::string;
 
 /** 
- * Mutable string class
+ * Mutable string
  * @author Andreas Drewke
  * @version $Id$
  */

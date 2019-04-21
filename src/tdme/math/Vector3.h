@@ -14,7 +14,7 @@ using tdme::math::Vector3;
 using tdme::utils::Float;
 
 /** 
- * 3D vector 3 class
+ * Vector3 class
  * @author andreas.drewke
  * @version $Id$
  */

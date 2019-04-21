@@ -18,8 +18,8 @@
 #include <string>
 #include <vector>
 
-#include <tdme/os/filesystem/FileNameFilter.h>
 #include <tdme/utils/fwd-tdme.h>
+#include <tdme/utils/FilenameFilter.h>
 #include <tdme/utils/StringUtils.h>
 #include <tdme/utils/StringTokenizer.h>
 #include <tdme/utils/Console.h>
@@ -36,8 +36,6 @@ using std::vector;
 using std::to_string;
 
 using tdme::os::filesystem::StandardFileSystem;
-
-using tdme::os::filesystem::FileNameFilter;
 using tdme::utils::StringUtils;
 using tdme::utils::StringTokenizer;
 using tdme::utils::Console;
@@ -47,15 +45,11 @@ StandardFileSystem::StandardFileSystem()
 {
 }
 
-StandardFileSystem::~StandardFileSystem()
-{
-}
-
 const string StandardFileSystem::getFileName(const string& pathName, const string& fileName) throw (FileSystemException) {
 	return pathName + "/" + fileName;
 }
 
-void StandardFileSystem::list(const string& pathName, vector<string>& files, FileNameFilter* filter, bool addDrives) throw (FileSystemException)
+void StandardFileSystem::list(const string& pathName, vector<string>& files, FilenameFilter* filter, bool addDrives) throw (FileSystemException)
 {
 	auto _pathName = pathName;
 	if (StringUtils::endsWith(pathName, "/") == false) _pathName+= "/";

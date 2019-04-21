@@ -9,7 +9,7 @@ using tdme::math::Matrix4x4;
 using tdme::math::Vector3;
 
 /** 
- * Simple class to determine if a transform is negative
+ * Class to check if matrix is negative
  * @author Andreas Drewke
  * @version $Id$
  */

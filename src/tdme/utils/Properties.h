@@ -15,8 +15,7 @@ using tdme::os::filesystem::FileSystemException;
 using tdme::os::filesystem::FileSystemInterface;
 
 /**
- * Properties class, which helps out with storeing or loading key value pairs from/to property files
- * @author Andreas Drewke
+ * This helps out with storeing or loading key value pairs from/to property files
  */
 class tdme::utils::Properties
 {

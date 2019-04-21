@@ -11,7 +11,7 @@ using std::array;
 using tdme::math::Vector3;
 
 /** 
- * 3D vector 4 class
+ * Vector 4 class
  * @author Andreas Drewke
  * @version $Id$
  */

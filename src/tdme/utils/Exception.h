@@ -11,10 +11,6 @@
 namespace tdme {
 namespace utils {
 
-/**
- * Exception base class
- * @author Andreas Drewke
- */
 typedef std::exception Exception;
 
 };
