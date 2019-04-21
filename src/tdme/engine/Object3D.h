@@ -61,13 +61,6 @@ private:
 	float distanceShaderDistance { 50.0f };
 
 	/**
-	 * Compute skinning
-	 */
-	inline void computeSkinning() {
-		if (hasSkinning == true) computeTransformations();
-	}
-
-	/**
 	 * Pre render step like uploading VBOs and such
 	 */
 	inline void preRender() {
