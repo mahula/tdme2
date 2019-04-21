@@ -40,12 +40,11 @@ class tdme::engine::ObjectParticleSystem final
 	: public ObjectParticleSystemInternal
 	, public Entity
 {
-	friend class tdme::engine::ParticleSystemGroup;
-
 private:
 	bool frustumCulling { true };
 	Entity* parentEntity { nullptr };
 
+public:
 	/**
 	 * Set parent entity, needs to be called before adding to engine
 	 * @param entity entity
@@ -60,8 +59,6 @@ private:
 	inline Entity* getParentEntity() {
 		return parentEntity;
 	}
-
-public:
 
 	// overriden methods
 	void initialize() override;
