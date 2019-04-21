@@ -18,6 +18,7 @@ using tdme::os::filesystem::FileSystem;
 using tdme::os::filesystem::FileSystemInterface;
 using tdme::utils::StringUtils;
 
+
 Properties::Properties()
 {
 }
