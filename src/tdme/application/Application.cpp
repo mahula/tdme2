@@ -233,9 +233,6 @@ using tdme::utils::Time;
 
 		Console::println();
 
-		// shutdown console
-		Console::forceShutdown();
-
 		//
 		return EXCEPTION_EXECUTE_HANDLER;
 	}
