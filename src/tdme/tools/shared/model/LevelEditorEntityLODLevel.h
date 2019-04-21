@@ -26,6 +26,7 @@ private:
 	string fileName {  };
 	Model* model {  };
 	float minDistance { 0.0f };
+	float planeRotationY { 0.0f };
 	Color4 colorMul {  };
 	Color4 colorAdd {  };
 public:
@@ -35,12 +36,14 @@ public:
 	 * @param fileName model
 	 * @param model min distance
 	 * @param minDistance type
+	 * @param planeRotationY plane rotation y
 	 */
 	LevelEditorEntityLODLevel(
 		LODObject3D::LODLevelType type,
 		const string& fileName,
 		Model* model,
-		float minDistance
+		float minDistance,
+		float planeRotationY
 	);
 
 	/**
@@ -91,6 +94,17 @@ public:
 	 * @param minDistance min distance
 	 */
 	void setMinDistance(float minDistance);
+
+	/**
+	 * @return plane rotation y
+	 */
+	float getPlaneRotationY() const;
+
+	/**
+	 * Set plane rotation y
+	 * @param planeRotationY plane rotation y
+	 */
+	void setPlaneRotationY(float planeRotationY);
 
 	/**
 	 * @return color add

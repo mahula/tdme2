@@ -9,7 +9,6 @@
 #include <tdme/engine/model/fwd-tdme.h>
 #include <tdme/engine/model/Color4.h>
 #include <tdme/engine/primitives/fwd-tdme.h>
-#include <tdme/engine/subsystems/particlesystem/fwd-tdme.h>
 #include <tdme/engine/subsystems/renderer/fwd-tdme.h>
 #include <tdme/engine/subsystems/rendering/Object3DGroup.h>
 #include <tdme/engine/subsystems/rendering/Object3DGroupVBORenderer.h>
@@ -48,13 +47,10 @@ class tdme::engine::Object3D final
 
 private:
 	friend class Engine;
-	friend class LODObject3D;
-	friend class ObjectParticleSystemEntity;
 	friend class tdme::engine::subsystems::shadowmapping::ShadowMap;
 
 
 	Engine* engine { nullptr };
-	Entity* parentEntity { nullptr };
 	bool frustumCulling { true };
 	string shaderId { "default" };
 	string distanceShaderId { "" };
@@ -70,17 +66,6 @@ private:
 			}
 		}
 	}
-
-	/**
-	 * Set parent entity, needs to be called before adding to engine
-	 * @param entity entity
-	 */
-	void setParentEntity(Entity* entity);
-
-	/**
-	 * @return parent entity
-	 */
-	Entity* getParentEntity();
 
 public:
 	void setEngine(Engine* engine) override;

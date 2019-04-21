@@ -35,42 +35,29 @@ void Object3D::setRenderer(GLRenderer* renderer)
 {
 }
 
-void Object3D::setParentEntity(Entity* entity) {
-	this->parentEntity = entity;
-}
-
-Entity* Object3D::getParentEntity() {
-	return this->parentEntity;
-}
-
-
 void Object3D::fromTransformations(const Transformations& transformations)
 {
 	Object3DInternal::fromTransformations(transformations);
-	if (parentEntity == nullptr && frustumCulling == true && engine != nullptr && enabled == true) engine->partition->updateEntity(this);
+	if (frustumCulling == true && engine != nullptr && enabled == true) engine->partition->updateEntity(this);
 }
 
 void Object3D::update()
 {
 	Object3DInternal::update();
-	if (parentEntity == nullptr && frustumCulling == true && engine != nullptr && enabled == true) engine->partition->updateEntity(this);
+	if (frustumCulling == true && engine != nullptr && enabled == true) engine->partition->updateEntity(this);
 }
 
 void Object3D::setEnabled(bool enabled)
 {
 	// return if enable state has not changed
 	if (this->enabled == enabled) return;
-
-	// frustum if root entity
-	if (parentEntity == nullptr) {
-		// frustum culling enabled?
-		if (frustumCulling == true) {
-			// yeo, add or remove from partition
-			if (enabled == true) {
-				if (engine != nullptr) engine->partition->addEntity(this);
-			} else {
-				if (engine != nullptr) engine->partition->removeEntity(this);
-			}
+	// frustum culling enabled?
+	if (frustumCulling == true) {
+		// yeo, add or remove from partition
+		if (enabled == true) {
+			if (engine != nullptr) engine->partition->addEntity(this);
+		} else {
+			if (engine != nullptr) engine->partition->removeEntity(this);
 		}
 	}
 	// call parent class::setEnabled()

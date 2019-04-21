@@ -4,7 +4,6 @@
 #include <string>
 
 #include <tdme/engine/Engine.h>
-#include <tdme/engine/Object3D.h>
 #include <tdme/engine/Partition.h>
 #include <tdme/engine/Transformations.h>
 #include <tdme/engine/primitives/BoundingBox.h>
@@ -14,7 +13,6 @@ using std::string;
 
 using tdme::engine::ObjectParticleSystemEntity;
 using tdme::engine::Engine;
-using tdme::engine::Object3D;
 using tdme::engine::Partition;
 using tdme::engine::Transformations;
 using tdme::engine::primitives::BoundingBox;
@@ -26,7 +24,6 @@ ObjectParticleSystemEntity::ObjectParticleSystemEntity(const string& id, Model* 
 
 void ObjectParticleSystemEntity::initialize()
 {
-	for (auto object: objects) object->setParentEntity(this);
 }
 
 BoundingBox* ObjectParticleSystemEntity::getBoundingBox()

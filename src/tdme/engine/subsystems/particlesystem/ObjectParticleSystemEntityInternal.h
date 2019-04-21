@@ -44,7 +44,6 @@ class tdme::engine::subsystems::particlesystem::ObjectParticleSystemEntityIntern
 {
 protected:
 	Engine* engine {  };
-	GLRenderer* renderer {  };
 	string id {  };
 	bool enabled {  };
 	Model* model {  };

@@ -175,6 +175,7 @@ void ModelEditorScreenController::initialize()
 		lodModelFileLoad = dynamic_cast< GUIElementNode* >(screenNode->getNodeById("lod_model_file_load"));
 		lodModelFileClear = dynamic_cast< GUIElementNode* >(screenNode->getNodeById("lod_model_file_clear"));
 		lodMinDistance = dynamic_cast< GUIElementNode* >(screenNode->getNodeById("lod_min_distance"));
+		lodPlaneRotationY = dynamic_cast< GUIElementNode* >(screenNode->getNodeById("lod_plane_rotation_y"));
 		lodColorMul = dynamic_cast< GUIElementNode* >(screenNode->getNodeById("lod_color_mul"));
 		lodColorAdd = dynamic_cast< GUIElementNode* >(screenNode->getNodeById("lod_color_add"));
 		buttonLodApply = dynamic_cast< GUIElementNode* >(screenNode->getNodeById("button_lod_apply"));
@@ -331,6 +332,7 @@ LevelEditorEntityLODLevel* ModelEditorScreenController::getLODLevel(int level) {
 						LODObject3D::LODLEVELTYPE_NONE,
 						"",
 						nullptr,
+						0.0f,
 						0.0f
 					);
 					entity->setLODLevel2(entityLodLevel);
@@ -345,6 +347,7 @@ LevelEditorEntityLODLevel* ModelEditorScreenController::getLODLevel(int level) {
 						LODObject3D::LODLEVELTYPE_NONE,
 						"",
 						nullptr,
+						0.0f,
 						0.0f
 					);
 					entity->setLODLevel3(entityLodLevel);
@@ -372,10 +375,14 @@ void ModelEditorScreenController::setLODLevel(LevelEditorEntity* entity, int lev
 		lodModelFileClear->getController()->setDisabled(true);
 		lodMinDistance->getController()->setValue(MutableString("0.0"));
 		lodMinDistance->getController()->setDisabled(true);
+		lodPlaneRotationY->getController()->setValue(MutableString("0.0"));
+		lodPlaneRotationY->getController()->setDisabled(true);
 		lodColorMul->getController()->setValue(MutableString("1.0, 1.0, 1.0, 1.0"));
 		lodColorMul->getController()->setDisabled(true);
 		lodColorAdd->getController()->setValue(MutableString("0.0, 0.0, 0.0, 0.0"));
 		lodColorAdd->getController()->setDisabled(true);
+		lodPlaneRotationY->getController()->setValue(MutableString("0.0"));
+		lodPlaneRotationY->getController()->setDisabled(true);
 		buttonLodApply->getController()->setDisabled(true);
 	} else {
 		lodLevel->getController()->setValue(MutableString(to_string(level)));
@@ -389,6 +396,8 @@ void ModelEditorScreenController::setLODLevel(LevelEditorEntity* entity, int lev
 		lodModelFileClear->getController()->setDisabled(false);
 		lodMinDistance->getController()->setValue(MutableString(entityLodLevel->getMinDistance()));
 		lodMinDistance->getController()->setDisabled(false);
+		lodPlaneRotationY->getController()->setValue(MutableString(entityLodLevel->getPlaneRotationY()));
+		lodPlaneRotationY->getController()->setDisabled(false);
 		lodColorMul->getController()->setValue(MutableString(Tools::formatColor4(entityLodLevel->getColorMul())));
 		lodColorMul->getController()->setDisabled(false);
 		lodColorAdd->getController()->setValue(MutableString(Tools::formatColor4(entityLodLevel->getColorAdd())));
@@ -410,6 +419,8 @@ void ModelEditorScreenController::unsetLODLevel() {
 	lodModelFileClear->getController()->setDisabled(true);
 	lodMinDistance->getController()->setValue(MutableString("0.0"));
 	lodMinDistance->getController()->setDisabled(true);
+	lodPlaneRotationY->getController()->setValue(MutableString("0.0"));
+	lodPlaneRotationY->getController()->setDisabled(true);
 	lodColorMul->getController()->setValue(MutableString("1.0, 1.0, 1.0, 1.0"));
 	lodColorMul->getController()->setDisabled(true);
 	lodColorAdd->getController()->setValue(MutableString("0.0, 0.0, 0.0, 0.0"));
@@ -478,15 +489,18 @@ void ModelEditorScreenController::onLODLevelApplySettings() {
 	try {
 		entityLodLevel->setType(static_cast<LODObject3D::LODLevelType>(Tools::convertToIntSilent(lodType->getController()->getValue().getString())));
 		entityLodLevel->setFileName(
-			entityLodLevel->getType() == LODObject3D::LODLEVELTYPE_MODEL?
+			entityLodLevel->getType() == LODObject3D::LODLEVELTYPE_MODEL ||
+			entityLodLevel->getType() == LODObject3D::LODLEVELTYPE_PLANE?
 				lodModelFile->getController()->getValue().getString():
 				""
 			);
 		entityLodLevel->setMinDistance(Tools::convertToFloat(lodMinDistance->getController()->getValue().getString()));
+		entityLodLevel->setPlaneRotationY(Tools::convertToFloat(lodPlaneRotationY->getController()->getValue().getString()));
 		entityLodLevel->setColorMul(Tools::convertToColor4(lodColorMul->getController()->getValue().getString()));
 		entityLodLevel->setColorAdd(Tools::convertToColor4(lodColorAdd->getController()->getValue().getString()));
 		entityLodLevel->setModel(
-			entityLodLevel->getType() == LODObject3D::LODLEVELTYPE_MODEL?
+			entityLodLevel->getType() == LODObject3D::LODLEVELTYPE_MODEL ||
+			entityLodLevel->getType() == LODObject3D::LODLEVELTYPE_PLANE?
 				ModelReader::read(
 					Tools::getPath(entityLodLevel->getFileName()),
 					Tools::getFileName(entityLodLevel->getFileName())

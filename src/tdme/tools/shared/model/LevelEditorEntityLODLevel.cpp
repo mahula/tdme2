@@ -18,12 +18,14 @@ LevelEditorEntityLODLevel::LevelEditorEntityLODLevel(
 	LODObject3D::LODLevelType type,
 	const string& fileName,
 	Model* model,
-	float minDistance
+	float minDistance,
+	float planeRotationY
 ) :
 	type(type),
 	fileName(fileName),
 	model(model),
-	minDistance(minDistance) {
+	minDistance(minDistance),
+	planeRotationY(planeRotationY) {
 	colorMul.set(1.0f, 1.0f, 1.0f, 1.0f);
 	colorAdd.set(0.0f, 0.0f, 0.0f, 0.0f);
 }
@@ -55,6 +57,14 @@ float LevelEditorEntityLODLevel::getMinDistance() const {
 
 void LevelEditorEntityLODLevel::setMinDistance(float minDistance) {
 	this->minDistance = minDistance;
+}
+
+float LevelEditorEntityLODLevel::getPlaneRotationY() const {
+	return planeRotationY;
+}
+
+void LevelEditorEntityLODLevel::setPlaneRotationY(float planeRotationY) {
+	this->planeRotationY = planeRotationY;
 }
 
 LODObject3D::LODLevelType LevelEditorEntityLODLevel::getType() const {
