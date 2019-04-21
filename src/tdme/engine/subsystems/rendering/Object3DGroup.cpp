@@ -122,14 +122,7 @@ void Object3DGroup::createGroups(Object3DBase* object3D, map<string, Group*>* gr
 				);
 			}
 			object3DGroup->textureMatricesByEntities.resize(group->getFacesEntities()->size());
-			for (auto j = 0; j < group->getFacesEntities()->size(); j++) {
-				auto material = (*group->getFacesEntities())[j].getMaterial();
-				if (material != nullptr) {
-					object3DGroup->textureMatricesByEntities[j].set(material->getTextureMatrix());
-				} else {
-					object3DGroup->textureMatricesByEntities[j].identity();
-				}
-			}
+			for (auto& textureMatrix: object3DGroup->textureMatricesByEntities) textureMatrix.identity();
 			object3DGroup->materialDiffuseTextureIdsByEntities.resize(group->getFacesEntities()->size());
 			object3DGroup->dynamicDiffuseTextureIdsByEntities.resize(group->getFacesEntities()->size());
 			object3DGroup->materialSpecularTextureIdsByEntities.resize(group->getFacesEntities()->size());

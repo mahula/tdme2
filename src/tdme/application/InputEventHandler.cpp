@@ -15,9 +15,5 @@ InputEventHandler::~InputEventHandler() {
 }
 
 int InputEventHandler::getKeyboardModifiers() {
-	#if defined(__APPLE__)
-		return 0;
-	#else
-		return glutGetModifiers();
-	#endif
+	return glutGetModifiers();
 }

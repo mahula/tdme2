@@ -143,21 +143,6 @@ public:
 	 * @throws model file IO exception
 	 * @return float array
 	 */
-	inline void readFloatArray(array<float, 9>& data) throw (ModelFileIOException) {
-		auto length = readInt();
-		if (length != data.size()) {
-			throw ModelFileIOException("Wrong float array size");
-		}
-		for (auto i = 0; i < data.size(); i++) {
-			(data)[i] = readFloat();
-		}
-	}
-
-	/**
-	 * Reads a float array from input stream
-	 * @throws model file IO exception
-	 * @return float array
-	 */
 	inline void readFloatArray(array<float, 4>& data) throw (ModelFileIOException) {
 		auto length = readInt();
 		if (length != data.size()) {
@@ -173,13 +158,13 @@ public:
 	 * @throws model file IO exception
 	 * @return float array
 	 */
-	inline void readFloatArray(array<float, 3>& data) throw (ModelFileIOException) {
+	inline void readFloatArray(array<float, 3>* data) throw (ModelFileIOException) {
 		auto length = readInt();
-		if (length != data.size()) {
+		if (length != data->size()) {
 			throw ModelFileIOException("Wrong float array size");
 		}
-		for (auto i = 0; i < data.size(); i++) {
-			data[i] = readFloat();
+		for (auto i = 0; i < data->size(); i++) {
+			(*data)[i] = readFloat();
 		}
 	}
 
@@ -188,13 +173,13 @@ public:
 	 * @throws model file IO exception
 	 * @return float array
 	 */
-	inline void readFloatArray(array<float, 2>& data) throw (ModelFileIOException) {
+	inline void readFloatArray(array<float, 2>* data) throw (ModelFileIOException) {
 		auto length = readInt();
-		if (length != data.size()) {
+		if (length != data->size()) {
 			throw ModelFileIOException("Wrong float array size");
 		}
-		for (auto i = 0; i < data.size(); i++) {
-			data[i] = readFloat();
+		for (auto i = 0; i < data->size(); i++) {
+			(*data)[i] = readFloat();
 		}
 	}
 
