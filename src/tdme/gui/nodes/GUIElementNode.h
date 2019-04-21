@@ -7,9 +7,6 @@
 #include <tdme/gui/fwd-tdme.h>
 #include <tdme/gui/events/fwd-tdme.h>
 #include <tdme/gui/nodes/fwd-tdme.h>
-#include <tdme/gui/nodes/GUINode_AlignmentHorizontal.h>
-#include <tdme/gui/nodes/GUINode_AlignmentVertical.h>
-#include <tdme/gui/nodes/GUINode_Alignments.h>
 #include <tdme/gui/nodes/GUINodeConditions.h>
 #include <tdme/gui/nodes/GUIParentNode.h>
 
@@ -225,14 +222,6 @@ public:
 
 	// overriden methods
 	void handleKeyboardEvent(GUIKeyboardEvent* event) override;
-
-	/**
-	 * Create alignments
-	 * @param horizontal horizontal
-	 * @param vertical vertical
-	 * @return alignments
-	 */
-	static GUINode_Alignments createAlignments(const string& horizontal, const string& vertical);
 
 private:
 	void init();
