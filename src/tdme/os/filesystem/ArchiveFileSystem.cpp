@@ -81,12 +81,7 @@ bool ArchiveFileSystem::isDrive(const string& pathName) throw (FileSystemExcepti
 }
 
 bool ArchiveFileSystem::fileExists(const string& fileName) throw (FileSystemException) {
-	// compose relative file name and remove ./
-	auto relativeFileName = fileName;
-	if (StringUtils::startsWith(relativeFileName, "./")  == true) relativeFileName = StringUtils::substring(relativeFileName, 2);
-
-	//
-	return fileInformations.find(relativeFileName) != fileInformations.end();
+	return fileInformations.find(fileName) != fileInformations.end();
 }
 
 void ArchiveFileSystem::decompress(vector<uint8_t>& inContent, vector<uint8_t>& outContent) throw (FileSystemException) {
