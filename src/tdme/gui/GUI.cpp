@@ -105,7 +105,6 @@ void GUI::reshape(int32_t width, int32_t height)
 {
 	this->width = width;
 	this->height = height;
-	for (auto screenIt: screens) screenIt.second->reshapeRequested = true;
 }
 
 void GUI::dispose()
@@ -209,7 +208,6 @@ GUIScreenNode* GUI::getScreen(const string& id)
 void GUI::addScreen(const string& id, GUIScreenNode* screen)
 {
 	screens.emplace(id, screen);
-	screen->reshapeRequested = true;
 }
 
 void GUI::removeScreen(const string& id)
@@ -397,7 +395,6 @@ void GUI::render()
 	if (focussedNode == nullptr) {
 		focusNextNode();
 	}
-
 	guiRenderer->setGUI(this);
 	engine->initGUIMode();
 	guiRenderer->initRendering();
@@ -406,9 +403,10 @@ void GUI::render()
 		if (screen->isVisible() == false)
 			continue;
 
-		// reshape if requested
-		if (screen->reshapeRequested == true) reshapeScreen(screen);
-
+		if (screen->getScreenWidth() != width || screen->getScreenHeight() != height) {
+			screen->setScreenSize(width, height);
+			screen->layout();
+		}
 		screen->tick();
 		screen->render(guiRenderer);
 	}
@@ -437,8 +435,8 @@ void GUI::handleMouseEvent(GUINode* node, GUIMouseEvent* event, set<string>& mou
 	set<string> mouseEventNodeIds;
 
 	//
-	event->setX((float)event->getXUnscaled() * (float)node->getScreenNode()->getScreenWidth() / (float)width + node->getScreenNode()->getGUIEffectOffsetX());
-	event->setY((float)event->getYUnscaled() * (float)node->getScreenNode()->getScreenHeight() / (float)height + node->getScreenNode()->getGUIEffectOffsetY());
+	event->setX(event->getX() + node->getScreenNode()->getGUIEffectOffsetX());
+	event->setY(event->getY() + node->getScreenNode()->getGUIEffectOffsetY());
 
 	// if dragging only send events to dragging origin nodes
 	if (event->getType() == GUIMouseEvent_Type::MOUSEEVENT_DRAGGED) {
@@ -734,8 +732,6 @@ void GUI::onMouseDragged(int x, int y) {
 	GUIMouseEvent guiMouseEvent;
 	guiMouseEvent.setTime(Time::getCurrentMillis());
 	guiMouseEvent.setType(GUIMouseEvent_Type::MOUSEEVENT_DRAGGED);
-	guiMouseEvent.setXUnscaled(x);
-	guiMouseEvent.setYUnscaled(y);
 	guiMouseEvent.setX(x);
 	guiMouseEvent.setY(y);
 	guiMouseEvent.setButton(mouseButtonLast);
@@ -754,8 +750,6 @@ void GUI::onMouseMoved(int x, int y) {
 	GUIMouseEvent guiMouseEvent;
 	guiMouseEvent.setTime(Time::getCurrentMillis());
 	guiMouseEvent.setType(GUIMouseEvent_Type::MOUSEEVENT_MOVED);
-	guiMouseEvent.setXUnscaled(x);
-	guiMouseEvent.setYUnscaled(y);
 	guiMouseEvent.setX(x);
 	guiMouseEvent.setY(y);
 	guiMouseEvent.setButton(0);
@@ -775,8 +769,6 @@ void GUI::onMouseButton(int button, int state, int x, int y) {
 	GUIMouseEvent guiMouseEvent;
 	guiMouseEvent.setTime(Time::getCurrentMillis());
 	guiMouseEvent.setType(state == MOUSE_BUTTON_DOWN?GUIMouseEvent_Type::MOUSEEVENT_PRESSED:GUIMouseEvent_Type::MOUSEEVENT_RELEASED);
-	guiMouseEvent.setXUnscaled(x);
-	guiMouseEvent.setYUnscaled(y);
 	guiMouseEvent.setX(x);
 	guiMouseEvent.setY(y);
 	guiMouseEvent.setButton(mouseButtonLast);
@@ -796,8 +788,6 @@ void GUI::onMouseWheel(int button, int direction, int x, int y) {
 	GUIMouseEvent guiMouseEvent;
 	guiMouseEvent.setTime(Time::getCurrentMillis());
 	guiMouseEvent.setType(GUIMouseEvent_Type::MOUSEEVENT_WHEEL_MOVED);
-	guiMouseEvent.setXUnscaled(x);
-	guiMouseEvent.setYUnscaled(y);
 	guiMouseEvent.setX(x);
 	guiMouseEvent.setY(y);
 	guiMouseEvent.setButton(mouseButtonLast);
@@ -815,8 +805,6 @@ void GUI::fakeMouseMovedEvent()
 	GUIMouseEvent guiMouseEvent;
 	guiMouseEvent.setTime(Time::getCurrentMillis());
 	guiMouseEvent.setType(GUIMouseEvent_Type::MOUSEEVENT_MOVED);
-	guiMouseEvent.setXUnscaled(-10000);
-	guiMouseEvent.setYUnscaled(-10000);
 	guiMouseEvent.setX(-10000);
 	guiMouseEvent.setY(-10000);
 	guiMouseEvent.setButton(0);
@@ -871,42 +859,3 @@ void GUI::fakeKeyboardModifierEvent() {
 	unlockEvents();
 }
 
-void GUI::reshapeScreen(GUIScreenNode* screenNode) {
-	// TODO: maybe move logic into GUIScreenNode
-
-	auto screenNodeWidthConstrained = width;
-	auto screenNodeHeightConstrained = height;
-
-	auto minRatio = 1.0f;
-
-	if ((screenNode->sizeConstraints.maxWidth > 0 && screenNodeWidthConstrained > screenNode->sizeConstraints.maxWidth) ||
-		(screenNode->sizeConstraints.maxHeight > 0 && screenNodeHeightConstrained > screenNode->sizeConstraints.maxHeight)) {
-		if (screenNode->sizeConstraints.maxWidth > 0 && screenNodeWidthConstrained > screenNode->sizeConstraints.maxWidth) {
-			minRatio = (float)screenNode->sizeConstraints.maxWidth / (float)width;
-			screenNodeWidthConstrained = screenNode->sizeConstraints.maxWidth;
-			screenNodeHeightConstrained = (int)((float)screenNodeHeightConstrained * minRatio);
-		}
-		if (screenNode->sizeConstraints.maxHeight > 0 && screenNodeHeightConstrained > screenNode->sizeConstraints.maxHeight) {
-			minRatio = (float)screenNode->sizeConstraints.maxHeight / (float)height;
-			screenNodeHeightConstrained = screenNode->sizeConstraints.maxHeight;
-			screenNodeWidthConstrained = (int)((float)screenNodeWidthConstrained * minRatio);
-		}
-	}
-	if ((screenNode->sizeConstraints.minWidth > 0 && screenNodeWidthConstrained < screenNode->sizeConstraints.minWidth) ||
-		(screenNode->sizeConstraints.minHeight > 0 && screenNodeHeightConstrained < screenNode->sizeConstraints.minHeight)) {
-		if (screenNode->sizeConstraints.minWidth > 0 && screenNodeWidthConstrained < screenNode->sizeConstraints.minWidth) {
-			auto ratio = (float)screenNode->sizeConstraints.minWidth / (float)width;
-			screenNodeWidthConstrained = screenNode->sizeConstraints.minWidth;
-			screenNodeHeightConstrained = (int)((float)screenNodeHeightConstrained * ratio / minRatio);
-		}
-		if (screenNode->sizeConstraints.minHeight > 0 && screenNodeHeightConstrained < screenNode->sizeConstraints.minHeight) {
-			auto ratio = (float)screenNode->sizeConstraints.minHeight / (float)height;
-			screenNodeHeightConstrained = screenNode->sizeConstraints.minHeight;
-			screenNodeWidthConstrained = (int)((float)screenNodeWidthConstrained * ratio / minRatio);
-		}
-	}
-
-	screenNode->setScreenSize(screenNodeWidthConstrained, screenNodeHeightConstrained);
-	screenNode->layout();
-	screenNode->reshapeRequested = false;
-}

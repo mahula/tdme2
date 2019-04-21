@@ -13,7 +13,6 @@
 #include <tdme/gui/renderer/fwd-tdme.h>
 #include <tdme/utils/fwd-tdme.h>
 #include <tdme/gui/nodes/GUIParentNode.h>
-#include <tdme/gui/nodes/GUIScreenNode_SizeConstraints.h>
 
 using std::map;
 using std::set;
@@ -41,7 +40,6 @@ using tdme::gui::nodes::GUINode_Scale9Grid;
 using tdme::gui::nodes::GUINode;
 using tdme::gui::nodes::GUINodeConditions;
 using tdme::gui::nodes::GUIParentNode_Overflow;
-using tdme::gui::nodes::GUIScreenNode_SizeConstraints;
 using tdme::gui::renderer::GUIRenderer;
 using tdme::utils::MutableString;
 
@@ -72,17 +70,16 @@ private:
 	vector<GUIMouseOverListener*> mouseOverListener {  };
 	GUIInputEventHandler* inputEventHandler {  };
 	vector<GUINode*> childControllerNodes {  };
-	GUIScreenNode_SizeConstraints sizeConstraints {  };
 
+private:
 	bool mouseEventProcessedByFloatingNode {  };
 	bool visible {  };
 	bool popUp {  };
 
+private:
 	map<string, GUIEffect*> effects {  };
 	int32_t guiEffectOffsetX {  };
 	int32_t guiEffectOffsetY {  };
-
-	bool reshapeRequested { false };
 
 public:
 
@@ -177,7 +174,6 @@ protected:
 	 * @param backgroundImageScale9Grid background image scale 9 grid
 	 * @param border border
 	 * @param padding padding
-	 * @param sizeConstraints size constraints
 	 * @param showOn show on
 	 * @param hideOn hide on
 	 * @param scrollable scrollable
@@ -195,7 +191,6 @@ protected:
 		const GUINode_Scale9Grid& backgroundImageScale9Grid,
 		const GUINode_Border& border,
 		const GUINode_Padding& padding,
-		const GUIScreenNode_SizeConstraints& sizeConstraints,
 		const GUINodeConditions& showOn,
 		const GUINodeConditions& hideOn,
 		bool scrollable,
@@ -406,20 +401,8 @@ public:
 	bool removeEffect(const string& id);
 
 private:
-	/**
-	 * Initializes this screen
-	 */
 	void init();
 
 public:
 	void render(GUIRenderer* guiRenderer, vector<GUINode*>& floatingNodes) override;
-
-	/**
-	 * Create size constraints
-	 * @param minWidth min width
-	 * @param minHeight min height
-	 * @param maxWidth max width
-	 * @param maxHeight max height
-	 */
-	static GUIScreenNode_SizeConstraints createSizeConstraints(const string& minWidth, const string& minHeight, const string& maxWidth, const string& maxHeight);
 };

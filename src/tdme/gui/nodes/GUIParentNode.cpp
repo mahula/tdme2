@@ -340,8 +340,8 @@ void GUIParentNode::render(GUIRenderer* guiRenderer, vector<GUINode*>& floatingN
 	auto renderAreaTopCurrent = guiRenderer->getRenderAreaTop();
 	auto renderAreaRightCurrent = guiRenderer->getRenderAreaRight();
 	auto renderAreaBottomCurrent = guiRenderer->getRenderAreaBottom();
-	auto screenWidth = screenNode->getScreenWidth();
-	auto screenHeight = screenNode->getScreenHeight();
+	float screenWidth = guiRenderer->getGUI()->getWidth();
+	float screenHeight = guiRenderer->getGUI()->getHeight();
 	float left = computedConstraints.left + computedConstraints.alignmentLeft;
 	float top = computedConstraints.top + computedConstraints.alignmentTop;
 	float width = computedConstraints.width;
