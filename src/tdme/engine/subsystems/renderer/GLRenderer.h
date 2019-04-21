@@ -335,26 +335,16 @@ public:
 	virtual void disableBlending() = 0;
 
 	/** 
-	 * Enable depth buffer writing
+	 * Enable depth buffer
 	 */
-	virtual void enableDepthBufferWriting() = 0;
+	virtual void enableDepthBuffer() = 0;
 
 	/** 
-	 * Disable depth buffer writing
+	 * Disable depth buffer
 	 */
-	virtual void disableDepthBufferWriting() = 0;
+	virtual void disableDepthBuffer() = 0;
 
 	/** 
-	 * Disable depth buffer test
-	 */
-	virtual void disableDepthBufferTest() = 0;
-
-	/**
-	 * Enable depth buffer test
-	 */
-	virtual void enableDepthBufferTest() = 0;
-
-	/**
 	 * Set up depth function
 	 * @param depthFunction depth function
 	 */

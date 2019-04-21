@@ -352,24 +352,14 @@ void GL3Renderer::disableBlending()
 	glDisable(GL_BLEND);
 }
 
-void GL3Renderer::enableDepthBufferWriting()
+void GL3Renderer::enableDepthBuffer()
 {
 	glDepthMask(true);
 }
 
-void GL3Renderer::disableDepthBufferWriting()
+void GL3Renderer::disableDepthBuffer()
 {
 	glDepthMask(false);
-}
-
-void GL3Renderer::disableDepthBufferTest()
-{
-	glDisable(GL_DEPTH_TEST);
-}
-
-void GL3Renderer::enableDepthBufferTest()
-{
-	glEnable(GL_DEPTH_TEST);
 }
 
 void GL3Renderer::setDepthFunction(int32_t depthFunction)

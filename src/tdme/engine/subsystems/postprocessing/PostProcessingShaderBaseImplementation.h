@@ -43,7 +43,7 @@ public:
 
 	/**
 	 * Public constructor
-	 * @param renderer renderer
+	 * @param renderer
 	 */
 	PostProcessingShaderBaseImplementation(GLRenderer* renderer);
 

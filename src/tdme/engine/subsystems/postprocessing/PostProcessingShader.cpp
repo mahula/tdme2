@@ -31,7 +31,7 @@ PostProcessingShader::~PostProcessingShader()
 
 bool PostProcessingShader::isInitialized()
 {
-	auto initialized = true;
+	bool initialized = true;
 	for (auto shaderIt: shader) {
 		initialized&= shaderIt.second->isInitialized();
 	}
