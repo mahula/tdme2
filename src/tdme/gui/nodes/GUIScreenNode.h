@@ -139,7 +139,7 @@ public:
 	/** 
 	 * @return floating nodes
 	 */
-	const vector<GUINode*>& getFloatingNodes();
+	vector<GUINode*>* getFloatingNodes();
 
 	/** 
 	 * @return GUI effect offset X
@@ -282,7 +282,7 @@ public:
 	 * Render screen
 	 * @param guiRenderer gui renderer
 	 */
-	void render(GUIRenderer* guiRenderer) override;
+	void render(GUIRenderer* guiRenderer);
 
 	/** 
 	 * Render floating nodes
@@ -419,6 +419,8 @@ private:
 	void init();
 
 public:
+	void render(GUIRenderer* guiRenderer, vector<GUINode*>& floatingNodes) override;
+
 	/**
 	 * Create size constraints
 	 * @param minWidth min width

@@ -576,9 +576,9 @@ void GUI::handleEvents()
 			if (screen->isVisible() == false) continue;
 
 			//
-			auto& floatingNodes = screen->getFloatingNodes();
-			for (auto j = 0; j < floatingNodes.size(); j++) {
-				auto floatingNode = floatingNodes.at(j);
+			vector<GUINode*>* floatingNodes = screen->getFloatingNodes();
+			for (auto j = 0; j < floatingNodes->size(); j++) {
+				auto floatingNode = floatingNodes->at(j);
 
 				handleMouseEvent(floatingNode, &event, _mouseOutCandidateEventNodeIds[screen->getId()], mousePressedEventNodeIds[screen->getId()], true);
 

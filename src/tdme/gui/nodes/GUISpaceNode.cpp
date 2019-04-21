@@ -73,11 +73,11 @@ void GUISpaceNode::dispose()
 	GUINode::dispose();
 }
 
-void GUISpaceNode::render(GUIRenderer* guiRenderer)
+void GUISpaceNode::render(GUIRenderer* guiRenderer, vector<GUINode*>& floatingNodes)
 {
 	if (conditionsMet == false)
 		return;
 
-	GUINode::render(guiRenderer);
+	GUINode::render(guiRenderer, floatingNodes);
 }
 

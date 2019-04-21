@@ -101,12 +101,12 @@ void GUIImageNode::dispose()
 	GUINode::dispose();
 }
 
-void GUIImageNode::render(GUIRenderer* guiRenderer)
+void GUIImageNode::render(GUIRenderer* guiRenderer, vector<GUINode*>& floatingNodes)
 {
 	if (conditionsMet == false)
 		return;
 
-	GUINode::render(guiRenderer);
+	GUINode::render(guiRenderer, floatingNodes);
 
 	{
 		auto renderOffsetXCurrent = guiRenderer->getRenderOffsetX();

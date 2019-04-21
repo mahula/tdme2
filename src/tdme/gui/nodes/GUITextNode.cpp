@@ -86,12 +86,12 @@ void GUITextNode::dispose()
 	GUINode::dispose();
 }
 
-void GUITextNode::render(GUIRenderer* guiRenderer)
+void GUITextNode::render(GUIRenderer* guiRenderer, vector<GUINode*>& floatingNodes)
 {
 	if (conditionsMet == false)
 		return;
 
-	GUINode::render(guiRenderer);
+	GUINode::render(guiRenderer, floatingNodes);
 	font->drawString(guiRenderer, computedConstraints.left + computedConstraints.alignmentLeft + computedConstraints.contentAlignmentLeft, computedConstraints.top + computedConstraints.alignmentTop + computedConstraints.contentAlignmentTop, text, 0, 0, color);
 }
 

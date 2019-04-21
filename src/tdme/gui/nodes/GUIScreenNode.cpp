@@ -27,7 +27,6 @@
 #include <tdme/utils/MutableString.h>
 
 using std::map;
-using std::remove;
 using std::set;
 using std::string;
 using std::to_string;
@@ -133,9 +132,9 @@ void GUIScreenNode::setPopUp(bool popUp)
 	this->popUp = popUp;
 }
 
-const vector<GUINode*>& GUIScreenNode::getFloatingNodes()
+vector<GUINode*>* GUIScreenNode::getFloatingNodes()
 {
-	return floatingNodes;
+	return &floatingNodes;
 }
 
 int32_t GUIScreenNode::getGUIEffectOffsetX()
@@ -243,21 +242,13 @@ const string GUIScreenNode::allocateNodeId()
 
 bool GUIScreenNode::addNode(GUINode* node)
 {
-	// allocate node id if not given
 	if (node->id.length() == 0) {
 		node->id = allocateNodeId();
 	}
-
-	// if node does exist do not insert it and return
 	if (nodesById.find(node->id) != nodesById.end()) {
 		return false;
 	}
-	// otherwise go
 	nodesById[node->id] = node;
-
-	// add to floating nodes
-	if (node->flow == GUINode_Flow::FLOATING) floatingNodes.push_back(node);
-
 	return true;
 }
 
@@ -272,7 +263,6 @@ bool GUIScreenNode::removeNode(GUINode* node)
 	}
 	nodesById.erase(node->id);
 	tickNodesById.erase(node->getId());
-	floatingNodes.erase(remove(floatingNodes.begin(), floatingNodes.end(), node), floatingNodes.end());
 	node->dispose();
 	delete node;
 	return true;
@@ -288,12 +278,14 @@ void GUIScreenNode::render(GUIRenderer* guiRenderer)
 			effect->apply(guiRenderer);
 		}
 	}
-	GUIParentNode::render(guiRenderer);
+	floatingNodes.clear();
+	GUIParentNode::render(guiRenderer, floatingNodes);
 	guiRenderer->doneScreen();
 }
 
 void GUIScreenNode::renderFloatingNodes(GUIRenderer* guiRenderer)
 {
+	vector<GUINode*> subFloatingNodes;
 	guiRenderer->initScreen(this);
 	for (auto& i : effects) {
 		auto effect = i.second;
@@ -304,7 +296,7 @@ void GUIScreenNode::renderFloatingNodes(GUIRenderer* guiRenderer)
 		guiRenderer->setRenderAreaTop(GUIRenderer::SCREEN_TOP);
 		guiRenderer->setRenderAreaRight(GUIRenderer::SCREEN_RIGHT);
 		guiRenderer->setRenderAreaBottom(GUIRenderer::SCREEN_BOTTOM);
-		floatingNodes[i]->render(guiRenderer);
+		floatingNodes[i]->render(guiRenderer, subFloatingNodes);
 	}
 	guiRenderer->doneScreen();
 }
@@ -487,6 +479,11 @@ bool GUIScreenNode::removeEffect(const string& id)
 	effects.erase(effectIt);
 	delete effectIt->second;
 	return true;
+}
+
+void GUIScreenNode::render(GUIRenderer* guiRenderer, vector<GUINode*>& floatingNodes)
+{
+	GUIParentNode::render(guiRenderer, floatingNodes);
 }
 
 GUIScreenNode_SizeConstraints GUIScreenNode::createSizeConstraints(const string& minWidth, const string& minHeight, const string& maxWidth, const string& maxHeight)

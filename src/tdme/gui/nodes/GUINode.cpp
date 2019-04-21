@@ -425,7 +425,7 @@ void GUINode::setConditionsMet()
 	conditionsMet = checkConditions();
 }
 
-void GUINode::render(GUIRenderer* guiRenderer)
+void GUINode::render(GUIRenderer* guiRenderer, vector<GUINode*>& floatingNodes)
 {
 	if (conditionsMet == false)
 		return;
@@ -873,6 +873,8 @@ bool GUINode::isEventBelongingToNode(GUIMouseEvent* event, array<float,2>& posit
 {
 	auto eventXScreen = event->getX();
 	auto eventYScreen = event->getY();
+	/*
+	// TODO: check me!
 	auto parentNode = this->parentNode;
 	while (parentNode != nullptr) {
 		if (parentNode->flow == GUINode_Flow::FLOATING)
@@ -888,6 +890,7 @@ bool GUINode::isEventBelongingToNode(GUIMouseEvent* event, array<float,2>& posit
 		}
 		parentNode = parentNode->parentNode;
 	}
+	*/
 	auto eventX = eventXScreen + computeParentChildrenRenderOffsetXTotal();
 	auto eventY = eventYScreen + computeParentChildrenRenderOffsetYTotal();
 	auto belongsToElement =

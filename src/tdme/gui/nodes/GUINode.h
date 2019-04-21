@@ -70,13 +70,11 @@ class tdme::gui::nodes::GUINode
 	friend class GUINode_RequestedConstraints;
 	friend class GUINode_RequestedConstraints_RequestedConstraintsType;
 
-private:
-	GUINode_Flow* flow;
-
 protected:
 	GUIScreenNode* screenNode {  };
 	GUIParentNode* parentNode {  };
 	string id {  };
+	GUINode_Flow* flow;
 	GUINode_Alignments alignments;
 	GUINode_RequestedConstraints requestedConstraints;
 	GUINode_ComputedConstraints computedConstraints;
@@ -359,7 +357,7 @@ public:
 	 * @param guiRenderer gui renderer
 	 * @param floatingNodes floating nodes
 	 */
-	virtual void render(GUIRenderer* guiRenderer);
+	virtual void render(GUIRenderer* guiRenderer, vector<GUINode*>& floatingNodes);
 
 	/** 
 	 * Is event belonging to node

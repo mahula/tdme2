@@ -74,12 +74,12 @@ int32_t GUIHorizontalScrollbarInternalNode::getContentHeight()
 	return computedConstraints.height;
 }
 
-void GUIHorizontalScrollbarInternalNode::render(GUIRenderer* guiRenderer)
+void GUIHorizontalScrollbarInternalNode::render(GUIRenderer* guiRenderer, vector<GUINode*>& floatingNodes)
 {
 	if (conditionsMet == false)
 		return;
 
-	GUINode::render(guiRenderer);
+	GUINode::render(guiRenderer, floatingNodes);
 	auto screenWidth = screenNode->getScreenWidth();
 	auto screenHeight = screenNode->getScreenHeight();
 	auto controller = dynamic_cast< GUIHorizontalScrollbarInternalController* >(this->controller);
