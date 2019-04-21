@@ -54,23 +54,19 @@ void FrameBufferRenderShader::initialize()
 	if (fragmentShaderGlId == 0)
 		return;
 
-	programId = renderer->createProgram();
-	renderer->attachShaderToProgram(programId, vertexShaderGlId);
-	renderer->attachShaderToProgram(programId, fragmentShaderGlId);
+	programGlId = renderer->createProgram();
+	renderer->attachShaderToProgram(programGlId, vertexShaderGlId);
+	renderer->attachShaderToProgram(programGlId, fragmentShaderGlId);
 	if (renderer->isUsingProgramAttributeLocation() == true) {
-		renderer->setProgramAttributeLocation(programId, 0, "inVertex");
-		renderer->setProgramAttributeLocation(programId, 2, "inTextureUV");
+		renderer->setProgramAttributeLocation(programGlId, 0, "inVertex");
+		renderer->setProgramAttributeLocation(programGlId, 2, "inTextureUV");
 	}
-	if (renderer->linkProgram(programId) == false)
+	if (renderer->linkProgram(programGlId) == false)
 		return;
 
-	// uniforms
-	uniformColorBufferTextureUnit = renderer->getProgramUniformLocation(programId, "colorBufferTextureUnit");
-	if (uniformColorBufferTextureUnit == -1) return;
-
-	uniformDepthBufferTextureUnit = renderer->getProgramUniformLocation(programId, "depthBufferTextureUnit");
-	if (uniformDepthBufferTextureUnit == -1) return;
-
+	uniformDiffuseTextureUnit = renderer->getProgramUniformLocation(programGlId, "diffuseTextureUnit");
+	if (uniformDiffuseTextureUnit == -1)
+		return;
 
 	// create vbos
 	auto vboManaged = Engine::getInstance()->getVBOManager()->addVBO("framebuffer_render_shader.vbos", 2);
@@ -113,9 +109,8 @@ void FrameBufferRenderShader::initialize()
 
 void FrameBufferRenderShader::useProgram()
 {
-	renderer->useProgram(programId);
-	renderer->setProgramUniformInteger(uniformColorBufferTextureUnit, 0);
-	renderer->setProgramUniformInteger(uniformDepthBufferTextureUnit, 1);
+	renderer->useProgram(programGlId);
+	renderer->setProgramUniformInteger(uniformDiffuseTextureUnit, 0);
 	isRunning = true;
 }
 
