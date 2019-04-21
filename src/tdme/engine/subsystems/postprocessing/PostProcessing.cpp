@@ -13,17 +13,22 @@ using tdme::engine::subsystems::postprocessing::PostProcessingProgram;
 
 PostProcessing::PostProcessing() {
 	{
-		auto program = new PostProcessingProgram(PostProcessingProgram::RENDERPASS_FINAL);
+		auto program = new PostProcessingProgram();
 		program->addPostProcessingStep("depth_blur", PostProcessingProgram::FRAMEBUFFERSOURCE_SCREEN, PostProcessingProgram::FRAMEBUFFERTARGET_SCREEN);
 		programs["depth_blur"] = program;
 
 	}
 	{
-		auto program = new PostProcessingProgram(PostProcessingProgram::RENDERPASS_OBJECTS);
+		auto program = new PostProcessingProgram();
 		program->addPostProcessingStep("ssao_map", PostProcessingProgram::FRAMEBUFFERSOURCE_SCREEN, PostProcessingProgram::FRAMEBUFFERTARGET_TEMPORARY);
 		program->addPostProcessingStep("ssao", PostProcessingProgram::FRAMEBUFFERSOURCE_SCREEN, PostProcessingProgram::FRAMEBUFFERTARGET_SCREEN, true);
 		programs["ssao"] = program;
 
+	}
+	{
+		auto program = new PostProcessingProgram();
+		program->addPostProcessingStep("depth_fog", PostProcessingProgram::FRAMEBUFFERSOURCE_SCREEN, PostProcessingProgram::FRAMEBUFFERTARGET_SCREEN);
+		programs["depth_fog"] = program;
 	}
 }
 

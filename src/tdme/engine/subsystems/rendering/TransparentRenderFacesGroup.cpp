@@ -37,7 +37,7 @@ TransparentRenderFacesGroup::TransparentRenderFacesGroup()
 	this->textureCoordinates = false;
 }
 
-void TransparentRenderFacesGroup::set(Object3DVBORenderer* object3DVBORenderer, Model* model, Object3DGroup* object3DGroup, int32_t facesEntityIdx, const Color4& effectColorAdd, const Color4& effectColorMul, Material* material, bool textureCoordinates, const string& shader)
+void TransparentRenderFacesGroup::set(Object3DVBORenderer* object3DVBORenderer, Model* model, Object3DGroup* object3DGroup, int32_t facesEntityIdx, const Color4& effectColorAdd, const Color4& effectColorMul, Material* material, bool textureCoordinates)
 {
 	this->object3DVBORenderer = object3DVBORenderer;
 	this->batchVBORenderers.clear();
@@ -48,10 +48,9 @@ void TransparentRenderFacesGroup::set(Object3DVBORenderer* object3DVBORenderer, 
 	this->effectColorMul.set(effectColorMul);
 	this->material = material;
 	this->textureCoordinates = textureCoordinates;
-	this->shader = shader;
 }
 
-const string TransparentRenderFacesGroup::createKey(Model* model, Object3DGroup* object3DGroup, int32_t facesEntityIdx, const Color4& effectColorAdd, const Color4& effectColorMul, Material* material, bool textureCoordinates, const string& shader)
+const string TransparentRenderFacesGroup::createKey(Model* model, Object3DGroup* object3DGroup, int32_t facesEntityIdx, const Color4& effectColorAdd, const Color4& effectColorMul, Material* material, bool textureCoordinates)
 {
 	auto& efcmData = effectColorMul.getArray();
 	auto& efcaData = effectColorAdd.getArray();
@@ -81,17 +80,11 @@ const string TransparentRenderFacesGroup::createKey(Model* model, Object3DGroup*
 		(material == nullptr ? "tdme.material.none" : material->getId()) +
 		"," +
 		(textureCoordinates == true ? "TCT" : "TCF");
-		"," +
-		shader;
 	return key;
 }
 
 void TransparentRenderFacesGroup::render(GLRenderer* renderer)
 {
-	if (renderer->shaderId != shader) {
-		renderer->setShader(shader);
-		renderer->onUpdateShader();
-	}
 	// store model view matrix
 	Matrix4x4 modelViewMatrix;
 	modelViewMatrix.set(renderer->getModelViewMatrix());

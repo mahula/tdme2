@@ -5,7 +5,7 @@
 #include <tdme/tdme.h>
 #include <tdme/utils/fwd-tdme.h>
 #include <tdme/utils/FloatBuffer.h>
-#include <tdme/engine/subsystems/rendering/TransparentRenderPoint.h>
+#include <tdme/engine/subsystems/rendering/fwd-tdme.h>
 #include <tdme/engine/subsystems/renderer/fwd-tdme.h>
 
 using std::vector;
@@ -25,7 +25,7 @@ class tdme::engine::subsystems::rendering::BatchVBORendererPoints final
 	friend class Object3DVBORenderer;
 
 private:
-	static constexpr int32_t POINT_COUNT { 65535 };
+	static constexpr int32_t POINT_COUNT { 32768 };
 	GLRenderer* renderer {  };
 	vector<int32_t>* vboIds {  };
 	int32_t id {  };
@@ -49,17 +49,7 @@ private:
 	 * Adds a transparent render point to this transparent render points
 	 * @param point transparent render point
 	 */
-	inline void addPoint(const TransparentRenderPoint& point) {
-		fbVertices.put(point.point.getArray());
-		fbColors.put(point.color.getArray());
-	}
-
-	/**
-	 * @return has points
-	 */
-	inline bool hasPoints() {
-		return fbVertices.getPosition() > 0;
-	}
+	void addPoint(TransparentRenderPoint* point);
 
 	/**
 	 * Public constructor
@@ -76,25 +66,17 @@ public:
 	/** 
 	 * @return acquired
 	 */
-	inline bool isAcquired() {
-		return acquired;
-	}
+	bool isAcquired();
 
 	/** 
 	 * Acquire
 	 */
-	inline bool acquire() {
-		if (acquired == true) return false;
-		acquired = true;
-		return true;
-	}
+	bool acquire();
 
 	/** 
 	 * Release
 	 */
-	inline void release() {
-		acquired = false;
-	}
+	void release();
 
 	/** 
 	 * Init

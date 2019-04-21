@@ -32,8 +32,7 @@ void LightingShaderDefaultImplementation::initialize()
 	renderLightingFragmentShaderId = renderer->loadShader(
 		renderer->SHADER_FRAGMENT_SHADER,
 		"shader/" + rendererVersion + "/lighting",
-		"render_fragmentshader.c",
-		"#define HAVE_DEPTH_FOG\n\n"
+		"render_fragmentshader.c"
 	);
 	if (renderLightingFragmentShaderId == 0) return;
 
@@ -42,7 +41,7 @@ void LightingShaderDefaultImplementation::initialize()
 		renderer->SHADER_VERTEX_SHADER,
 		"shader/" + rendererVersion + "/lighting",
 		"render_vertexshader.c",
-		"#define HAVE_DEPTH_FOG\n\n",
+		"",
 		FileSystem::getInstance()->getContentAsString(
 			"shader/" + rendererVersion + "/lighting",
 			"render_computevertex.inc.c"

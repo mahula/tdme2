@@ -32,8 +32,7 @@ void ParticlesShader::initialize()
 	renderFragmentShaderId = renderer->loadShader(
 		renderer->SHADER_FRAGMENT_SHADER,
 		"shader/" + rendererVersion + "/particles",
-		"render_fragmentshader.c",
-		"#define HAVE_DEPTH_FOG\n\n"
+		"render_fragmentshader.c"
 	);
 	if (renderFragmentShaderId == 0)
 		return;
@@ -41,8 +40,7 @@ void ParticlesShader::initialize()
 	renderVertexShaderId = renderer->loadShader(
 		renderer->SHADER_VERTEX_SHADER,
 		"shader/" + rendererVersion + "/particles",
-		"render_vertexshader.c",
-		"#define HAVE_DEPTH_FOG\n\n"
+		"render_vertexshader.c"
 	);
 	if (renderVertexShaderId == 0)
 		return;
@@ -86,6 +84,7 @@ void ParticlesShader::useProgram()
 	isRunning = true;
 	renderer->useProgram(renderProgramId);
 	renderer->setProgramUniformInteger(uniformDiffuseTextureUnit, 0);
+	renderer->setProgramUniformFloat(uniformPointSize, renderer->pointSize);
 }
 
 void ParticlesShader::updateEffect(GLRenderer* renderer)

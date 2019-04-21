@@ -15,13 +15,7 @@ uniform float pointSize;
 
 // will be passed to fragment shader
 out vec4 fragColor;
-
-#define HAVE_DEPTH_FOG
-
-#if defined(HAVE_DEPTH_FOG)
-	out float fragDepth;
-#endif
-
+  
 void main(void) {
 	//
 	fragColor = inColor;
@@ -30,10 +24,5 @@ void main(void) {
 	gl_Position = mvpMatrix * vec4(inVertex, 1.0);
 
 	// point size
-	gl_PointSize = pointSize * -1.0 / (mvMatrix * vec4(inVertex, 1.0)).z;
-
-	//
-	#if defined(HAVE_DEPTH_FOG)
-		fragDepth = gl_Position.z;
-	#endif
+	gl_PointSize = pointSize * (1.0 / length((mvMatrix * vec4(inVertex, 1.0)).xyz));
 }

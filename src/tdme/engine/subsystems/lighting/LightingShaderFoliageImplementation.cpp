@@ -33,8 +33,7 @@ void LightingShaderFoliageImplementation::initialize()
 	renderLightingFragmentShaderId = renderer->loadShader(
 		renderer->SHADER_FRAGMENT_SHADER,
 		"shader/" + rendererVersion + "/lighting",
-		"render_fragmentshader.c",
-		"#define HAVE_DEPTH_FOG\n\n"
+		"render_fragmentshader.c"
 	);
 	if (renderLightingFragmentShaderId == 0) return;
 
@@ -43,7 +42,7 @@ void LightingShaderFoliageImplementation::initialize()
 		renderer->SHADER_GEOMETRY_SHADER,
 		"shader/" + rendererVersion + "/lighting",
 		"render_geometryshader_foliage.c",
-		"#define HAVE_DEPTH_FOG\n\n",
+		"",
 		FileSystem::getInstance()->getContentAsString(
 			"shader/" + rendererVersion + "/lighting",
 			"render_computevertex.inc.c"
@@ -66,7 +65,7 @@ void LightingShaderFoliageImplementation::initialize()
 		renderer->SHADER_VERTEX_SHADER,
 		"shader/" + rendererVersion + "/lighting",
 		"render_vertexshader.c",
-		"#define HAVE_GEOMETRY_SHADER\n#define HAVE_DEPTH_FOG\n\n"
+		"#define HAVE_GEOMETRY_SHADER\n\n"
 	);
 	if (renderLightingVertexShaderId == 0) return;
 

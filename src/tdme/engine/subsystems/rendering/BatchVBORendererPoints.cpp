@@ -44,6 +44,25 @@ BatchVBORendererPoints::~BatchVBORendererPoints()
 	delete fbColorsByteBuffer;
 }
 
+bool BatchVBORendererPoints::isAcquired()
+{
+	return acquired;
+}
+
+bool BatchVBORendererPoints::acquire()
+{
+	if (acquired == true)
+		return false;
+
+	acquired = true;
+	return true;
+}
+
+void BatchVBORendererPoints::release()
+{
+	acquired = false;
+}
+
 void BatchVBORendererPoints::initialize()
 {
 	// initialize if not yet done
@@ -85,4 +104,10 @@ void BatchVBORendererPoints::clear()
 {
 	fbVertices.clear();
 	fbColors.clear();
+}
+
+void BatchVBORendererPoints::addPoint(TransparentRenderPoint* point)
+{
+	fbVertices.put(point->point.getArray());
+	fbColors.put(point->color.getArray());
 }

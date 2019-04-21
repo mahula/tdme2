@@ -8,8 +8,7 @@ using std::vector;
 
 using tdme::engine::subsystems::postprocessing::PostProcessingProgram;
 
-PostProcessingProgram::PostProcessingProgram(RenderPass renderPass) {
-	this->renderPass = renderPass;
+PostProcessingProgram::PostProcessingProgram() {
 }
 
 void PostProcessingProgram::addPostProcessingStep(string shaderId, PostProcessingProgram::FrameBufferSource source, PostProcessingProgram::FrameBufferTarget target, bool bindTemporary) {
@@ -19,4 +18,8 @@ void PostProcessingProgram::addPostProcessingStep(string shaderId, PostProcessin
 	step.target = target;
 	step.bindTemporary = bindTemporary;
 	steps.push_back(step);
+}
+
+const vector<PostProcessingProgram::PostProcessingProgramStep>& PostProcessingProgram::getPostProcessingSteps() {
+	return steps;
 }

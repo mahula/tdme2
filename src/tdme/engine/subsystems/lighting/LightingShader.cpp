@@ -2,8 +2,6 @@
 
 #include <tdme/engine/subsystems/lighting/LightingShaderDefaultImplementation.h>
 #include <tdme/engine/subsystems/lighting/LightingShaderFoliageImplementation.h>
-#include <tdme/engine/subsystems/lighting/LightingShaderSkyImplementation.h>
-#include <tdme/engine/subsystems/lighting/LightingShaderSolidImplementation.h>
 #include <tdme/engine/subsystems/lighting/LightingShaderTerrainImplementation.h>
 #include <tdme/engine/subsystems/lighting/LightingShaderImplementation.h>
 #include <tdme/engine/subsystems/renderer/GLRenderer.h>
@@ -12,8 +10,6 @@
 using tdme::engine::subsystems::lighting::LightingShader;
 using tdme::engine::subsystems::lighting::LightingShaderDefaultImplementation;
 using tdme::engine::subsystems::lighting::LightingShaderFoliageImplementation;
-using tdme::engine::subsystems::lighting::LightingShaderSkyImplementation;
-using tdme::engine::subsystems::lighting::LightingShaderSolidImplementation;
 using tdme::engine::subsystems::lighting::LightingShaderTerrainImplementation;
 using tdme::engine::subsystems::lighting::LightingShaderImplementation;
 using tdme::engine::subsystems::renderer::GLRenderer;
@@ -23,8 +19,6 @@ LightingShader::LightingShader(GLRenderer* renderer)
 {
 	if (LightingShaderDefaultImplementation::isSupported(renderer) == true) shader["default"] = new LightingShaderDefaultImplementation(renderer);
 	if (LightingShaderFoliageImplementation::isSupported(renderer) == true) shader["foliage"] = new LightingShaderFoliageImplementation(renderer);
-	if (LightingShaderSkyImplementation::isSupported(renderer) == true) shader["sky"] = new LightingShaderSkyImplementation(renderer);
-	if (LightingShaderSolidImplementation::isSupported(renderer) == true) shader["solid"] = new LightingShaderSolidImplementation(renderer);
 	if (LightingShaderTerrainImplementation::isSupported(renderer) == true) shader["terrain"] = new LightingShaderTerrainImplementation(renderer);
 	implementation = nullptr;
 }
@@ -39,9 +33,6 @@ bool LightingShader::isInitialized()
 {
 	bool initialized = true;
 	for (auto shaderIt: shader) {
-		if (shaderIt.second->isInitialized() == false) {
-			Console::println("LightingShader::isInitialized(): " + shaderIt.first + ": not initialized!");
-		}
 		initialized&= shaderIt.second->isInitialized();
 	}
 	return initialized;

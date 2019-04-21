@@ -17,7 +17,6 @@
 #include <tdme/engine/subsystems/rendering/fwd-tdme.h>
 #include <tdme/engine/subsystems/particlesystem/fwd-tdme.h>
 #include <tdme/engine/subsystems/postprocessing/fwd-tdme.h>
-#include <tdme/engine/subsystems/postprocessing/PostProcessingProgram.h>
 #include <tdme/engine/subsystems/renderer/fwd-tdme.h>
 #include <tdme/engine/subsystems/shadowmapping/fwd-tdme.h>
 #include <tdme/engine/subsystems/skinning/fwd-tdme.h>
@@ -50,7 +49,6 @@ using tdme::engine::subsystems::rendering::Object3DVBORenderer;
 using tdme::engine::subsystems::particlesystem::ParticlesShader;
 using tdme::engine::subsystems::particlesystem::ParticleSystemEntity;
 using tdme::engine::subsystems::postprocessing::PostProcessing;
-using tdme::engine::subsystems::postprocessing::PostProcessingProgram;
 using tdme::engine::subsystems::postprocessing::PostProcessingShader;
 using tdme::engine::subsystems::renderer::GLRenderer;
 using tdme::engine::subsystems::shadowmapping::ShadowMapping;
@@ -136,8 +134,7 @@ private:
 	array<Light, 8> lights {  };
 	Color4 sceneColor {  };
 	FrameBuffer* frameBuffer {  };
-	FrameBuffer* postProcessingFrameBuffer1 {  };
-	FrameBuffer* postProcessingFrameBuffer2{  };
+	array<FrameBuffer*, 2> postProcessingFrameBuffer {  };
 	FrameBuffer* postProcessingTemporaryFrameBuffer {  };
 	ShadowMapping* shadowMapping {  };
 
@@ -162,8 +159,6 @@ private:
 	vector<string> postProcessingPrograms;
 
 	bool initialized {  };
-
-	bool isUsingPostProcessingTemporaryFrameBuffer {  };
 
 	/**
 	 * @return mesh manager
@@ -335,13 +330,7 @@ public:
 	/** 
 	 * @return scene / background color
 	 */
-	const Color4& getSceneColor() const;
-
-	/**
-	 * Set scene color
-	 * @param sceneColor scene color
-	 */
-	void setSceneColor(const Color4& sceneColor);
+	Color4& getSceneColor();
 
 	/** 
 	 * @return entity count
@@ -479,11 +468,4 @@ private:
 	 */
 	void updateEntity(Entity* entity);
 
-	/**
-	 * Do post processing
-	 * @param renderPass render pass
-	 * @param postProcessingFrameBuffers frame buffers to swap, input needs to live in postProcessingFrameBuffers[0]
-	 * @param targetFrameBuffer target frame buffer
-	 */
-	void doPostProcessing(PostProcessingProgram::RenderPass renderPass, const array<FrameBuffer*, 2> postProcessingFrameBuffers, FrameBuffer* targetFrameBuffer);
 };

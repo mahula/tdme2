@@ -206,10 +206,10 @@ void Tools::oseThumbnail(LevelEditorEntity* model)
 	oseLookFromRotations.addRotation(Vector3(0.0f, 0.0f, 1.0f), 0.0f);
 	oseLookFromRotations.update();
 	Tools::setupEntity(model, osEngine, oseLookFromRotations, oseScale);
-	osEngine->setSceneColor(Color4(0.5f, 0.5f, 0.5f, 1.0f));
+	osEngine->getSceneColor().set(0.5f, 0.5f, 0.5f, 1.0f);
 	osEngine->display();
 	// osEngine->makeScreenshot(u"tmp"_j, model->getThumbnail());
-	osEngine->setSceneColor(Color4(0.8f, 0.0f, 0.0f, 1.0f));
+	osEngine->getSceneColor().set(0.8f, 0.0f, 0.0f, 1.0f);
 	osEngine->display();
 	// osEngine->makeScreenshot(u"tmp"_j, "selected_" + model->getThumbnail());
 	osEngine->reset();
