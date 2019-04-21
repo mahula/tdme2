@@ -245,17 +245,13 @@ void GUI::reset()
 
 void GUI::resetRenderScreens()
 {
-	// focussed node
-	unfocusNode();
-	focussedNode = nullptr;
-
-	// unset GUI
 	for (auto i = 0; i < renderScreens.size(); i++) {
 		renderScreens[i]->setGUI(nullptr);
 	}
-
-	// clear
 	renderScreens.clear();
+
+	// focussed node
+	focussedNode = nullptr;
 }
 
 void GUI::addRenderScreen(const string& screenId)

@@ -245,7 +245,6 @@ void GUIDropDownController::onFocusGained()
 
 void GUIDropDownController::onFocusLost()
 {
-	if (isOpen() == true) toggleOpenState();
 }
 
 bool GUIDropDownController::hasValue()
