@@ -13,9 +13,6 @@ using std::vector;
 using tdme::os::filesystem::FileSystemInterface;
 using tdme::utils::FilenameFilter;
 
-/**
- * Standard file system
- */
 class tdme::os::filesystem::StandardFileSystem final
 	: public FileSystemInterface
 {
