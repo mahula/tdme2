@@ -18,5 +18,4 @@ struct tdme::engine::subsystems::rendering::AnimationState final {
 	int64_t lastAtTime { -1LL };
 	bool finished { true };
 	float time { -1LL };
-	float speed { 1.0f };
 };

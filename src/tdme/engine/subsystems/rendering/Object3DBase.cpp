@@ -114,7 +114,7 @@ Object3DBase::~Object3DBase() {
 	if (transformedFacesIterator != nullptr) delete transformedFacesIterator;
 }
 
-void Object3DBase::setAnimation(const string& id, float speed)
+void Object3DBase::setAnimation(const string& id)
 {
 	auto _animationActiveSetup = model->getAnimationSetup(id);
 
@@ -126,7 +126,6 @@ void Object3DBase::setAnimation(const string& id, float speed)
 		baseAnimation.lastAtTime = Timing::UNDEFINED;
 		baseAnimation.currentAtTime = 0LL;
 		baseAnimation.time = 0.0f;
-		baseAnimation.speed = speed;
 		baseAnimation.finished = false;
 		if (baseAnimations.size() == 0) {
 			baseAnimations.push_back(baseAnimation);
@@ -153,10 +152,6 @@ void Object3DBase::setAnimation(const string& id, float speed)
 	}
 }
 
-void Object3DBase::setAnimationSpeed(float speed) {
-	if (baseAnimations.size() == 0) return;
-	baseAnimations[baseAnimationIdx].speed = speed;
-}
 void Object3DBase::addOverlayAnimation(const string& id)
 {
 	// remove active overlay animation with given ids
@@ -173,7 +168,6 @@ void Object3DBase::addOverlayAnimation(const string& id)
 	animationState->lastAtTime = Timing::UNDEFINED;
 	animationState->currentAtTime = 0LL;
 	animationState->time = 0.0f;
-	animationState->speed = 1.0f;
 	animationState->finished = false;
 	// register overlay animation
 	overlayAnimationsById[id] = animationState;
@@ -298,8 +292,8 @@ void Object3DBase::computeTransformationsMatrices(map<string, Group*>* groups, M
 			auto frames = groupAnimationState->setup->getFrames();
 			auto fps = model->getFPS();
 			// determine current and last matrix
-			auto frameAtLast = (groupAnimationState->lastAtTime / 1000.0f) * fps * groupAnimationState->setup->getSpeed() * groupAnimationState->speed;
-			auto frameAtCurrent = (groupAnimationState->currentAtTime / 1000.0f) * fps * groupAnimationState->setup->getSpeed() * groupAnimationState->speed;
+			auto frameAtLast = (groupAnimationState->lastAtTime / 1000.0f) * fps * groupAnimationState->setup->getSpeed();
+			auto frameAtCurrent = (groupAnimationState->currentAtTime / 1000.0f) * fps * groupAnimationState->setup->getSpeed();
 			// check if looping is disabled
 			if (groupAnimationState->setup->isLoop() == false && frameAtCurrent >= frames) {
 				frameAtLast = frames - 1;
