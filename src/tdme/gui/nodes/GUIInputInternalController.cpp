@@ -1,7 +1,6 @@
 #include <tdme/gui/nodes/GUIInputInternalController.h>
 
 #include <tdme/gui/elements/GUIInputController.h>
-#include <tdme/gui/events/GUIActionListener_Type.h>
 #include <tdme/gui/events/GUIKeyboardEvent_Type.h>
 #include <tdme/gui/events/GUIKeyboardEvent.h>
 #include <tdme/gui/events/GUIMouseEvent_Type.h>
@@ -21,7 +20,6 @@
 
 using tdme::gui::nodes::GUIInputInternalController;
 using tdme::gui::elements::GUIInputController;
-using tdme::gui::events::GUIActionListener_Type;
 using tdme::gui::events::GUIKeyboardEvent_Type;
 using tdme::gui::events::GUIKeyboardEvent;
 using tdme::gui::events::GUIMouseEvent_Type;
@@ -240,16 +238,8 @@ void GUIInputInternalController::handleKeyboardEvent(GUINode* node, GUIKeyboardE
 					}
 				}
 				break;
-			case GUIKeyboardEvent::KEYCODE_RETURN: {
-					if (disabled == false) {
-						event->setProcessed(true);
-						if (event->getType() == GUIKeyboardEvent_Type::KEYBOARDEVENT_KEY_PRESSED) {
-							node->getScreenNode()->delegateActionPerformed(GUIActionListener_Type::PERFORMED, dynamic_cast<GUIElementNode*>(node->getParentControllerNode()));
-						}
-					}
-				}
-				break;
 			}
+
 		}
 	}
 }
@@ -298,13 +288,5 @@ const MutableString& GUIInputInternalController::getValue()
 
 void GUIInputInternalController::setValue(const MutableString& value)
 {
-}
-
-void GUIInputInternalController::reset()
-{
-	index = 0;
-	offset = 0;
-	isDragging = false;
-	resetCursorMode();
 }
 

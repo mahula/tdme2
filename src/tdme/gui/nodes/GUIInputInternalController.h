@@ -83,7 +83,6 @@ private:
 	void checkOffset();
 
 public:
-	// overriden methods
 	void handleKeyboardEvent(GUINode* node, GUIKeyboardEvent* event) override;
 	void tick() override;
 	void onFocusGained() override;
@@ -91,11 +90,6 @@ public:
 	bool hasValue() override;
 	const MutableString& getValue() override;
 	void setValue(const MutableString& value) override;
-
-	/**
-	 * Reset cursor index and offset
-	 */
-	void reset();
 
 private:
 	/**
