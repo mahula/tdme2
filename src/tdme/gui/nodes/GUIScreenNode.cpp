@@ -342,7 +342,6 @@ void GUIScreenNode::handleKeyboardEvent(GUIKeyboardEvent* event)
 
 void GUIScreenNode::addActionListener(GUIActionListener* listener)
 {
-	removeActionListener(listener);
 	actionListener.push_back(listener);
 }
 
@@ -370,7 +369,6 @@ void GUIScreenNode::delegateActionPerformed(GUIActionListener_Type* type, GUIEle
 
 void GUIScreenNode::addChangeListener(GUIChangeListener* listener)
 {
-	removeChangeListener(listener);
 	changeListener.push_back(listener);
 }
 
@@ -389,7 +387,6 @@ void GUIScreenNode::delegateValueChanged(GUIElementNode* node)
 
 void GUIScreenNode::addMouseOverListener(GUIMouseOverListener* listener)
 {
-	removeMouseOverListener(listener);
 	mouseOverListener.push_back(listener);
 }
 
