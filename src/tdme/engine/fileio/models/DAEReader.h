@@ -39,6 +39,7 @@ using tdme::ext::tinyxml::TiXmlElement;
  */
 class tdme::engine::fileio::models::DAEReader final
 {
+	friend class DAEReader_determineDisplacementFilename_1;
 
 private:
 	static const Color4 BLENDER_AMBIENT_NONE;
@@ -147,6 +148,15 @@ private:
 	 * @return material
 	 */
 	static Material* readMaterial(const string& pathName, Model* model, TiXmlElement* xmlRoot, const string& xmlNodeId);
+
+	/** 
+	 * Determine displacement filename 
+	 * @param path path
+	 * @param mapType map type
+	 * @param fileName file name
+	 * @return displacement file name or null
+	 */
+	static const string determineDisplacementFilename(const string& path, const string& mapType, const string& fileName);
 
 	/** 
 	 * Make file name relative

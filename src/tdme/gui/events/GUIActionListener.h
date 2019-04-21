@@ -13,10 +13,6 @@ using tdme::gui::nodes::GUIElementNode;
  */
 struct tdme::gui::events::GUIActionListener
 {
-	/**
-	 * Destructor
-	 */
-	virtual ~GUIActionListener() {}
 
 	/** 
 	 * On action performed

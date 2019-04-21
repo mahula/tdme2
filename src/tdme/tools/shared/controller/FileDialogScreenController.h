@@ -34,6 +34,7 @@ class tdme::tools::shared::controller::FileDialogScreenController
 	, public virtual GUIActionListener
 	, public virtual GUIChangeListener
 {
+	friend class FileDialogScreenController_setupFileDialogListBox_1;
 
 private:
 	GUIScreenNode* screenNode {  };

@@ -10,7 +10,6 @@
 #include <tdme/engine/model/Model.h>
 #include <tdme/engine/model/Group.h>
 #include <tdme/gui/GUIParser.h>
-#include <tdme/gui/events/Action.h>
 #include <tdme/gui/events/GUIActionListener_Type.h>
 #include <tdme/gui/nodes/GUIElementNode.h>
 #include <tdme/gui/nodes/GUINode.h>
@@ -24,6 +23,11 @@
 #include <tdme/tools/shared/controller/FileDialogPath.h>
 #include <tdme/tools/shared/controller/FileDialogScreenController.h>
 #include <tdme/tools/shared/controller/InfoDialogScreenController.h>
+#include <tdme/tools/shared/controller/ModelEditorScreenController_ModelEditorScreenController_1.h>
+#include <tdme/tools/shared/controller/ModelEditorScreenController_onMaterialLoadTexture.h>
+#include <tdme/tools/shared/controller/ModelEditorScreenController_onModelLoad_2.h>
+#include <tdme/tools/shared/controller/ModelEditorScreenController_onModelSave_3.h>
+#include <tdme/tools/shared/controller/ModelEditorScreenController_onLODModelLoad.h>
 #include <tdme/tools/shared/model/LevelEditorEntity.h>
 #include <tdme/tools/shared/model/LevelEditorEntityAudio.h>
 #include <tdme/tools/shared/model/LevelEditorEntityLODLevel.h>
@@ -48,7 +52,6 @@ using tdme::tools::shared::controller::ModelEditorScreenController;
 using tdme::engine::fileio::models::ModelReader;
 using tdme::engine::fileio::textures::TextureReader;
 using tdme::gui::GUIParser;
-using tdme::gui::events::Action;
 using tdme::gui::events::GUIActionListener_Type;
 using tdme::gui::nodes::GUIElementNode;
 using tdme::gui::nodes::GUINode;
@@ -62,6 +65,11 @@ using tdme::tools::shared::controller::EntityDisplaySubScreenController;
 using tdme::tools::shared::controller::FileDialogPath;
 using tdme::tools::shared::controller::FileDialogScreenController;
 using tdme::tools::shared::controller::InfoDialogScreenController;
+using tdme::tools::shared::controller::ModelEditorScreenController_ModelEditorScreenController_1;
+using tdme::tools::shared::controller::ModelEditorScreenController_onMaterialLoadTexture;
+using tdme::tools::shared::controller::ModelEditorScreenController_onModelLoad_2;
+using tdme::tools::shared::controller::ModelEditorScreenController_onModelSave_3;
+using tdme::tools::shared::controller::ModelEditorScreenController_onLODModelLoad;
 using tdme::tools::shared::model::LevelEditorEntity;
 using tdme::tools::shared::model::LevelEditorEntityAudio;
 using tdme::tools::shared::model::LevelEditorEntityLODLevel;
@@ -80,35 +88,11 @@ using tdme::utils::ExceptionBase;
 
 ModelEditorScreenController::ModelEditorScreenController(SharedModelEditorView* view) 
 {
-	class OnSetEntityDataAction: public virtual Action
-	{
-	public:
-		void performAction() override {
-			finalView->updateGUIElements();
-			finalView->onSetEntityData();
-		}
-
-		/**
-		 * Public constructor
-		 * @param modelEditorScreenController model editor screen controller
-		 * @param finalView final view
-		 */
-		OnSetEntityDataAction(ModelEditorScreenController* modelEditorScreenController, SharedModelEditorView* finalView)
-			: modelEditorScreenController(modelEditorScreenController)
-			, finalView(finalView) {
-		}
-
-
-	private:
-		ModelEditorScreenController* modelEditorScreenController;
-		SharedModelEditorView* finalView;
-	};
-
 	this->modelPath = new FileDialogPath(".");
 	this->audioPath = new FileDialogPath(".");
 	this->view = view;
 	auto const finalView = view;
-	this->entityBaseSubScreenController = new EntityBaseSubScreenController(view->getPopUpsViews(), new OnSetEntityDataAction(this, finalView));
+	this->entityBaseSubScreenController = new EntityBaseSubScreenController(view->getPopUpsViews(), new ModelEditorScreenController_ModelEditorScreenController_1(this, finalView));
 	this->entityDisplaySubScreenController = new EntityDisplaySubScreenController();
 	this->entityPhysicsSubScreenController = new EntityPhysicsSubScreenController(view->getPopUpsViews(), modelPath, true);
 }
@@ -435,34 +419,6 @@ void ModelEditorScreenController::onLODLevelApply() {
 }
 
 void ModelEditorScreenController::onLODLevelLoadModel() {
-	class OnLODModelLoad: public virtual Action
-	{
-	public:
-		void performAction() override {
-			modelEditorScreenController->lodModelFile->getController()->setValue(
-				MutableString(
-					modelEditorScreenController->view->getPopUpsViews()->getFileDialogScreenController()->getPathName() +
-					"/" +
-					modelEditorScreenController->view->getPopUpsViews()->getFileDialogScreenController()->getFileName()
-				)
-			);
-			modelEditorScreenController->modelPath->setPath(
-				modelEditorScreenController->view->getPopUpsViews()->getFileDialogScreenController()->getPathName()
-			);
-			modelEditorScreenController->view->getPopUpsViews()->getFileDialogScreenController()->close();
-		}
-
-		/**
-		 * Public constructor
-		 * @param modelEditorScreenController model editor screen controller
-		 */
-		OnLODModelLoad(ModelEditorScreenController* modelEditorScreenController): modelEditorScreenController(modelEditorScreenController) {
-		}
-
-	private:
-		ModelEditorScreenController *modelEditorScreenController;
-	};
-
 	auto entity = view->getEntity();
 	auto lodLevelInt = Tools::convertToIntSilent(lodLevel->getController()->getValue().getString());
 	auto entityLodLevel = getLODLevel(lodLevelInt);
@@ -473,7 +429,7 @@ void ModelEditorScreenController::onLODLevelLoadModel() {
 		"Load from: ",
 		extensions,
 		Tools::getFileName(entityLodLevel->getFileName()),
-		new OnLODModelLoad(this)
+		new ModelEditorScreenController_onLODModelLoad(this)
 	);
 }
 
@@ -699,46 +655,13 @@ void ModelEditorScreenController::onMaterialLoadDiffuseTexture() {
 	auto material = getSelectedMaterial();
 	if (material == nullptr) return;
 
-	class OnLoadTexture: public virtual Action
-	{
-	public:
-		void performAction() override {
-			MutableString value;
-			guiElementNode->getController()->setValue(
-				MutableString().
-					set(modelEditorScreenController->getView()->getPopUpsViews()->getFileDialogScreenController()->getPathName()).
-					append("/").
-					append(modelEditorScreenController->getView()->getPopUpsViews()->getFileDialogScreenController()->getFileName())
-			);
-			modelEditorScreenController->getModelPath()->setPath(
-				modelEditorScreenController->getView()->getPopUpsViews()->getFileDialogScreenController()->getPathName()
-			);
-			modelEditorScreenController->getView()->getPopUpsViews()->getFileDialogScreenController()->close();
-		}
-
-		/**
-		 * Public constructor
-		 * @param modelEditorScreenController model editor screen controller
-		 * @param guiElementNode gui element node
-		 */
-		OnLoadTexture(ModelEditorScreenController* modelEditorScreenController, GUIElementNode* guiElementNode)
-			: modelEditorScreenController(modelEditorScreenController)
-			, guiElementNode(guiElementNode) {
-		}
-
-
-	private:
-		ModelEditorScreenController* modelEditorScreenController;
-		GUIElementNode* guiElementNode;
-	};
-
 	auto extensions = TextureReader::getTextureExtensions();
 	view->getPopUpsViews()->getFileDialogScreenController()->show(
 		material->getDiffuseTextureFileName() != ""?material->getDiffuseTexturePathName():modelPath->getPath(),
 		"Load from: ",
 		extensions,
 		material->getDiffuseTextureFileName(),
-		new OnLoadTexture(this, materialsMaterialDiffuseTexture)
+		new ModelEditorScreenController_onMaterialLoadTexture(this, materialsMaterialDiffuseTexture)
 	);
 }
 
@@ -746,46 +669,13 @@ void ModelEditorScreenController::onMaterialLoadDiffuseTransparencyTexture() {
 	auto material = getSelectedMaterial();
 	if (material == nullptr) return;
 
-	class OnLoadTexture: public virtual Action
-	{
-	public:
-		void performAction() override {
-			MutableString value;
-			guiElementNode->getController()->setValue(
-				MutableString().
-					set(modelEditorScreenController->getView()->getPopUpsViews()->getFileDialogScreenController()->getPathName()).
-					append("/").
-					append(modelEditorScreenController->getView()->getPopUpsViews()->getFileDialogScreenController()->getFileName())
-			);
-			modelEditorScreenController->getModelPath()->setPath(
-				modelEditorScreenController->getView()->getPopUpsViews()->getFileDialogScreenController()->getPathName()
-			);
-			modelEditorScreenController->getView()->getPopUpsViews()->getFileDialogScreenController()->close();
-		}
-
-		/**
-		 * Public constructor
-		 * @param modelEditorScreenController model editor screen controller
-		 * @param guiElementNode gui element node
-		 */
-		OnLoadTexture(ModelEditorScreenController* modelEditorScreenController, GUIElementNode* guiElementNode)
-			: modelEditorScreenController(modelEditorScreenController)
-			, guiElementNode(guiElementNode) {
-		}
-
-
-	private:
-		ModelEditorScreenController* modelEditorScreenController;
-		GUIElementNode* guiElementNode;
-	};
-
 	auto extensions = TextureReader::getTextureExtensions();
 	view->getPopUpsViews()->getFileDialogScreenController()->show(
 		material->getDiffuseTransparencyTextureFileName() != ""?material->getDiffuseTransparencyTexturePathName():modelPath->getPath(),
 		"Load from: ",
 		extensions,
 		material->getDiffuseTransparencyTextureFileName(),
-		new OnLoadTexture(this, materialsMaterialDiffuseTransparencyTexture)
+		new ModelEditorScreenController_onMaterialLoadTexture(this, materialsMaterialDiffuseTransparencyTexture)
 	);
 }
 
@@ -793,46 +683,13 @@ void ModelEditorScreenController::onMaterialLoadNormalTexture() {
 	auto material = getSelectedMaterial();
 	if (material == nullptr) return;
 
-	class OnLoadTexture: public virtual Action
-	{
-	public:
-		void performAction() override {
-			MutableString value;
-			guiElementNode->getController()->setValue(
-				MutableString().
-					set(modelEditorScreenController->getView()->getPopUpsViews()->getFileDialogScreenController()->getPathName()).
-					append("/").
-					append(modelEditorScreenController->getView()->getPopUpsViews()->getFileDialogScreenController()->getFileName())
-			);
-			modelEditorScreenController->getModelPath()->setPath(
-				modelEditorScreenController->getView()->getPopUpsViews()->getFileDialogScreenController()->getPathName()
-			);
-			modelEditorScreenController->getView()->getPopUpsViews()->getFileDialogScreenController()->close();
-		}
-
-		/**
-		 * Public constructor
-		 * @param modelEditorScreenController model editor screen controller
-		 * @param guiElementNode gui element node
-		 */
-		OnLoadTexture(ModelEditorScreenController* modelEditorScreenController, GUIElementNode* guiElementNode)
-			: modelEditorScreenController(modelEditorScreenController)
-			, guiElementNode(guiElementNode) {
-		}
-
-
-	private:
-		ModelEditorScreenController* modelEditorScreenController;
-		GUIElementNode* guiElementNode;
-	};
-
 	auto extensions = TextureReader::getTextureExtensions();
 	view->getPopUpsViews()->getFileDialogScreenController()->show(
 		material->getNormalTextureFileName() != ""?material->getNormalTexturePathName():modelPath->getPath(),
 		"Load from: ",
 		extensions,
 		material->getNormalTextureFileName(),
-		new OnLoadTexture(this, materialsMaterialNormalTexture)
+		new ModelEditorScreenController_onMaterialLoadTexture(this, materialsMaterialNormalTexture)
 	);
 }
 
@@ -840,46 +697,13 @@ void ModelEditorScreenController::onMaterialLoadSpecularTexture() {
 	auto material = getSelectedMaterial();
 	if (material == nullptr) return;
 
-	class OnLoadTexture: public virtual Action
-	{
-	public:
-		void performAction() override {
-			MutableString value;
-			guiElementNode->getController()->setValue(
-				MutableString().
-					set(modelEditorScreenController->getView()->getPopUpsViews()->getFileDialogScreenController()->getPathName()).
-					append("/").
-					append(modelEditorScreenController->getView()->getPopUpsViews()->getFileDialogScreenController()->getFileName())
-			);
-			modelEditorScreenController->getModelPath()->setPath(
-				modelEditorScreenController->getView()->getPopUpsViews()->getFileDialogScreenController()->getPathName()
-			);
-			modelEditorScreenController->getView()->getPopUpsViews()->getFileDialogScreenController()->close();
-		}
-
-		/**
-		 * Public constructor
-		 * @param modelEditorScreenController model editor screen controller
-		 * @param guiElementNode gui element node
-		 */
-		OnLoadTexture(ModelEditorScreenController* modelEditorScreenController, GUIElementNode* guiElementNode)
-			: modelEditorScreenController(modelEditorScreenController)
-			, guiElementNode(guiElementNode) {
-		}
-
-
-	private:
-		ModelEditorScreenController* modelEditorScreenController;
-		GUIElementNode* guiElementNode;
-	};
-
 	auto extensions = TextureReader::getTextureExtensions();
 	view->getPopUpsViews()->getFileDialogScreenController()->show(
 		material->getSpecularTextureFileName() != ""?material->getSpecularTexturePathName():modelPath->getPath(),
 		"Load from: ",
 		extensions,
 		material->getSpecularTextureFileName(),
-		new OnLoadTexture(this, materialsMaterialNormalTexture)
+		new ModelEditorScreenController_onMaterialLoadTexture(this, materialsMaterialNormalTexture)
 	);
 }
 
@@ -1223,29 +1047,6 @@ void ModelEditorScreenController::onQuit()
 
 void ModelEditorScreenController::onModelLoad()
 {
-	class OnModelLoad: public virtual Action
-	{
-
-	public:
-		void performAction() override {
-			modelEditorScreenController->view->loadFile(
-				modelEditorScreenController->view->getPopUpsViews()->getFileDialogScreenController()->getPathName(),
-				modelEditorScreenController->view->getPopUpsViews()->getFileDialogScreenController()->getFileName()
-			);
-			modelEditorScreenController->modelPath->setPath(
-				modelEditorScreenController->view->getPopUpsViews()->getFileDialogScreenController()->getPathName()
-			);
-			modelEditorScreenController->view->getPopUpsViews()->getFileDialogScreenController()->close();
-		}
-
-		// Generated
-		OnModelLoad(ModelEditorScreenController* modelEditorScreenController): modelEditorScreenController(modelEditorScreenController) {
-		}
-
-	private:
-		ModelEditorScreenController *modelEditorScreenController;
-	};
-
 	auto fileName = view->getEntity() != nullptr?view->getEntity()->getEntityFileName():"";
 	if (fileName.length() == 0) {
 		fileName = view->getFileName();
@@ -1258,38 +1059,12 @@ void ModelEditorScreenController::onModelLoad()
 		"Load from: ",
 		extensions,
 		view->getFileName(),
-		new OnModelLoad(this)
+		new ModelEditorScreenController_onModelLoad_2(this)
 	);
 }
 
 void ModelEditorScreenController::onModelSave()
 {
-	class OnModelSave: public virtual Action
-	{
-	public:
-		void performAction() override {
-			try {
-				modelEditorScreenController->view->saveFile(
-					modelEditorScreenController->view->getPopUpsViews()->getFileDialogScreenController()->getPathName(),
-					modelEditorScreenController->view->getPopUpsViews()->getFileDialogScreenController()->getFileName()
-				);
-				modelEditorScreenController->modelPath->setPath(
-					modelEditorScreenController->view->getPopUpsViews()->getFileDialogScreenController()->getPathName()
-				);
-				modelEditorScreenController->view->getPopUpsViews()->getFileDialogScreenController()->close();
-			} catch (Exception& exception) {
-				modelEditorScreenController->showErrorPopUp("Warning", (string(exception.what())));
-			}
-		}
-
-		// Generated
-		OnModelSave(ModelEditorScreenController* modelEditorScreenController): modelEditorScreenController(modelEditorScreenController) {
-		}
-
-	private:
-		ModelEditorScreenController* modelEditorScreenController;
-	};
-
 	auto fileName = view->getEntity() != nullptr?view->getEntity()->getEntityFileName():"";
 	if (fileName.length() == 0) {
 		fileName = view->getFileName();
@@ -1306,7 +1081,7 @@ void ModelEditorScreenController::onModelSave()
 		"Save from: ",
 		extensions,
 		fileName,
-		new OnModelSave(this)
+		new ModelEditorScreenController_onModelSave_3(this)
 	);
 }
 

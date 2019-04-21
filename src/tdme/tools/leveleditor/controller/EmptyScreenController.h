@@ -1,3 +1,4 @@
+
 #pragma once
 
 #include <string>
@@ -35,6 +36,8 @@ class tdme::tools::leveleditor::controller::EmptyScreenController final
 	, public GUIActionListener
 	, public GUIChangeListener
 {
+	friend class EmptyScreenController_EmptyScreenController_1;
+
 private:
 	EntityBaseSubScreenController* entityBaseSubScreenController {  };
 	EmptyView* view {  };
