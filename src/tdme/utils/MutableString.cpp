@@ -118,7 +118,6 @@ MutableString& MutableString::append(int32_t i)
 
 MutableString& MutableString::insert(int32_t idx, int32_t i)
 {
-	// see: http://stackoverflow.com/questions/7123490/how-compiler-is-converting-integer-to-string-and-vice-versa
 	auto negative = false;
 	if (i < 0) {
 		negative = true;
@@ -153,7 +152,6 @@ MutableString& MutableString::append(float f, int32_t decimals)
 
 MutableString& MutableString::insert(int32_t idx, float f, int32_t decimals)
 {
-	// see: http://stackoverflow.com/questions/7123490/how-compiler-is-converting-integer-to-string-and-vice-versa
 	auto integer = static_cast< int32_t >(f);
 	auto integerDecimals = static_cast< int32_t >(((f - integer) * Math::pow(10.0f, decimals)));
 	if (integerDecimals < 0.0f)

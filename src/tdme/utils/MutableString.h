@@ -109,6 +109,7 @@ public:
 
 	/**
 	 * Append integer
+	 * @see http://stackoverflow.com/questions/7123490/how-compiler-is-converting-integer-to-string-and-vice-versa
 	 * @param i i
 	 * @return this mutable string
 	 */
@@ -116,6 +117,7 @@ public:
 
 	/**
 	 * Insert integer at idx
+	 * @see http://stackoverflow.com/questions/7123490/how-compiler-is-converting-integer-to-string-and-vice-versa
 	 * @param idx index
 	 * @param i i
 	 * @return this mutable string
@@ -132,6 +134,7 @@ public:
 
 	/**
 	 * Append float with given decimals
+	 * @see http://stackoverflow.com/questions/7123490/how-compiler-is-converting-integer-to-string-and-vice-versa
 	 * @param f f
 	 * @param decimals decimals
 	 * @return this mutable string
@@ -140,6 +143,7 @@ public:
 
 	/**
 	 * Insert float at idx
+	 * @see http://stackoverflow.com/questions/7123490/how-compiler-is-converting-integer-to-string-and-vice-versa
 	 * @param idx index
 	 * @param f float
 	 * @param decimals decimals

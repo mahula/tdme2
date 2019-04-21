@@ -51,7 +51,6 @@ Vector3 Camera::computeUpVector(const Vector3& lookFrom, const Vector3& lookAt)
 
 Matrix4x4& Camera::computeProjectionMatrix(float yfieldOfView, float aspect, float zNear, float zFar)
 {
-	// see: see http://www.songho.ca/opengl/gl_transform.html
 	auto tangent = static_cast< float >(Math::tan(yfieldOfView / 2.0f * 3.1415927f / 180.0f));
 	auto height = zNear * tangent;
 	auto width = height * aspect;
@@ -60,7 +59,6 @@ Matrix4x4& Camera::computeProjectionMatrix(float yfieldOfView, float aspect, flo
 
 Matrix4x4& Camera::computeFrustumMatrix(float left, float right, float bottom, float top, float near, float far)
 {
-	// see: http://www.songho.ca/opengl/gl_transform.html
 	return projectionMatrix.set(
 		2.0f * near / (right - left),
 		0.0f,
