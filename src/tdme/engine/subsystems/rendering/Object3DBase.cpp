@@ -184,15 +184,11 @@ void Object3DBase::removeOverlayAnimation(const string& id)
 {
 	auto animationStateIt = overlayAnimationsById.find(id);
 	if (animationStateIt == overlayAnimationsById.end()) return;
-	auto animationState = animationStateIt->second;
+	AnimationState* animationState = animationStateIt->second;
 	overlayAnimationsById.erase(animationStateIt);
 	auto overlayAnimationsByJointIdIt = overlayAnimationsByJointId.find(animationState->setup->getOverlayFromGroupId());
-	if (overlayAnimationsByJointIdIt == overlayAnimationsByJointId.end() || overlayAnimationsByJointIdIt->second->setup != animationState->setup) {
-		delete animationState;
-		return;
-	}
+	if (overlayAnimationsByJointIdIt == overlayAnimationsByJointId.end()) return;
 	overlayAnimationsByJointId.erase(overlayAnimationsByJointIdIt);
-	delete animationState;
 }
 
 void Object3DBase::removeOverlayAnimationsFinished()
