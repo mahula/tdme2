@@ -547,21 +547,17 @@ void RigidBody::updateBroadPhaseState() const {
     RP3D_PROFILE("RigidBody::updateBroadPhaseState()", mProfiler);
 
     DynamicsWorld& world = static_cast<DynamicsWorld&>(mWorld);
-    const Vector3 displacement = world.mTimeStep * mLinearVelocity;
+ 	 const Vector3 displacement = world.mTimeStep * mLinearVelocity;
 
     // For all the proxy collision shapes of the body
     for (ProxyShape* shape = mProxyCollisionShapes; shape != nullptr; shape = shape->mNext) {
 
-        // If the proxy-shape shape is still part of the broad-phase
-        if (shape->getBroadPhaseId() != -1) {
+        // Recompute the world-space AABB of the collision shape
+        AABB aabb;
+        shape->getCollisionShape()->computeAABB(aabb, mTransform * shape->getLocalToBodyTransform());
 
-            // Recompute the world-space AABB of the collision shape
-            AABB aabb;
-            shape->getCollisionShape()->computeAABB(aabb, mTransform * shape->getLocalToBodyTransform());
-
-            // Update the broad-phase state for the proxy collision shape
-            mWorld.mCollisionDetection.updateProxyCollisionShape(shape, aabb, displacement);
-        }
+        // Update the broad-phase state for the proxy collision shape
+        mWorld.mCollisionDetection.updateProxyCollisionShape(shape, aabb, displacement);
     }
 }
 
