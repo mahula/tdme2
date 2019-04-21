@@ -126,7 +126,6 @@ private:
 	static PostProcessing* postProcessing;
 	static PostProcessingShader* postProcessingShader;
 	static bool have4K;
-	static float animationBlendingTime;
 
 	int32_t width {  };
 	int32_t height {  };
@@ -256,19 +255,6 @@ public:
 	 * @param have4K have 4k
 	 */
 	static void set4K(bool have4K);
-
-	/**
-	 * @return animation blending time
-	 */
-	inline static float getAnimationBlendingTime() {
-		return Engine::animationBlendingTime;
-	}
-
-	/**
-	 * Set animation blending time
-	 * @param animationBlendingTime animation blending time
-	 */
-	static void setAnimationBlendingTime(float animationBlendingTime);
 
 	/** 
 	 * Returns engine instance
