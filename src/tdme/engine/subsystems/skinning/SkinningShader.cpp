@@ -37,6 +37,7 @@ using tdme::engine::model::Skinning;
 using tdme::engine::subsystems::manager::VBOManager;
 using tdme::engine::subsystems::manager::VBOManager_VBOManaged;
 using tdme::engine::subsystems::renderer::GLRenderer;
+using tdme::engine::subsystems::renderer::GL3Renderer;
 using tdme::engine::subsystems::rendering::Object3DGroupMesh;
 using tdme::engine::subsystems::rendering::Object3DGroupVBORenderer;
 using tdme::engine::subsystems::rendering::ObjectBuffer;

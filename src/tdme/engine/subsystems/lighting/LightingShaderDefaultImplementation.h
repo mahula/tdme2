@@ -23,7 +23,9 @@ public:
 	 */
 	static bool isSupported(GLRenderer* renderer);
 
-	// overriden methods
+	/** 
+	 * Initialize renderer
+	 */
 	virtual void initialize() override;
 
 	/**

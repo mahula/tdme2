@@ -22,6 +22,7 @@ using tdme::math::Matrix4x4;
  */
 struct tdme::engine::subsystems::lighting::LightingShaderImplementation
 {
+public:
 	/**
 	 * Destructor
 	 */
