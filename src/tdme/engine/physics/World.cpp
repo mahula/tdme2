@@ -68,8 +68,6 @@ World::World(): world(reactphysics3d::Vector3(0.0, -9.81, 0.0))
 
 World::~World()
 {
-	auto _worldListeners = worldListeners;
-	for (auto worldListener: _worldListeners) delete worldListener;
 	reset();
 }
 
