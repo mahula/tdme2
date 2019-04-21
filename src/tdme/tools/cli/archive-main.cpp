@@ -1,4 +1,3 @@
-#include <cassert>
 #include <fstream>
 #include <string>
 #include <vector>
