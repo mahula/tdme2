@@ -969,6 +969,7 @@ void Object3DVBORenderer::render(const vector<PointsParticleSystemEntity*>& visi
 	//
 	// set up GL state
 	renderer->enableBlending();
+	renderer->disableDepthBufferTest();
 	// 	model view matrix
 	renderer->getModelViewMatrix().identity();
 	renderer->onUpdateModelViewMatrix();
@@ -1015,8 +1016,8 @@ void Object3DVBORenderer::render(const vector<PointsParticleSystemEntity*>& visi
 			// merge ppse pool
 			pseTransparentRenderPointsPool->merge(ppse->getRenderPointsPool());
 		}
-		// sort, we currently always need to sort due to depth buffer writing and testing
-		/*if (pseSort == true) */pseTransparentRenderPointsPool->sort();
+		// sort
+		if (pseSort == true) pseTransparentRenderPointsPool->sort();
 		// put sorted points into batch renderer
 		for (auto& point: *pseTransparentRenderPointsPool->getTransparentRenderPoints()) {
 			if (point.acquired == false)
@@ -1040,6 +1041,7 @@ void Object3DVBORenderer::render(const vector<PointsParticleSystemEntity*>& visi
 	renderer->bindTexture(renderer->ID_NONE);
 	// TODO: before render sort all pps by distance to camera and render them in correct order
 	// unset GL state
+	renderer->enableDepthBufferTest();
 	renderer->disableBlending();
 	// restore gl state
 	renderer->unbindBufferObjects();
