@@ -144,6 +144,7 @@ void FrameBuffer::doPostProcessing(FrameBuffer* source, const string& shaderId)
 	auto renderer = Engine::renderer;
 
 	//
+	renderer->disableDepthBufferWriting();
 	renderer->disableDepthBufferTest();
 	renderer->disableCulling();
 
@@ -181,6 +182,7 @@ void FrameBuffer::doPostProcessing(FrameBuffer* source, const string& shaderId)
 	// unset
 	renderer->enableCulling();
 	renderer->enableDepthBufferTest();
+	renderer->enableDepthBufferWriting();
 
 	//
 	disableFrameBuffer();
