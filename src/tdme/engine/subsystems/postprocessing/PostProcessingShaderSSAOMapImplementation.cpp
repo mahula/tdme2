@@ -23,10 +23,6 @@ using tdme::engine::subsystems::renderer::GLRenderer;
 using tdme::engine::Engine;
 using tdme::math::Vector3;
 
-bool PostProcessingShaderSSAOMapImplementation::isSupported(GLRenderer* renderer) {
-	return renderer->getGLVersion() == "gl3";
-}
-
 PostProcessingShaderSSAOMapImplementation::PostProcessingShaderSSAOMapImplementation(GLRenderer* renderer): PostProcessingShaderBaseImplementation(renderer)
 {
 }

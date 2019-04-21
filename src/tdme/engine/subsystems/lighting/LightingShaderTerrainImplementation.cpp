@@ -25,7 +25,7 @@ using tdme::os::filesystem::FileSystemInterface;
 using tdme::utils::Console;
 
 bool LightingShaderTerrainImplementation::isSupported(GLRenderer* renderer) {
-	return renderer->getGLVersion() == "gl3";
+	return true;
 }
 
 LightingShaderTerrainImplementation::LightingShaderTerrainImplementation(GLRenderer* renderer): LightingShaderBaseImplementation(renderer)

@@ -44,13 +44,6 @@ public:
 	void unUseProgram();
 
 	/**
-	 * Has post processing shader
-	 * @param id shader id
-	 * @return if shader exists and is initialized
-	 */
-	bool hasShader(const string& id);
-
-	/**
 	 * Set post processing shader
 	 */
 	void setShader(const string& id);
