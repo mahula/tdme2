@@ -23,8 +23,7 @@ void PostProcessingShaderSSAOImplementation::initialize()
 	fragmentShaderId = renderer->loadShader(
 		renderer->SHADER_FRAGMENT_SHADER,
 		"shader/" + rendererVersion + "/postprocessing",
-		"ssao_fragmentshader.c",
-		Engine::is4K() == true?"#define HAVE_4K":""
+		"ssao_fragmentshader.c"
 	);
 	if (fragmentShaderId == 0) return;
 

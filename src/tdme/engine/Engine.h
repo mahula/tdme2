@@ -124,7 +124,6 @@ private:
 	static FrameBufferRenderShader* frameBufferRenderShader;
 	static PostProcessing* postProcessing;
 	static PostProcessingShader* postProcessingShader;
-	static bool have4K;
 
 	int32_t width {  };
 	int32_t height {  };
@@ -243,18 +242,6 @@ private:
 	Engine();
 
 public:
-
-	/**
-	 * @return if having 4k
-	 */
-	static bool is4K();
-
-	/**
-	 * Set if having 4k
-	 * @param have4K have 4k
-	 */
-	static void set4K(bool have4K);
-
 	/** 
 	 * Returns engine instance
 	 * @return
