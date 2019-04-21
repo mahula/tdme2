@@ -95,7 +95,7 @@ public:
 	bool isFullScreen() const;
 
 	/**
-	 * Set full screen mode
+	 * Set full screen mode when initializing
 	 * @param fullScreen full screen
 	 */
 	void setFullScreen(bool fullScreen);
