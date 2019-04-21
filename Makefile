@@ -320,7 +320,6 @@ SRCS = \
 	src/tdme/gui/nodes/GUIInputInternalNode.cpp \
 	src/tdme/gui/nodes/GUILayoutNode.cpp \
 	src/tdme/gui/nodes/GUILayoutNode_Alignment.cpp \
-	src/tdme/gui/nodes/GUIMultilineTextNode.cpp \
 	src/tdme/gui/nodes/GUINode.cpp \
 	src/tdme/gui/nodes/GUINodeConditions.cpp \
 	src/tdme/gui/nodes/GUINodeController.cpp \

@@ -17,7 +17,6 @@ namespace nodes {
 	class GUIInputInternalNode;
 	class GUILayoutNode;
 	class GUILayoutNode_Alignment;
-	class GUIMultilineTextNode;
 	class GUINode;
 	class GUINodeConditions;
 	class GUINodeController;
