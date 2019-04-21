@@ -122,7 +122,6 @@ Model* PrimitiveModel::createBoundingBoxModel(BoundingBox* boundingBox, const st
 	(*model->getGroups())["group"] = group;
 	(*model->getSubGroups())["group"] = group;
 	// prepare for indexed rendering
-	ModelHelper::computeNormals(model);
 	ModelHelper::prepareForIndexedRendering(model);
 	//
 	return model;
@@ -193,7 +192,6 @@ Model* PrimitiveModel::createOrientedBoundingBoxModel(OrientedBoundingBox* orien
 	(*model->getGroups())["group"] = group;
 	(*model->getSubGroups())["group"] = group;
 	// prepare for indexed rendering
-	ModelHelper::computeNormals(model);
 	ModelHelper::prepareForIndexedRendering(model);
 	//
 	return model;
@@ -287,7 +285,6 @@ Model* PrimitiveModel::createSphereModel(Sphere* sphere, const string& id, int32
 	(*model->getGroups())["group"] = group;
 	(*model->getSubGroups())["group"] = group;
 	// prepare for indexed rendering
-	ModelHelper::computeNormals(model);
 	ModelHelper::prepareForIndexedRendering(model);
 	//
 	return model;
@@ -419,7 +416,6 @@ Model* PrimitiveModel::createCapsuleModel(Capsule* capsule, const string& id, in
 	(*model->getGroups())["group"] = group;
 	(*model->getSubGroups())["group"] = group;
 	// prepare for indexed rendering
-	ModelHelper::computeNormals(model);
 	ModelHelper::prepareForIndexedRendering(model);
 	//
 	return model;
