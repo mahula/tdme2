@@ -43,6 +43,16 @@ class tdme::application::Application
 
 public:
 
+	/**
+	 * Public constructor
+	 */
+	Application();
+
+	/**
+	 * Destructor
+	 */
+	virtual ~Application();
+
 	static constexpr int32_t FPS { 60 };
 
 	/**
@@ -75,16 +85,6 @@ public:
 	 * @return CPU the application is running on
 	 */
 	static string getCPUName();
-
-	/**
-	 * Public constructor
-	 */
-	Application();
-
-	/**
-	 * Destructor
-	 */
-	virtual ~Application();
 
 	/**
 	 * Set input event handler
