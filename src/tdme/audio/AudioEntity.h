@@ -21,6 +21,17 @@ class tdme::audio::AudioEntity
 	friend class Audio;
 
 protected:
+
+	/**
+	 * Constructor
+	 */
+	AudioEntity(const string& id);
+
+	/**
+	 * Constructor
+	 */
+	virtual ~AudioEntity();
+
 	string id;
 	bool looping;
 	bool fixed;
@@ -185,14 +196,4 @@ protected:
 	 * Dispose this entity from OpenAL
 	 */
 	virtual void dispose() = 0;
-
-	/**
-	 * Constructor
-	 */
-	AudioEntity(const string& id);
-
-	/**
-	 * Constructor
-	 */
-	virtual ~AudioEntity();
 };

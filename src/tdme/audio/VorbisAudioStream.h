@@ -25,6 +25,22 @@ class tdme::audio::VorbisAudioStream final
 {
 	friend class Audio;
 
+public:
+	/**
+	 * Constructor
+	 * @param id id
+	 * @param pathName path name
+	 * @param fileName file name
+	 */
+	VorbisAudioStream(const string& id, const string& pathName, const string& fileName);
+
+protected:
+
+	/**
+	 * Destructor
+	 */
+	virtual ~VorbisAudioStream();
+
 private:
 	string pathName;
 	string fileName;
@@ -32,13 +48,6 @@ private:
 	bool initiated { false };
 
 public:
-	/**
-	 * Protected constructor
-	 * @param id id
-	 * @param pathName path name
-	 * @param fileName file name
-	 */
-	VorbisAudioStream(const string& id, const string& pathName, const string& fileName);
 
 	// overriden methods
 	void rewind() override;
@@ -47,11 +56,6 @@ protected:
 	// overriden methods
 	bool initialize() override;
 	void dispose() override;
-
-	/**
-	 * Destructor
-	 */
-	virtual ~VorbisAudioStream();
 
 	// overriden methods
 	void fillBuffer(ByteBuffer* data) override;

@@ -36,6 +36,16 @@ protected:
 
 public:
 
+	/**
+	 * Constructor
+	 */
+	AudioDecoder();
+
+	/**
+	 * Destructor
+	 */
+	virtual ~AudioDecoder();
+
 	/** 
 	 * Open a local file
 	 * @param pathName path name
@@ -87,14 +97,4 @@ public:
 	 * @throws tdme::audio::decoder::AudioDecoderException
 	 */
 	virtual void close() = 0;
-
-	/**
-	 * Constructor
-	 */
-	AudioDecoder();
-
-	/**
-	 * Destructor
-	 */
-	virtual ~AudioDecoder();
 };

@@ -19,6 +19,14 @@ class tdme::audio::AudioBufferManager_AudioBufferManaged
 	friend class Sound;
 
 private:
+	/**
+	 * Protected constructor
+	 * @param audioBufferManager audio buffer manager
+	 * @param id id
+	 * @param alId Open AL id
+	 */
+	AudioBufferManager_AudioBufferManaged(AudioBufferManager* audioBufferManager, const string& id, int32_t alId);
+
 	string id;
 	int32_t alId;
 	int32_t referenceCounter;
@@ -54,14 +62,6 @@ private:
 	 * increment reference counter
 	 */
 	void incrementReferenceCounter();
-
-	/**
-	 * Protected constructor
-	 * @param audioBufferManager audio buffer manager
-	 * @param id id
-	 * @param alId Open AL id
-	 */
-	AudioBufferManager_AudioBufferManaged(AudioBufferManager* audioBufferManager, const string& id, int32_t alId);
 
 	// variables
 	AudioBufferManager* audioBufferManager;

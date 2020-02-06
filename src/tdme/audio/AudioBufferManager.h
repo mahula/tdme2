@@ -23,6 +23,11 @@ class tdme::audio::AudioBufferManager final
 	friend class Sound;
 
 private:
+	/**
+	 * Private constructor
+	 */
+	AudioBufferManager();
+
 	map<string, AudioBufferManager_AudioBufferManaged*> audioBuffers;
 
 	/** 
@@ -38,9 +43,4 @@ private:
 	 * @return true if caller has to remove the audio buffer from open AL
 	 */
 	bool removeAudioBuffer(const string& id);
-
-	/**
-	 * Private constructor
-	 */
-	AudioBufferManager();
 };

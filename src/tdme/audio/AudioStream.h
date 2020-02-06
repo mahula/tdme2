@@ -24,6 +24,14 @@ class tdme::audio::AudioStream
 {
 	friend class Audio;
 
+protected:
+
+	/**
+	 * Protected constructor
+	 * @param id id
+	 */
+	AudioStream(const string& id);
+
 private:
 	bool initiated { false };
 	array<uint32_t, 2> alBufferIds;
@@ -62,12 +70,6 @@ private:
 	void updateProperties();
 
 protected:
-	/**
-	 * Protected constructor
-	 * @param id id
-	 */
-	AudioStream(const string& id);
-
 	// overriden methods
 	virtual bool initialize() override;
 	virtual void update() override;

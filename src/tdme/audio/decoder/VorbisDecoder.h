@@ -36,6 +36,16 @@ private:
 public:
 
 	/**
+	 * Constructor
+	 */
+	VorbisDecoder();
+
+	/**
+	 * Destructor
+	 */
+	~VorbisDecoder();
+
+	/**
 	 * Open a local file
 	 * @param pathName path name
 	 * @param fileName file name
@@ -66,16 +76,6 @@ public:
 	 * @throws tdme::audio::decoder::AudioDecoderException
 	 */
 	virtual void close();
-
-	/**
-	 * Constructor
-	 */
-	VorbisDecoder();
-
-	/**
-	 * Destructor
-	 */
-	~VorbisDecoder();
 
 private:
 	/**
